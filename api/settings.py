@@ -9,15 +9,6 @@ environ.Env.read_env(os.path.join('.env'))
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 
-import environ
-
-env = environ.Env()
-environ.Env.read_env(os.path.join('.env'))
-
-
-SECRET_KEY = env('SECRET_KEY')
-DEBUG = env.bool('DEBUG', default=False)
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 ALLOWED_HOSTS = ['*']
 
@@ -25,9 +16,6 @@ DATABASES = {
     'default': env.db(),
 }
 
-DATABASES = {
-    'default': env.db(),
-}
 
 # Application definition
 
