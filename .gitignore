@@ -125,4 +125,7 @@ yarn-error.log
 package-lock.json
 yarn.lock
 
-*/migrations/
+*migrations/
+meetings/migrations/0001_initial.py
+
+meetings/migrations/0001_initial.py
