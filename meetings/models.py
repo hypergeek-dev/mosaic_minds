@@ -10,6 +10,7 @@ class Meeting(models.Model):
     name = models.CharField(max_length=100, default="Mosaic Minds Meeting")
     meeting_time = models.TimeField(default=datetime.time(12, 0))
     approved = models.BooleanField(default=False)
+    
 
     WEEKDAY = (
         ('SUN', 'Sunday'),
@@ -20,6 +21,11 @@ class Meeting(models.Model):
         ('FRI', 'Friday'),
         ('SAT', 'Saturday'),
     )
+    weekday = models.CharField(max_length=3, choices=WEEKDAY, blank=True)
+
+    def save(self, *args, **kwargs):
+
+        super().save(*args, **kwargs)
 
     AREA_CHOICES = (
         ('CI', 'Channel Islands Area'),
