@@ -16,7 +16,6 @@ DATABASES = {
     'default': env.db(),
 }
 
-
 # Application definition
 
 INSTALLED_APPS = [
