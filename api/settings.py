@@ -9,8 +9,21 @@ environ.Env.read_env(os.path.join('.env'))
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 
+import environ
+
+env = environ.Env()
+environ.Env.read_env(os.path.join('.env'))
+
+
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env.bool('DEBUG', default=False)
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 ALLOWED_HOSTS = ['*']
+
+DATABASES = {
+    'default': env.db(),
+}
 
 DATABASES = {
     'default': env.db(),
@@ -34,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,6 +62,7 @@ ROOT_URLCONF = 'api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],  
         'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],  
         'APP_DIRS': True,
         'OPTIONS': {
@@ -100,6 +115,20 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Allow all origins in development
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+   "https://mosaicminds-1df2672b33ce.herokuapp.com",
+   'https://8000-hypergeekde-mosaicminds-3pb1o54fche.ws-eu107.gitpod.io',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://mosaicminds-1df2672b33ce.herokuapp.com",
+   'https://8000-hypergeekde-mosaicminds-3pb1o54fche.ws-eu107.gitpod.io',
+]
 
 
 # Allow all origins in development
