@@ -54,14 +54,25 @@ This site provides access to online meetings in your local area through our even
 - **Efficiency**: Compressed CSS and JavaScript.
 
 
-Copyright (c) [2023] [Dennis Mariegaard Jensen]
-
-All Rights Reserved.
-
-Unauthorized copying of this file, via any medium, is strictly prohibited.
-Proprietary and confidential.
-
 # Development
+### Security Vulnerabilities
+
+#### `nth-check` Vulnerability
+- **Severity**: High
+- **Version Affected**: < 2.0.1
+- **Details**: The vulnerability in `nth-check` can lead to inefficient regular expression complexity, potentially causing performance issues. 
+- **Fix**: Update to version > 2.0.1. May require updating `react-scripts` to v3.0.1, introducing potential breaking changes.
+- **Reference**: [GHSA-rp65-9cf3-cjxr](https://github.com/advisories/GHSA-rp65-9cf3-cjxr)
+
+#### `postcss` Vulnerability
+- **Severity**: Moderate
+- **Version Affected**: < 8.4.31
+- **Details**: A parsing error in `postcss` can lead to potential security risks.
+- **Fix**: Update to a version higher than 8.4.31. This update might also require changing `react-scripts`, which could lead to breaking changes.
+- **Reference**: [GHSA-7fh5-64p2-3v2j](https://github.com/advisories/GHSA-7fh5-64p2-3v2j)
+
+#### Steps taken
+I chose not to update theese to avoid breaking changes at this point. 
 
 ## Website Color Scheme
 
@@ -74,3 +85,4 @@ The color scheme for the website is inspired by the hero image and consists of t
   <span style="background-color: rgb(189, 134, 92); padding: 10px; display: inline-block; margin-right: 10px;">Pale Taupe<br>RGB(189, 134, 92)</span>
   <span style="background-color: rgb(121, 70, 56); padding: 10px; display: inline-block; margin-right: 10px;">Sienna<br>RGB(121, 70, 56)</span>
 </p>
+
