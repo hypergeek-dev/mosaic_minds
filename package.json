@@ -1,0 +1,34 @@
+{
+  "name": "mosaicminds",
+  "version": "1.0.0",
+  "description": "Mosaic Minds: A Django-React based event management system designed to streamline the organization and discovery of Zoom events. Tailored specifically for neurodiverse individuals in the UK, it offers enhanced search functionality and an intuitive interface to ensure ease of use and accessibility. This platform aims to simplify the process of finding and managing online events, making virtual interactions more inclusive and effective for neurodiverse communities.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hypergeek-dev/MosaicMinds.git"
+  },
+  "keywords": [
+    "event-management",
+    "neurodiversity",
+    "accessibility",
+    "django",
+    "react",
+    "online-events",
+    "search-functionality",
+    "inclusive-design",
+    "user-friendly",
+    "virtual-meetings",
+    "community-engagement",
+    "interactive-platform",
+    "web-app"
+  ],
+  "author": "Dennis Mariegaard Jensen",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/hypergeek-dev/MosaicMinds/issues"
+  },
+  "homepage": "https://github.com/hypergeek-dev/MosaicMinds#readme"
+}
