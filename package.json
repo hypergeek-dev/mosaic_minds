@@ -9,10 +9,10 @@
     "axios": "^1.6.2",
     "bootstrap": "^5.3.2",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.9.1",
+    "react-bootstrap": "^2.9.2",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.0",
     "react-infinite-scroll-component": "6.1.0",
+    "react-router-dom": "^6.21.0",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -28,7 +28,6 @@
       "react-app",
       "react-app/jest"
     ]
-    
   },
   "browserslist": {
     "production": [
@@ -42,7 +41,6 @@
       "last 1 safari version"
     ]
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hypergeek-dev/mosaic_minds.git"
@@ -64,5 +62,4 @@
   ],
   "author": "Dennis Mariegaard Jensen",
   "license": "Unlicense"
-
 }
