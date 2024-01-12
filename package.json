@@ -1,10 +1,29 @@
 {
   "name": "mosaicminds",
   "version": "1.0.0",
-  "description": "Mosaic Minds: A Django-React based event management system designed to streamline the organization and discovery of Zoom events. Tailored specifically for neurodiverse individuals in the UK, it offers enhanced search functionality and an intuitive interface to ensure ease of use and accessibility. This platform aims to simplify the process of finding and managing online events, making virtual interactions more inclusive and effective for neurodiverse communities.",
+  "description": "A Django-React based event management system tailored for neurodiverse individuals in the UK, focusing on Zoom events.",
+  "dependencies": {
+    "@testing-library/jest-dom": "6.2.0",
+    "@testing-library/react": "14.1.2",
+    "@testing-library/user-event": "14.5.2",
+    "axios": "1.2.1",
+    "bootstrap": "5.3.2",
+    "jwt-decode": "4.0.0",
+    "react": "18.2.0",
+    "react-bootstrap": "2.9.2",
+    "react-dom": "18.2.0",
+    "react-infinite-scroll-component": "6.1.0",
+    "react-router-dom": "6.21.2",
+    "react-scripts": "5.0.0",
+    "web-vitals": "2.1.0"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "heroku-prebuild": "npm install -g serve",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
