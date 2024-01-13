@@ -1,24 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import { format } from 'date-fns';
 
-const fetchMeetings = async () => {
+
+const fetchMeetings = async (filters) => {
     try {
-        const response = await axios.get('/meetings/');
+        const queryParams = new URLSearchParams({
+            name: filters?.meetingName || '',
+            weekday: filters?.day || '',
+            time_of_day: filters?.time || '',
+            area: filters?.area || ''
+        }).toString();
+
+        const response = await axios.get(`/meetings/?${queryParams}`);
+        console.log('Response data:', response.data);
         return response.data;
     } catch (error) {
+        console.error('Error in fetchMeetings:', error);
         throw error;
     }
 };
 
-const MeetingList = () => {
+const MeetingList = ({ filters }) => {
     const [meetings, setMeetings] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         setIsLoading(true);
-        fetchMeetings()
+        fetchMeetings(filters)
             .then(data => {
                 setMeetings(data);
                 setIsLoading(false);
@@ -28,7 +39,7 @@ const MeetingList = () => {
                 setError(error);
                 setIsLoading(false);
             });
-    }, []);
+    }, [filters]);
 
     if (isLoading) {
         return (
@@ -58,6 +69,9 @@ const MeetingList = () => {
                             <Card>
                                 <Card.Body>
                                     <Card.Title>{meeting.name}</Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">
+                                        {format(new Date(meeting.meeting_time), 'hh:mm a')}
+                                    </Card.Subtitle>
                                     <Card.Subtitle className="mb-2 text-muted">
                                         {meeting.area}
                                     </Card.Subtitle>
