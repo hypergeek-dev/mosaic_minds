@@ -1,12 +1,12 @@
 import React from 'react';
-import heroImage from '../static/images/banner.webp';
-import '../Global.css';
+import heroImage from '../assets/banner.png';
+
 
 const Home = () => {
   return (
     <div>
-      <section className="hero">
-        <img src={heroImage} alt="Hero" className="hero-image" />
+      <section className="hero pt-5">
+        <img src={heroImage} alt="Hero" className="hero_image" />
         <div className="col text-center hero_overlay_text text-box">
           <p>"Diversity: the art of thinking independently together." <br></br> - Malcolm Forbes</p>
         </div>
