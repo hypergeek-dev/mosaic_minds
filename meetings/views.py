@@ -1,14 +1,11 @@
+from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import permissions
+from rest_framework import status, permissions
 from .models import Meeting
 from .serializer import MeetingSerializer
-from rest_framework.views import APIView
 
 class MeetingList(APIView):
-    """
-    List all meetings, search meetings, or create a new meeting if you are an admin.
-    """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = MeetingSerializer
 
@@ -17,15 +14,14 @@ class MeetingList(APIView):
 
         # Search parameters
         name = request.query_params.get('name')
-        weekday = request.query_params.get('weekday') 
+        weekday = request.query_params.get('weekday')  
         time_of_day = request.query_params.get('time_of_day') 
         area = request.query_params.get('area')
 
-        # Filtering based on search parameters
         if name:
             meetings = meetings.filter(name__icontains=name)
         if weekday:
-            meetings = meetings.filter(meeting_time__week_day=weekday)
+            meetings = meetings.filter(weekday=weekday)  
         if time_of_day:
             if time_of_day == 'morning':
                 meetings = meetings.filter(meeting_time__hour__lt=12)
