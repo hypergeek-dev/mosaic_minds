@@ -51,7 +51,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],  
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],  
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,16 +105,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Allow all origins in development
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
    "https://mosaicminds-1df2672b33ce.herokuapp.com",
-   'https://8000-hypergeekde-mosaicminds-3pb1o54fche.ws-eu107.gitpod.io',
+   'https://8000-hypergeekde-mosaicminds-ir8nzuiphif.ws-eu107.gitpod.io/',
+   ' http://127.0.0.1:8000/',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://mosaicminds-1df2672b33ce.herokuapp.com",
-   'https://8000-hypergeekde-mosaicminds-3pb1o54fche.ws-eu107.gitpod.io',
+   'https://8000-hypergeekde-mosaicminds-ir8nzuiphif.ws-eu107.gitpod.io/',
+   ' http://127.0.0.1:8000/',
 ]
 
 
@@ -131,3 +132,4 @@ CSRF_TRUSTED_ORIGINS = [
     "https://mosaicminds-1df2672b33ce.herokuapp.com",
    'https://8000-hypergeekde-mosaicminds-3pb1o54fche.ws-eu107.gitpod.io',
 ]
+

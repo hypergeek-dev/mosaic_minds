@@ -62,4 +62,7 @@
   ],
   "author": "Dennis Mariegaard Jensen",
   "license": "Unlicense"
+
+,
+"proxy": "http://localhost:8000"
 }
