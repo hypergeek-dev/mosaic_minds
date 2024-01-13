@@ -2,6 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./Global.css";
 import NavBar from "./components/NavBar";
 import Home from "./components/LandingPageHero";
+import AboutUs from "./components/AboutUs";
+import MeetingList from "./components/MeetingList";
+import Volunteer from "./components/Volunteer";
 
 function App() {
   return (
@@ -10,6 +13,9 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} /> 
+          <Route path="/MeetingList" element={<MeetingList />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/Volunteer" element={<Volunteer />} />
         </Routes>
       </div>
     </Router>
