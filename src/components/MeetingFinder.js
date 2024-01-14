@@ -8,6 +8,7 @@ const MeetingSearchForm = ({ onSearch }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log('Search Parameters:', { day, time, area, meetingName });
         onSearch({ day, time, area, meetingName }); 
     };
 
@@ -18,13 +19,13 @@ const MeetingSearchForm = ({ onSearch }) => {
                 <label htmlFor="day">Day</label>
                 <select id="day" value={day} onChange={(e) => setDay(e.target.value)}>
                     <option value="">- Any -</option>
-                    <option value="1">Sunday</option>
-                    <option value="2">Monday</option>
-                    <option value="3">Tuesday</option>
-                    <option value="4">Wednesday</option>
-                    <option value="5">Thursday</option>
-                    <option value="6">Friday</option>
-                    <option value="7">Saturday</option>
+                    <option value="SUN">Sunday</option>
+                    <option value="MON">Monday</option>
+                    <option value="TUE">Tuesday</option>
+                    <option value="WED">Wednesday</option>
+                    <option value="THU">Thursday</option>
+                    <option value="FRI">Friday</option>
+                    <option value="SAT">Saturday</option>
                 </select>
             </div>
 
