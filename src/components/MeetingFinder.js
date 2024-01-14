@@ -8,8 +8,25 @@ const MeetingSearchForm = ({ onSearch }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('Search Parameters:', { day, time, area, meetingName });
-        onSearch({ day, time, area, meetingName }); 
+
+        // Map numeric time values to strings expected by backend
+        let timeOfDay;
+        switch (time) {
+            case "1":
+                timeOfDay = "morning";
+                break;
+            case "2":
+                timeOfDay = "afternoon";
+                break;
+            case "3":
+                timeOfDay = "evening";
+                break;
+            default:
+                timeOfDay = '';
+        }
+
+        console.log('Search Parameters:', { day, time: timeOfDay, area, meetingName });
+        onSearch({ day, time: timeOfDay, area, meetingName }); 
     };
 
     return (
@@ -39,7 +56,6 @@ const MeetingSearchForm = ({ onSearch }) => {
                     <option value="3">Evening</option>
                 </select>
             </div>
-
 
             {/* Area Filter */}
             <div>
