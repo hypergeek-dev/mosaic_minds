@@ -22,7 +22,7 @@ const SignupForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('/profiles/', formData);
+            const response = await axios.post('/profiles/signup/', formData);
             console.log(response.data);
             setShowModal(true);
         } catch (error) {
