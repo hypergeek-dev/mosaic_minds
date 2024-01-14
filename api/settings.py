@@ -16,10 +16,8 @@ DATABASES = {
     'default': env.db(),
 }
 
-
-# Application definition
-
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,7 +48,7 @@ ROOT_URLCONF = 'api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],  
+        'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,11 +102,11 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CORS_ALLOW_ALL_ORIGINS = True  
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
-   "https://mosaicminds-1df2672b33ce.herokuapp.com",
-   "https://8000-hypergeekde-mosaicminds-3pb1o54fche.ws-eu107.gitpod.io",
+    "https://mosaicminds-1df2672b33ce.herokuapp.com",
+    "https://8000-hypergeekde-mosaicminds-3pb1o54fche.ws-eu107.gitpod.io",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -116,3 +114,42 @@ CSRF_TRUSTED_ORIGINS = [
     "https://8000-hypergeekde-mosaicminds-ir8nzuiphif.ws-eu107.gitpod.io",
     "http://127.0.0.1:8000",
 ]
+
+JAZZMIN_SETTINGS = {
+
+    "hide_models": ["auth.User", "auth.Group"],
+}
+
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-lightblue",
+    "accent": "accent-lightblue",
+    "navbar": "navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": True,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-lightblue",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "slate",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    },
+    "actions_sticky_top": False
+}
