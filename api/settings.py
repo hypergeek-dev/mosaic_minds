@@ -24,10 +24,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'profiles',
     'meetings',
     'rest_framework',
     'corsheaders',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -117,7 +117,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 JAZZMIN_SETTINGS = {
 
-    "hide_models": ["auth.User", "auth.Group"],
+    "hide_models": ["auth.Group"],
 }
 
 
