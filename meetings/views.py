@@ -4,6 +4,14 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from .models import Meeting
 from .serializer import MeetingSerializer
+from django.http import Http404
+from rest_framework import status, permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import Meeting
+from .serializer import MeetingSerializer
+from api.permissions import IsOwnerOrReadOnly
+
 
 class MeetingList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -77,10 +85,3 @@ class MeetingDetail(APIView):
         meeting = self.get_object(pk)
         meeting.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-from django.http import Http404
-from rest_framework import status, permissions
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .models import Meeting
-from .serializer import MeetingSerializer
-from api.permissions import IsOwnerOrReadOnly
