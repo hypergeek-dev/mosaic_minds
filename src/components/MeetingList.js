@@ -114,42 +114,41 @@ const MeetingList = ({ filters }) => {
   }
 
   return (
-    <Container className="mt-4">
-      <Row>
-        {meetings.length > 0 ? (
-          meetings.map(meeting => (
-            <Col key={meeting.id} md={4} className="mb-3">
-              <Card>
-                <Card.Body>
-                  <Card.Title>{meeting.name}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    {/* Use the formatted meeting time */}
-                    {formatMeetingTime(meeting.meeting_time)}
-                  </Card.Subtitle>
-                  <Card.Subtitle className="mb-2 text-muted">
-                
-                    {getFullAreaName(meeting.area)}
-                  </Card.Subtitle>
-                  <Card.Text>
-                    {meeting.description}
-                  </Card.Text>
-                  <Card.Link href={meeting.moreInfoUrl}>
-                    More Info
-                  </Card.Link>
-                  <Card.Link href={meeting.onlineMeetingUrl}>
-                    Online Meeting Link
-                  </Card.Link>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))
-        ) : (
-          <Col>
-            <Alert variant="info">No meetings are currently available.</Alert>
-          </Col>
-        )}
-      </Row>
-    </Container>
+<Container className="mt-4">
+  <Row>
+    {meetings.length > 0 ? (
+      meetings.map(meeting => (
+        <Col key={meeting.id} md={4} className="mb-3">
+          <Card>
+            <Card.Body>
+              <Card.Title>{meeting.name}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">
+              <Card.Subtitle className="mb-2 text-muted">
+  {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
+</Card.Subtitle>
+              </Card.Subtitle>
+              <Card.Subtitle className="mb-2 text-muted">
+                {getFullAreaName(meeting.area)}
+              </Card.Subtitle>
+              <Card.Text>
+                {meeting.description}
+              </Card.Text>
+              <Card.Link href={meeting.moreInfoUrl}>
+                More Info
+              </Card.Link>
+              <Card.Link href={meeting.onlineMeetingUrl}>
+                Online Meeting Link
+              </Card.Link>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))
+    ) : (
+      <p>No meetings available</p>
+    )}
+  </Row>
+</Container>
+
   );
 };
 
