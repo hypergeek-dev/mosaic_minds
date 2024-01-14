@@ -5,9 +5,6 @@ from meetings import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('profiles/', include('profiles.urls')),  
-    path('meetings/', include('meetings.urls')),
-     path('meetings/', views.MeetingList.as_view(), name='meeting_list'),
-    path('meetings/<int:pk>/', views.MeetingDetail.as_view(), name='meeting_detail'),
-    
+    path('', include('profiles.urls')), 
+    path('meetings/', include('meetings.urls')), 
 ]
