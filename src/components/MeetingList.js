@@ -3,7 +3,6 @@ import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { format } from 'date-fns';
 
-// Define a mapping between initials and full names
 const areaMapping = {
   'CI': 'Channel Islands Area',
   'CTV': 'Chiltern & Thames Valley Area',
@@ -42,9 +41,9 @@ const areaMapping = {
 };
 
 const getFullAreaName = (areaInitials) => {
-    return areaMapping[areaInitials] || "Unknown Area";
-  };
-// Function to format meeting time
+  return areaMapping[areaInitials] || "Unknown Area";
+};
+
 const formatMeetingTime = (timeString) => {
   if (timeString && timeString.includes(":")) {
     const [hours, minutes] = timeString.split(":");
@@ -114,40 +113,40 @@ const MeetingList = ({ filters }) => {
   }
 
   return (
-<Container className="mt-4">
-  <Row>
-    {meetings.length > 0 ? (
-      meetings.map(meeting => (
-        <Col key={meeting.id} md={4} className="mb-3">
-          <Card>
-            <Card.Body>
-              <Card.Title>{meeting.name}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-              <Card.Subtitle className="mb-2 text-muted">
-  {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
-</Card.Subtitle>
-              </Card.Subtitle>
-              <Card.Subtitle className="mb-2 text-muted">
-                {getFullAreaName(meeting.area)}
-              </Card.Subtitle>
-              <Card.Text>
-                {meeting.description}
-              </Card.Text>
-              <Card.Link href={meeting.moreInfoUrl}>
-                More Info
-              </Card.Link>
-              <Card.Link href={meeting.onlineMeetingUrl}>
-                Online Meeting Link
-              </Card.Link>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))
-    ) : (
-      <p>No meetings available</p>
-    )}
-  </Row>
-</Container>
+    <Container className="mt-4">
+      <Row>
+        {meetings.length > 0 ? (
+          meetings.map(meeting => (
+            <Col key={meeting.id} md={4} className="mb-3">
+              <Card className="boxshadow">
+                <Card.Body>
+                  <Card.Title>{meeting.name}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    <Card.Subtitle className="mb-2 text-muted">
+                      {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
+                    </Card.Subtitle>
+                  </Card.Subtitle>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {getFullAreaName(meeting.area)}
+                  </Card.Subtitle>
+                  <Card.Text>
+                    {meeting.description}
+                  </Card.Text>
+                  <Card.Link href={meeting.moreInfoUrl}>
+                    Details
+                  </Card.Link>
+                  <Card.Link href={meeting.onlineMeetingUrl}>
+                    Online Meeting Link
+                  </Card.Link>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <p>No meetings available</p>
+        )}
+      </Row>
+    </Container>
 
   );
 };
