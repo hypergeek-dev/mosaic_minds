@@ -10,6 +10,8 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=255, blank=True)
     phone_number = models.CharField(max_length=20, blank=True)
     email = models.EmailField(max_length=255, blank=True)
+    role_at_meeting = models.CharField(max_length=255, blank=True)
+    comment = models.CharField(max_length=255, blank=True)
 
 
     class Meta:
