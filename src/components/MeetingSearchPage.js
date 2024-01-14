@@ -4,10 +4,10 @@ import MeetingList from './MeetingList';
 
 const MeetingSearchPage = () => {
     const [searchFilters, setSearchFilters] = useState({
-        day: 'All',
-        time: 'All',
-        type: 'All',
-        area: 'All',
+        day: '',
+        time: '',
+        type: '',
+        area: '',
         name: ''
     });
 
