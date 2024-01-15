@@ -43,21 +43,17 @@ class MeetingList(APIView):
         serializer = MeetingSerializer(meetings, many=True, context={'request': request})
         return Response(serializer.data)
 
-    def post(self, request):
-        if not request.user.is_staff:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+def post(self, request):
+    serializer = MeetingSerializer(data=request.data, context={'request': request})
+    if serializer.is_valid():
+        serializer.save(owner=request.user)  
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer = MeetingSerializer(data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class MeetingDetail(APIView):
-    """
-    Retrieve, update or delete a meeting instance.
-    """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = MeetingSerializer
 
     def get_object(self, pk):
