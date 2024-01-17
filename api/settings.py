@@ -14,7 +14,9 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["https://3000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io",
+                 "https://8000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io"
+                 ]
 
 DATABASES = {
     'default': env.db(),
@@ -27,12 +29,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework', 
-    'dj_rest_auth',   
-    'rest_framework.authtoken',  
-    'corsheaders',    
-    'jazzmin',         
-    'users',
+    'rest_framework',
+    'dj_rest_auth',
+    'rest_framework.authtoken',
+    'corsheaders',
+    'jazzmin',
+    'profiles',
+    'favourites',
     'meetings',
 ]
 MIDDLEWARE = [
