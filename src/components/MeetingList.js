@@ -122,9 +122,7 @@ const MeetingList = ({ filters }) => {
                 <Card.Body>
                   <Card.Title>{meeting.name}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
-                    <Card.Subtitle className="mb-2 text-muted">
-                      {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
-                    </Card.Subtitle>
+                    {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
                   </Card.Subtitle>
                   <Card.Subtitle className="mb-2 text-muted">
                     {getFullAreaName(meeting.area)}
