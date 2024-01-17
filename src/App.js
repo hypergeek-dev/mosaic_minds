@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import "./Global.css";
@@ -11,6 +11,7 @@ import MeetingSearchPage from "./components/MeetingSearchPage";
 import SignupForm from "./auth/SignUpForm";
 import EventForm from './components/AddMeeting';
 
+// Axios interceptor for setting the Authorization header
 axios.interceptors.request.use(function (config) {
   const token = localStorage.getItem('mosaicminds');
   config.headers.Authorization = token ? `Bearer ${token}` : '';
@@ -21,12 +22,13 @@ export const CurrentUserContext = createContext();
 
 function Main() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleMount = async () => {
+
+  const handleMount = useCallback(async () => {
     try {
-      const token = localStorage.getItem('mosaicminds'); 
+      const token = localStorage.getItem('mosaicminds');
       if (token) {
         const { data } = await axios.get('/users/current/', {
           headers: {
@@ -35,17 +37,19 @@ function Main() {
         });
         setCurrentUser(data);
       } else {
-        navigate('/users/login'); 
+        navigate('/users/login');
       }
     } catch (err) {
       console.error(err);
-      setError(err.message); 
+      setError(err.message);
+      navigate('/users/login');
     }
-  };
+  }, [navigate]); 
 
+  
   useEffect(() => {
     handleMount();
-  }, []);
+  }, [handleMount]); 
 
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
@@ -59,7 +63,7 @@ function Main() {
           <Route path="/MeetingSearchPage" element={<MeetingSearchPage />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/Volunteer" element={<Volunteer />} />
-          <Route path="/SignUpForm" element={<SignupForm />} />
+          <Route path="/auth/SignUpForm" element={<SignupForm />} />
           <Route path="/AddMeeting" element={<EventForm />} />
         </Routes>
       </div>
