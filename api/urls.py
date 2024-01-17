@@ -1,11 +1,14 @@
 from django.contrib import admin
 from django.urls import path, include
-from meetings import views
-from users import views
+from meetings import views as meetings_views
+from users import views as users_views
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
 urlpatterns = [
-    path('api/register/', views.register_user, name='register_user'),
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path('meetings/', include('meetings.urls')), 
+    path('users/', include('users.urls')),
+    path('meetings/', include('meetings.urls')),
+    path('api-token-auth/', obtain_jwt_token),
+    path('api-token-refresh/', refresh_jwt_token),
+    path('api-token-verify/', verify_jwt_token),
 ]
