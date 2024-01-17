@@ -1,56 +1,50 @@
-from django.http import Http404
+from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from .models import Meeting
-from .serializer import MeetingSerializer
 from django.http import Http404
-from rest_framework import status, permissions
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from .models import Meeting
 from .serializer import MeetingSerializer
 from api.permissions import IsOwnerOrReadOnly
 
-
-class MeetingList(APIView):
+class MeetingList(ListAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = MeetingSerializer
+    queryset = Meeting.objects.all()
 
-    def get(self, request):
-        meetings = Meeting.objects.all()
-
-        # Search parameters
-        name = request.query_params.get('name')
-        weekday = request.query_params.get('weekday')  
-        time_of_day = request.query_params.get('time_of_day') 
-        area = request.query_params.get('area')
+    def get_queryset(self):
+        """
+        Optionally restricts the returned meetings to a given user,
+        by filtering against query parameters in the URL.
+        """
+        queryset = Meeting.objects.all()
+        name = self.request.query_params.get('name')
+        weekday = self.request.query_params.get('weekday')  
+        time_of_day = self.request.query_params.get('time_of_day') 
+        area = self.request.query_params.get('area')
 
         if name:
-            meetings = meetings.filter(name__icontains=name)
+            queryset = queryset.filter(name__icontains=name)
         if weekday:
-            meetings = meetings.filter(weekday=weekday)  
+            queryset = queryset.filter(weekday=weekday)  
         if time_of_day:
             if time_of_day == 'morning':
-                meetings = meetings.filter(meeting_time__hour__lt=12)
+                queryset = queryset.filter(meeting_time__hour__lt=12)
             elif time_of_day == 'afternoon':
-                meetings = meetings.filter(meeting_time__hour__gte=12, meeting_time__hour__lt=18)
+                queryset = queryset.filter(meeting_time__hour__gte=12, meeting_time__hour__lt=18)
             elif time_of_day == 'evening':
-                meetings = meetings.filter(meeting_time__hour__gte=18)
+                queryset = queryset.filter(meeting_time__hour__gte=18)
         if area:
-            meetings = meetings.filter(area=area)
+            queryset = queryset.filter(area=area)
 
-        serializer = MeetingSerializer(meetings, many=True, context={'request': request})
-        return Response(serializer.data)
+        return queryset
 
-def post(self, request):
-    serializer = MeetingSerializer(data=request.data, context={'request': request})
-    if serializer.is_valid():
-        serializer.save(owner=request.user)  
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
+    def post(self, request):
+        serializer = MeetingSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save(owner=request.user)  
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class MeetingDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
