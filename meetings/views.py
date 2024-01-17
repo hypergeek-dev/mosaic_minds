@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from django.http import Http404
 from .models import Meeting
-from .serializer import MeetingSerializer
+from .serializers import MeetingSerializer
 from api.permissions import IsOwnerOrReadOnly
 
 class MeetingList(ListAPIView):
