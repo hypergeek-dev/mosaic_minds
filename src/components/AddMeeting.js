@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 const EventForm = () => {
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [submitResponse, setSubmitResponse] = useState('');
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post('http://localhost:8000/meetings/', data);
+            const response = await axios.post('/meetings/', data);
             setSubmitResponse('Meeting created successfully!');
             console.log(response.data);
         } catch (error) {
@@ -67,37 +67,53 @@ const EventForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input name="name" ref={register({ required: true })} placeholder="Meeting Name" />
+            <input 
+                name="name" 
+                {...register("name", { required: true })} 
+                placeholder="Meeting Name" 
+            />
             {errors.name && <div>Meeting name is required</div>}
 
-            <select name="weekday" ref={register({ required: true })}>
+            <select name="weekday" {...register("weekday", { required: true })}>
                 {weekdayOptions.map(option => (
                     <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
             </select>
             {errors.weekday && <div>Weekday is required</div>}
 
-            <input name="meeting_time" type="time" ref={register({ required: true })} />
+            <input 
+                name="meeting_time" 
+                type="time" 
+                {...register("meeting_time", { required: true })} 
+            />
             {errors.meeting_time && <div>Meeting time is required</div>}
 
-            <select name="area" ref={register({ required: true })}>
+            <select name="area" {...register("area", { required: true })}>
                 {areaOptions.map(option => (
                     <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
             </select>
             {errors.area && <div>Area is required</div>}
 
-            <textarea name="description" ref={register({ required: true })} placeholder="Description" />
+            <textarea 
+                name="description" 
+                {...register("description", { required: true })} 
+                placeholder="Description" 
+            />
             {errors.description && <div>Description is required</div>}
+        <input 
+            name="online_meeting_url" 
+            type="url" 
+            {...register("online_meeting_url", { required: true })} 
+            placeholder="Online Meeting URL" 
+        />
+        {errors.online_meeting_url && <div>Online meeting URL is required</div>}
 
-            <input name="online_meeting_url" type="url" ref={register({ required: true })} placeholder="Online Meeting URL" />
-            {errors.online_meeting_url && <div>Online meeting URL is required</div>}
+        <button type="submit">Submit</button>
 
-            <button type="submit">Submit</button>
-
-            {submitResponse && <div>{submitResponse}</div>}
-        </form>
-    );
+        {submitResponse && <div>{submitResponse}</div>}
+    </form>
+);
 };
 
 export default EventForm;
