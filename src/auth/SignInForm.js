@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom';
 import {
   Container, Form, Button, Alert,
 } from 'react-bootstrap';
-import axios from 'axios';
-import { useSetCurrentUser } from './AuthContext';
+import { axiosReq } from '../api/AxiosDefaults';
 import { useNavigate } from 'react-router-dom';
 
 function LogInForm() {
-  const setCurrentUser = useSetCurrentUser();
   const navigate = useNavigate();
 
   const [logInData, setLogInData] = useState({
@@ -29,7 +27,7 @@ function LogInForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post('/users/login/', logInData);
+      const { data } = await axiosReq.post('/users/login/', logInData);
       if (data && data.access_token) {
         localStorage.setItem('mosaicminds', data.access_token); 
         navigate('/'); 
@@ -96,7 +94,7 @@ function LogInForm() {
       <div>
         <p>
           Don&apos;t have an account?
-          <Link to="/signup" className={Link}>
+          <Link to="/SignUpForm" className={Link}>
             <strong> Sign up!</strong>
           </Link>
         </p>
