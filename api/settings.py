@@ -1,26 +1,53 @@
 import os
 from pathlib import Path
 import environ
+import dj_database_url
 import datetime
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.permissions import IsAuthenticated
-
 
 env = environ.Env()
 environ.Env.read_env(os.path.join('.env'))
-
 
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-ALLOWED_HOSTS = ["https://3000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io",
-                 "https://8000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io"
-                 ]
+ALLOWED_HOSTS = [
+    "3000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io",
+    "8000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io"
+]
 
-DATABASES = {
-    'default': env.db(),
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [(
+        'rest_framework.authentication.SessionAuthentication'
+        if 'DEV' in os.environ
+        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    )],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': '%d %b %Y',
 }
+
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'api.serializers.CurrentUserSerializer'
+}
+
+
+REST_USE_JWT = True
+JWT_AUTH_SECURE = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = 'None'
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'api.serializers.CurrentUserSerializer'
+}
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,6 +56,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'rest_framework',
     'dj_rest_auth',
     'rest_framework.authtoken',
@@ -71,6 +102,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api.wsgi.application'
 
+DATABASES = {
+    'default': ({
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    } if 'DEV' in os.environ else dj_database_url.parse(
+        os.environ.get('DATABASE_URL')
+    ))
+}
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -102,15 +142,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-CORS_ALLOW_ALL_ORIGINS = True
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Adjust as needed
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Adjust as needed
 
 CORS_ALLOWED_ORIGINS = [
     "https://mosaicminds-1df2672b33ce.herokuapp.com",
@@ -122,59 +156,3 @@ CSRF_TRUSTED_ORIGINS = [
     "https://3000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io",
     "http://127.0.0.1:8000",
 ]
-
-JAZZMIN_SETTINGS = {
-
-    "hide_models": ["auth.Group"],
-}
-
-
-JAZZMIN_UI_TWEAKS = {
-    "navbar_small_text": False,
-    "footer_small_text": False,
-    "body_small_text": False,
-    "brand_small_text": False,
-    "brand_colour": "navbar-lightblue",
-    "accent": "accent-lightblue",
-    "navbar": "navbar-dark",
-    "no_navbar_border": False,
-    "navbar_fixed": True,
-    "layout_boxed": False,
-    "footer_fixed": False,
-    "sidebar_fixed": False,
-    "sidebar": "sidebar-dark-lightblue",
-    "sidebar_nav_small_text": False,
-    "sidebar_disable_expand": False,
-    "sidebar_nav_child_indent": False,
-    "sidebar_nav_compact_style": False,
-    "sidebar_nav_legacy_style": False,
-    "sidebar_nav_flat_style": False,
-    "theme": "slate",
-    "dark_mode_theme": None,
-    "button_classes": {
-        "primary": "btn-primary",
-        "secondary": "btn-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
-    },
-    "actions_sticky_top": False
-}
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-}
-REST_USE_JWT = True
-#
-JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
-    'JWT_AUTH_COOKIE': 'mosaicminds',
-}
