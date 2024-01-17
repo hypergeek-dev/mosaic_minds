@@ -19,11 +19,10 @@ axios.interceptors.request.use(function (config) {
 
 export const CurrentUserContext = createContext();
 
-function App() {
+function Main() {
   const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState(null); 
-
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleMount = async () => {
     try {
@@ -37,7 +36,7 @@ function App() {
         setCurrentUser(data);
       } else {
         navigate('/users/login'); 
-        }
+      }
     } catch (err) {
       console.error(err);
       setError(err.message); 
@@ -50,22 +49,29 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
-      <Router>
-        <div className="App">
-          <NavBar />
-          {error && <div className="error-message">{error}</div>}
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/MeetingList" element={<MeetingList />} />
-            <Route path="/MeetingSearchPage" element={<MeetingSearchPage />} />
-            <Route path="/AboutUs" element={<AboutUs />} />
-            <Route path="/Volunteer" element={<Volunteer />} />
-            <Route path="/SignUpForm" element={<SignupForm />} />
-            <Route path="/AddMeeting" element={<EventForm />} />
-          </Routes>
-        </div>
-      </Router>
+      <div className="App">
+        <NavBar />
+        {error && <div className="error-message">{error}</div>}
+        <Home />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/MeetingList" element={<MeetingList />} />
+          <Route path="/MeetingSearchPage" element={<MeetingSearchPage />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/Volunteer" element={<Volunteer />} />
+          <Route path="/SignUpForm" element={<SignupForm />} />
+          <Route path="/AddMeeting" element={<EventForm />} />
+        </Routes>
+      </div>
     </CurrentUserContext.Provider>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Main />
+    </Router>
   );
 }
 
