@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from meeting.models import Meeting  # Import your Meeting model
+from meetings.models import Meeting  
 
 class Favourite(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
