@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { axiosReq, axiosRes } from "../api/AxiosDefaults";
 import { removeTokenTimestamp, shouldRefreshToken } from "../api/utils";
 
@@ -12,7 +12,7 @@ export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const history = useNavigate();
+  const history = useHistory();
 
   const handleMount = async () => {
     try {

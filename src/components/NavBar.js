@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import SignInForm from "../auth/SignInForm";
-import { jwtDecode } from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 const NavBar = () => {
 const [isAuthenticated, setIsAuthenticated] = useState(false);
