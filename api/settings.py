@@ -1,20 +1,17 @@
-import os
+
+
 from pathlib import Path
-import environ
+import os
 import dj_database_url
-import datetime
 
-env = environ.Env()
-environ.Env.read_env(os.path.join('.env'))
+if os.path.exists('env.py'):
+    import env
 
-SECRET_KEY = env('SECRET_KEY')
-DEBUG = env.bool('DEBUG', default=False)
 
+MEDIA_URL = '/media/'
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-ALLOWED_HOSTS = [
-    "3000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io",
-    "8000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io"
-]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [(
@@ -22,11 +19,11 @@ REST_FRAMEWORK = {
         if 'DEV' in os.environ
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     )],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DATETIME_FORMAT': '%d %b %Y',
 }
-
 if 'DEV' not in os.environ:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
@@ -43,11 +40,27 @@ JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'api.serializers.CurrentUserSerializer'
-}
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = 'DEBUG' in os.environ
+
+ALLOWED_HOSTS = [
+    os.environ.get('ALLOWED_HOST'),
+    'localhost',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    os.environ.get('CLIENT_ORIGIN')
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,25 +69,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'django_filters',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'rest_framework',
-    'dj_rest_auth',
-    'rest_framework.authtoken',
+    'dj_rest_auth.registration',
     'corsheaders',
-    'jazzmin',
+    'meetings',
     'profiles',
     'favourites',
-    'meetings',
+
 ]
+SITE_ID = 1
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -87,7 +102,7 @@ ROOT_URLCONF = 'api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],
+        'DIRS': [os.path.join(BASE_DIR, 'staticfiles', 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -102,6 +117,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api.wsgi.application'
 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'api.serializers.CurrentUserSerializer'
+}
+
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
     'default': ({
         'ENGINE': 'django.db.backends.sqlite3',
@@ -111,6 +132,13 @@ DATABASES = {
     ))
 }
 
+
+CORS_ALLOWED_ORIGINS = [
+    os.environ.get('CLIENT_ORIGIN')
+]
+
+# Password validation
+# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -127,8 +155,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
+# https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -138,21 +167,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Adjust as needed
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Adjust as needed
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+WHITENOISE_ROOT = BASE_DIR / 'staticfiles' / 'build'
 
-CORS_ALLOWED_ORIGINS = [
-    "https://mosaicminds-1df2672b33ce.herokuapp.com",
-    "https://3000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io",
-]
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://mosaicminds-1df2672b33ce.herokuapp.com",
-    "https://3000-hypergeekde-mosaicminds-87cb1r5j6l6.ws-eu107.gitpod.io",
-    "http://127.0.0.1:8000",
-]
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
