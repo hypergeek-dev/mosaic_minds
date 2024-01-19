@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from phonenumber_field.serializerfields import PhoneNumberField
-from .models import Profile
-from followers.models import Follower
+from profiles.models import Profile
 from django.contrib.auth.models import User
 
 class ProfileSerializer(serializers.ModelSerializer):
