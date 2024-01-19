@@ -8,7 +8,7 @@ class FavouriteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
-        model = favourite
+        model = Favourite
         fields = ['id', 'created_at', 'owner', 'meeting']
 
     def create(self, validated_data):
