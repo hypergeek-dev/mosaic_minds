@@ -26,39 +26,26 @@ function App() {
     <Router>
       <div className="App">
         <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/MeetingList" element={<MeetingList />} />
-          <Route path="/MeetingSearchPage" element={<MeetingSearchPage />} />
-          <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="/Volunteer" element={<Volunteer />} />
-          <Route path="/auth/SignUpForm" element={<SignupForm />} />
-          <Route exact path="/meetings/create" render={() => <MeetingCreateForm />} />
-          <Route exact path="/meetings/:id" render={() => <MeetingDetails />} />
-          <Route exact path="/meetings/:id/edit" render={() => <MeetingEditForm />} />
-          <Route exact path="/profiles/:id" render={() => <ProfileDetails />} />
-          <Route exact path="/profiles/:id/edit" render={() => <ProfileEditForm />} />
-          <Route
-            exact
-            path="/profiles/:id/edit/username"
-            render={() => <UsernameForm />}
-          />
-          <Route
-            exact
-            path="/profiles/:id/edit/password"
-            render={() => <UserPasswordForm />}
-          />
-          <Route
-            exact
-            path="/profiles/:id/edit"
-            render={() => <ProfileEditForm />}
-          />
-
-          <Route render={() => <NotFound />} />
-         </Routes>
-        </div>
-      </Router>
-    )
-};
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/MeetingList" component={MeetingList} />
+          <Route path="/MeetingSearchPage" component={MeetingSearchPage} />
+          <Route path="/AboutUs" component={AboutUs} />
+          <Route path="/Volunteer" component={Volunteer} />
+          <Route path="/auth/SignUpForm" component={SignupForm} />
+          <Route path="/meetings/create" component={MeetingCreateForm} />
+          <Route path="/meetings/:id" component={MeetingDetails} />
+          <Route path="/meetings/:id/edit" component={MeetingEditForm} />
+          <Route path="/profiles/:id" component={ProfileDetails} />
+          <Route path="/profiles/:id/edit" component={ProfileEditForm} />
+          <Route path="/profiles/:id/edit/username" component={UsernameForm} />
+          <Route path="/profiles/:id/edit/password" component={UserPasswordForm} />
+          <Route path="/profiles/:id/edit" component={ProfileEditForm} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+    </Router>
+  );
+}
 
 export default App;
