@@ -15,7 +15,6 @@ import MeetingDetails from './components/MeetingDetails';
 import MeetingEditForm from './components/MeetingEditForm';
 import ProfileDetails from './components/ProfileDetails';
 import ProfileEditForm from './components/ProfileEditForm';
-import ProfilePage from "./components/ProfilePage";
 import UsernameForm from "./components/UsernameForm";
 import UserPasswordForm from "./components/UserPasswordForm";
 import NotFound from "./components/NotFound.js"

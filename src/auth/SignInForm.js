@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useNavigate } from "react";
 import axios from "axios";
-
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { Link, useNavigate } from "react-router-dom";
-
 import { useSetCurrentUser } from "./AuthContext";
 import { useRedirect } from "../api/UseRedirect";
 import { setTokenTimestamp } from "../api/utils";
@@ -26,7 +24,6 @@ function SignInForm() {
   const [errors, setErrors] = useState({});
 
   const history = useNavigate();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -47,9 +44,6 @@ function SignInForm() {
     });
   };
 
-  // Log the signInData and errors
-  console.log("signInData:", signInData);
-  console.log("errors:", errors);
 
   return (
     <Row>
