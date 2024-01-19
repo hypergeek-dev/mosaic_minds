@@ -1,5 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import axios from "axios";
+import { axiosReq, axiosRes } from "../api/AxiosDefaults";
+import { useHistory } from "react-router";
+import { removeTokenTimestamp, shouldRefreshToken } from "../api/utils";
 
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
@@ -7,78 +10,74 @@ export const SetCurrentUserContext = createContext();
 export const useCurrentUser = () => useContext(CurrentUserContext);
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
-export function CurrentUserProvider({ children }) {
+export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const history = useHistory();
 
   const handleMount = async () => {
-    const token = localStorage.getItem('jwtToken');
-    if (token) {
-      try {
-        const response = await axios.get('/users/current/', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setCurrentUser(response.data);
-      } catch (err) {
-        console.error(err);
-        localStorage.removeItem('jwtToken');
-      }
+    try {
+      const { data } = await axiosRes.get("dj-rest-auth/user/");
+      setCurrentUser(data);
+    } catch (err) {
+      // console.log(err);
     }
   };
 
   useEffect(() => {
     handleMount();
+  }, []);
 
-    const requestInterceptor = axios.interceptors.request.use(
-      (config) => {
-        const token = localStorage.getItem('jwtToken');
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+  useMemo(() => {
+    axiosReq.interceptors.request.use(
+      async (config) => {
+        if (shouldRefreshToken()) {
+          try {
+            await axios.post("/dj-rest-auth/token/refresh/");
+          } catch (err) {
+            setCurrentUser((prevCurrentUser) => {
+              if (prevCurrentUser) {
+                history.push("/signin");
+              }
+              return null;
+            });
+            removeTokenTimestamp();
+            return config;
+          }
         }
         return config;
       },
-      (error) => Promise.reject(error)
-    );
-
-    const responseInterceptor = axios.interceptors.response.use(
-      (response) => response,
-      async (error) => {
-        if (error.response?.status === 401) {
-          try {
-            const response = await axios.post('/api-token-refresh/');
-            localStorage.setItem('jwtToken', response.data.access_token);
-            return axios({
-              ...error.config,
-              headers: {
-                ...error.config.headers,
-                Authorization: `Bearer ${response.data.access_token}`,
-              },
-            });
-          } catch (refreshError) {
-            console.error(refreshError);
-            setCurrentUser(null);
-            localStorage.removeItem('jwtToken');
-          }
-        }
-        return Promise.reject(error);
+      (err) => {
+        return Promise.reject(err);
       }
     );
 
-    return () => {
-      axios.interceptors.request.eject(requestInterceptor);
-      axios.interceptors.response.eject(responseInterceptor);
-    };
-  },
-[]);
+    axiosRes.interceptors.response.use(
+      (response) => response,
+      async (err) => {
+        if (err.response?.status === 401) {
+          try {
+            await axios.post("/dj-rest-auth/token/refresh/");
+          } catch (err) {
+            setCurrentUser((prevCurrentUser) => {
+              if (prevCurrentUser) {
+                history.push("/signin");
+              }
+              return null;
+            });
+            removeTokenTimestamp();
+          }
+          return axios(err.config);
+        }
+        return Promise.reject(err);
+      }
+    );
+  }, [history]);
 
-return (
-<CurrentUserContext.Provider value={currentUser}>
-<SetCurrentUserContext.Provider value={setCurrentUser}>
-{children}
-</SetCurrentUserContext.Provider>
-</CurrentUserContext.Provider>
-);
-}
-  
-  export default CurrentUserContext;
+  return (
+    <CurrentUserContext.Provider value={currentUser}>
+      <SetCurrentUserContext.Provider value={setCurrentUser}>
+        {children}
+      </SetCurrentUserContext.Provider>
+    </CurrentUserContext.Provider>
+  );
+};
