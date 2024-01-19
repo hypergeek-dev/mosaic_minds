@@ -65,7 +65,7 @@ const fetchMeetings = async (filters) => {
       area: filters?.area || ''
     }).toString();
 
-    const response = await axios.get(`/meetings/?${queryParams}`);
+    const response = await axios.get(`meetings/?${queryParams}`);
     console.log('Response data:', response.data);
     return response.data;
   } catch (error) {
@@ -83,7 +83,7 @@ const MeetingList = ({ filters }) => {
     setIsLoading(true);
     fetchMeetings(filters)
       .then(data => {
-        setMeetings(data);
+        setMeetings(data.results);
         setIsLoading(false);
       })
       .catch(error => {
