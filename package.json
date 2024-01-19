@@ -17,6 +17,9 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
+  "engines": {
+    "node": "16.13"
+  },
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
@@ -65,3 +68,4 @@
   "license": "Unlicense",
   "proxy": "http://localhost:8000"
 }
+
