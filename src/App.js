@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "./api/AxiosDefaults.js";
 import './Global.css';
 import NavBar from './components/NavBar';
@@ -9,7 +9,6 @@ import MeetingList from './components/MeetingList';
 import Volunteer from './components/Volunteer';
 import MeetingSearchPage from './components/MeetingSearchPage';
 import SignupForm from './auth/SignUpForm';
-import { useCurrentUser } from "./auth/AuthContext";
 import MeetingCreateForm from './components/MeetingCreateForm';
 import MeetingDetails from './components/MeetingDetails';
 import MeetingEditForm from './components/MeetingEditForm';
@@ -20,8 +19,6 @@ import UserPasswordForm from "./components/UserPasswordForm";
 import NotFound from "./components/NotFound.js"
 
 function App() {
-  const currentUser = useCurrentUser();
-  const profile_id = currentUser?.profile_id || "";
   return (
     <Router>
       <div className="App">

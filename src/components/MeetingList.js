@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import axios from 'axios';
-import { format } from 'date-fns';
+
+
 
 const areaMapping = {
   'CI': 'Channel Islands Area',
@@ -48,13 +49,21 @@ const formatMeetingTime = (timeString) => {
   if (timeString && timeString.includes(":")) {
     const [hours, minutes] = timeString.split(":");
     const meetingTime = new Date();
-    meetingTime.setHours(parseInt(hours, 10));
-    meetingTime.setMinutes(parseInt(minutes, 10));
-    return format(meetingTime, 'hh:mm a');
+    meetingTime.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0);
+
+    
+    let formattedHours = meetingTime.getHours();
+    const ampm = formattedHours >= 12 ? 'PM' : 'AM';
+    formattedHours = formattedHours % 12;
+    formattedHours = formattedHours ? formattedHours : 12; 
+    const formattedMinutes = meetingTime.getMinutes().toString().padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes} ${ampm}`;
   } else {
     return "Invalid Time";
   }
 };
+
 
 const fetchMeetings = async (filters) => {
   try {
