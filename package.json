@@ -66,6 +66,9 @@
     "interactive-platform",
     "web-app"
   ],
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11"
+  },
   "author": "Dennis Mariegaard Jensen",
   "license": "Unlicense",
   "proxy": "http://localhost:8000"
