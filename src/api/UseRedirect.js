@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -6,21 +5,11 @@ export const useRedirect = (userAuthStatus) => {
   const history = useHistory();
 
   useEffect(() => {
-    const handleMount = async () => {
-      try {
-        await axios.post("/dj-rest-auth/token/refresh/");
-        // if user is logged in, the code below will run
-        if (userAuthStatus === "loggedIn") {
-          history.push("/");
-        }
-      } catch (err) {
-        // if user is not logged in, the code below will run
-        if (userAuthStatus === "loggedOut") {
-          history.push("/");
-        }
-      }
-    };
-
-    handleMount();
+    // Perform redirection based on the user's authentication status
+    if (userAuthStatus === "loggedIn") {
+      history.push("/");
+    } else if (userAuthStatus === "loggedOut") {
+      history.push("/"); // Redirect to login page or any other page as per your logic
+    }
   }, [history, userAuthStatus]);
 };
