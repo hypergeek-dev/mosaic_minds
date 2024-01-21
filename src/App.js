@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import "./api/AxiosDefaults.js";
+import "./api/AxiosDefaults";
 import './Global.css';
 import NavBar from './components/NavBar';
-import Home from './components/LandingPageHero';
+import Home from './components/Home';
 import AboutUs from './components/AboutUs';
 import MeetingList from './components/MeetingList';
-import Volunteer from './components/Volunteer';
+import Volunteer from './components/VolunteerForm';
 import MeetingSearchPage from './components/MeetingSearchPage';
 import SignupForm from './auth/SignUpForm';
 import MeetingCreateForm from './components/MeetingCreateForm';
@@ -16,30 +16,33 @@ import ProfileDetails from './components/ProfileDetails';
 import ProfileEditForm from './components/ProfileEditForm';
 import UsernameForm from "./components/UsernameForm";
 import UserPasswordForm from "./components/UserPasswordForm";
-import NotFound from "./components/NotFound.js"
+import NotFound from "./components/NotFound";
+
 
 function App() {
   return (
     <Router>
       <div className="App">
         <NavBar />
+        <Home />
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/MeetingList" component={MeetingList} />
-          <Route path="/MeetingSearchPage" component={MeetingSearchPage} />
-          <Route path="/AboutUs" component={AboutUs} />
-          <Route path="/Volunteer" component={Volunteer} />
-          <Route path="/auth/SignUpForm" component={SignupForm} />
-          <Route path="/meetings/create" component={MeetingCreateForm} />
-          <Route path="/meetings/:id" component={MeetingDetails} />
-          <Route path="/meetings/:id/edit" component={MeetingEditForm} />
-          <Route path="/profiles/:id" component={ProfileDetails} />
-          <Route path="/profiles/:id/edit" component={ProfileEditForm} />
-          <Route path="/profiles/:id/edit/username" component={UsernameForm} />
-          <Route path="/profiles/:id/edit/password" component={UserPasswordForm} />
-          <Route path="/profiles/:id/edit" component={ProfileEditForm} />
-          <Route component={NotFound} />
-        </Switch>
+  
+  <Route exact path="/home" component={Home} />
+  <Route path="/meeting-list" component={MeetingList} />
+  <Route path="/meeting-search-page" component={MeetingSearchPage} />
+  <Route path="/about-us" component={AboutUs} />
+  <Route path="/volunteer" component={Volunteer} />
+  <Route path="/auth/sign-up-form" component={SignupForm} />
+  <Route path="/meetings/create" component={MeetingCreateForm} />
+  <Route path="/meeting-details/:id" component={MeetingDetails} />
+  <Route path="/meetings/:id/edit" component={MeetingEditForm} />
+  <Route path="/profiles/:id" component={ProfileDetails} />
+  <Route path="/profiles/:id/edit" component={ProfileEditForm} />
+  <Route path="/profiles/:id/edit/username" component={UsernameForm} />
+  <Route path="/profiles/:id/edit/password" component={UserPasswordForm} />
+  <Route component={NotFound} />
+</Switch>
+
       </div>
     </Router>
   );
