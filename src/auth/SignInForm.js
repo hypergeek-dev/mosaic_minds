@@ -1,19 +1,17 @@
-import React, { useState, useNavigate } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { useSetCurrentUser } from "./AuthContext";
-import { useRedirect } from "../api/UseRedirect";
 import { setTokenTimestamp } from "../api/utils";
 
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
-  useRedirect("loggedIn");
 
   const [signInData, setSignInData] = useState({
     username: "",
@@ -23,7 +21,8 @@ function SignInForm() {
 
   const [errors, setErrors] = useState({});
 
-  const history = useNavigate();
+  const history = useHistory(); // Use useHistory for navigation
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -31,7 +30,7 @@ function SignInForm() {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
       setTokenTimestamp(data);
-      history.goBack();
+      history.goBack(); // Use history for navigation
     } catch (err) {
       setErrors(err.response?.data);
     }
@@ -43,7 +42,6 @@ function SignInForm() {
       [event.target.name]: event.target.value,
     });
   };
-
 
   return (
     <Row>
