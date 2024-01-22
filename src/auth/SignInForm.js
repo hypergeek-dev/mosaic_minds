@@ -21,9 +21,11 @@ function SignInForm() {
   });
   const { username, password } = signInData;
 
-  const [errors, setErrors] = useState({});
+  // Initialize errors for each field
+  const [errors, setErrors] = useState({ username: [], password: [], non_field_errors: [] });
 
   const history = useHistory();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
   
@@ -34,15 +36,17 @@ function SignInForm() {
       history.push('/');
     } catch (err) {
       if (err.response && err.response.data) {
-
-        setErrors(err.response.data);
+        // Update to handle different error structures
+        setErrors({
+          username: err.response.data.username || [],
+          password: err.response.data.password || [],
+          non_field_errors: err.response.data.non_field_errors || []
+        });
       } else {
-
-        setErrors({ general: "An error occurred. Please try again." });
+        setErrors({ ...errors, general: ["An error occurred. Please try again."] });
       }
     }
   };
-  
 
   const handleChange = (event) => {
     setSignInData({
@@ -52,9 +56,9 @@ function SignInForm() {
   };
 
   return (
-    <Row className={Row}>
+    <Row>
       <Col className="my-auto p-0 p-md-2" md={6}>
-        <Container className={`p-4 `}>
+        <Container className="p-4">
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="username">
               <Form.Label className="d-none">Username</Form.Label>
@@ -62,12 +66,11 @@ function SignInForm() {
                 type="text"
                 placeholder="Username"
                 name="username"
-             
                 value={username}
                 onChange={handleChange}
               />
             </Form.Group>
-            {errors.username?.map((message, idx) => (
+            {errors.username.map((message, idx) => (
               <Alert key={idx} variant="warning">
                 {message}
               </Alert>
@@ -79,40 +82,33 @@ function SignInForm() {
                 type="password"
                 placeholder="Password"
                 name="password"
-             
                 value={password}
                 onChange={handleChange}
               />
             </Form.Group>
-            {errors.password?.map((message, idx) => (
+            {errors.password.map((message, idx) => (
               <Alert key={idx} variant="warning">
                 {message}
               </Alert>
             ))}
-            <Button
-             
-              type="submit"
-            >
+            <Button type="submit">
               Sign in
             </Button>
-            {errors.non_field_errors?.map((message, idx) => (
+            {errors.non_field_errors.map((message, idx) => (
               <Alert key={idx} variant="warning" className="mt-3">
                 {message}
               </Alert>
             ))}
           </Form>
         </Container>
-        <Container className={`mt-3`}>
-          <Link className={Link} to="/signup">
+        <Container className="mt-3">
+          <Link to="/signup">
             Don't have an account? <span>Sign up now!</span>
           </Link>
         </Container>
       </Col>
-      <Col
-        md={6}
-        className={`my-auto d-none d-md-block p-2`}
-      >
-
+      <Col md={6} className="my-auto d-none d-md-block p-2">
+   
       </Col>
     </Row>
   );
