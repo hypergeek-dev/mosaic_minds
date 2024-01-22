@@ -9,9 +9,11 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { useSetCurrentUser } from "./AuthContext";
 import { setTokenTimestamp } from "../api/utils";
+import { useRedirect } from "../api/UseRedirect";
 
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
+  useRedirect("loggedIn");
 
   const [signInData, setSignInData] = useState({
     username: "",
@@ -21,20 +23,26 @@ function SignInForm() {
 
   const [errors, setErrors] = useState({});
 
-  const history = useHistory(); // Use useHistory for navigation
-
+  const history = useHistory();
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
       setTokenTimestamp(data);
-      history.goBack(); // Use history for navigation
+      history.push('/');
     } catch (err) {
-      setErrors(err.response?.data);
+      if (err.response && err.response.data) {
+
+        setErrors(err.response.data);
+      } else {
+
+        setErrors({ general: "An error occurred. Please try again." });
+      }
     }
   };
+  
 
   const handleChange = (event) => {
     setSignInData({
@@ -44,9 +52,9 @@ function SignInForm() {
   };
 
   return (
-    <Row>
+    <Row className={Row}>
       <Col className="my-auto p-0 p-md-2" md={6}>
-        <Container className="p-4">
+        <Container className={`p-4 `}>
           <h1>sign in</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="username">
@@ -55,6 +63,7 @@ function SignInForm() {
                 type="text"
                 placeholder="Username"
                 name="username"
+             
                 value={username}
                 onChange={handleChange}
               />
@@ -71,6 +80,7 @@ function SignInForm() {
                 type="password"
                 placeholder="Password"
                 name="password"
+             
                 value={password}
                 onChange={handleChange}
               />
@@ -80,7 +90,12 @@ function SignInForm() {
                 {message}
               </Alert>
             ))}
-            <Button type="submit">Sign in</Button>
+            <Button
+             
+              type="submit"
+            >
+              Sign in
+            </Button>
             {errors.non_field_errors?.map((message, idx) => (
               <Alert key={idx} variant="warning" className="mt-3">
                 {message}
@@ -88,11 +103,17 @@ function SignInForm() {
             ))}
           </Form>
         </Container>
-        <Container className="mt-3">
-          <Link to="/signup">
+        <Container className={`mt-3`}>
+          <Link className={Link} to="/signup">
             Don't have an account? <span>Sign up now!</span>
           </Link>
         </Container>
+      </Col>
+      <Col
+        md={6}
+        className={`my-auto d-none d-md-block p-2`}
+      >
+
       </Col>
     </Row>
   );

@@ -4,6 +4,9 @@
   "description": "A Django-React based event management system tailored for neurodiverse individuals in the UK, focusing on Zoom events.",
   "dependencies": {
     "16": "^0.0.2",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
