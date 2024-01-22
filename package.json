@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A Django-React based event management system tailored for neurodiverse individuals in the UK, focusing on Zoom events.",
   "dependencies": {
+    "16": "^0.0.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -10,6 +11,7 @@
     "bootstrap": "^4.6.0",
     "date-fns": "^3.2.0",
     "jwt-decode": "^3.1.2",
+    "npm": "^10.3.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
@@ -17,6 +19,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "use": "^3.1.1",
     "web-vitals": "^1.1.2"
   },
   "engines": {
