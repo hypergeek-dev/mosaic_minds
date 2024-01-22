@@ -19,7 +19,7 @@ const Home = () => {
               </p>
             </div>
             <div className="col text-center button-box">
-              <a href="/MeetingSearchPage" className="btn btn-primary btn-lg">Search Meetings</a>
+              <a href="/meeting-search-page" className="btn btn-primary btn-lg">Search Meetings</a>
             </div>
             <div className="col text-center">
               <h2 className="header">Why We Do It</h2>
