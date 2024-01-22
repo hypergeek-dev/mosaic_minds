@@ -55,7 +55,6 @@ function SignInForm() {
     <Row className={Row}>
       <Col className="my-auto p-0 p-md-2" md={6}>
         <Container className={`p-4 `}>
-          <h1>sign in</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="username">
               <Form.Label className="d-none">Username</Form.Label>
