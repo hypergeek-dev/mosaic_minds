@@ -24,10 +24,9 @@ function App() {
     <Router>
       <div className="App">
         <NavBar />
-        <Home />
         <Switch>
   
-  <Route exact path="/home" component={Home} />
+        <Route exact path="/" component={Home} />
   <Route path="/meeting-list" component={MeetingList} />
   <Route path="/meeting-search-page" component={MeetingSearchPage} />
   <Route path="/about-us" component={AboutUs} />
