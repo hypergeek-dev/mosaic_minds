@@ -39,11 +39,11 @@ return (
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/AboutUs">About Us</Nav.Link>
-            <Nav.Link as={Link} to="/MeetingList">Meetings</Nav.Link>
-            <Nav.Link as={Link} to="/Volunteer">Volunteer</Nav.Link>
+            <Nav.Link as={Link} to="/about-us">About Us</Nav.Link>
+            <Nav.Link as={Link} to="/meeting-list">Meetings</Nav.Link>
+            <Nav.Link as={Link} to="/volunteer">Volunteer</Nav.Link>
             {isAuthenticated && (
-              <Nav.Link as={Link} to="/AddMeeting">Add Meeting</Nav.Link>
+              <Nav.Link as={Link} to="/meetings/create">Add Meeting</Nav.Link>
             )}
           </Nav>
           {<SignInForm />} 

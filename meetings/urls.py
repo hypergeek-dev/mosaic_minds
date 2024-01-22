@@ -4,6 +4,6 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('meetings/', views.MeetingList.as_view()),
-    path('meetings/<int:pk>/', views.MeetingDetail.as_view())
+    path('', views.MeetingList.as_view()),
+    path('<int:pk>/', views.MeetingDetail.as_view())
 ]
