@@ -13,11 +13,11 @@ import SignUpForm from './auth/SignUpForm';
 import MeetingCreateForm from './components/MeetingCreateForm';
 import MeetingDetails from './components/MeetingDetails';
 import MeetingEditForm from './components/MeetingEditForm';
-import ProfileDetails from './components/ProfileDetails';
 import ProfileEditForm from './components/ProfileEditForm';
 import UsernameForm from "./components/UsernameForm";
 import UserPasswordForm from "./components/UserPasswordForm";
 import NotFound from "./components/NotFound";
+
 
 function App() {
   return (
@@ -37,13 +37,11 @@ function App() {
   <Route path="/meetings/create" component={MeetingCreateForm} />
   <Route path="/meeting-details/:id" component={MeetingDetails} />
   <Route path="/meetings/:id/edit" component={MeetingEditForm} />
-  <Route path="/profiles/:id" component={ProfileDetails} />
-  <Route path="/profiles/:id/edit" component={ProfileEditForm} />
   <Route path="/profiles/:id/edit/username" component={UsernameForm} />
   <Route path="/profiles/:id/edit/password" component={UserPasswordForm} />
+  <Route path="/profiles/:id/edit" component={ProfileEditForm} />
   <Route component={NotFound} />
-</Switch>
-
+        </Switch>
       </div>
     </Router>
   );

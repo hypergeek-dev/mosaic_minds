@@ -1,4 +1,8 @@
 import React from "react";
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from "../auth/AuthContext";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -6,10 +10,7 @@ import SignInForm from "../auth/SignInForm";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { removeTokenTimestamp } from "../api/utils";
-import {
-  useCurrentUser,
-  useSetCurrentUser,
-} from "../auth/AuthContext";
+
 
 const NavBar = () => {
   const currentUser = useCurrentUser();

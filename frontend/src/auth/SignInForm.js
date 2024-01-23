@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useSetCurrentUser } from "../auth/AuthContext";
+import { useRedirect } from "../api/UseRedirect";
+import { setTokenTimestamp } from "../api/utils";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
@@ -7,9 +10,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import { Link, useHistory } from "react-router-dom";
-import { useSetCurrentUser } from "./AuthContext";
-import { useRedirect } from "../api/UseRedirect";
-import { setTokenTimestamp } from "../api/utils";
+
 
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
@@ -33,6 +34,8 @@ function SignInForm() {
       setTokenTimestamp(data);
       history.goBack();
     } catch (err) {
+      console.log("Error Object:", err); 
+      console.log("Error Response Data:", err.response?.data); 
       setErrors(err.response?.data);
     }
   };
