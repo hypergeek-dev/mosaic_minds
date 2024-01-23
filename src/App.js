@@ -8,7 +8,8 @@ import AboutUs from './components/AboutUs';
 import MeetingList from './components/MeetingList';
 import Volunteer from './components/VolunteerForm';
 import MeetingSearchPage from './components/MeetingSearchPage';
-import SignupForm from './auth/SignUpForm';
+import SignInForm from './auth/SignInForm';
+import SignUpForm from './auth/SignUpForm';
 import MeetingCreateForm from './components/MeetingCreateForm';
 import MeetingDetails from './components/MeetingDetails';
 import MeetingEditForm from './components/MeetingEditForm';
@@ -18,7 +19,6 @@ import UsernameForm from "./components/UsernameForm";
 import UserPasswordForm from "./components/UserPasswordForm";
 import NotFound from "./components/NotFound";
 
-
 function App() {
   return (
     <Router>
@@ -27,11 +27,13 @@ function App() {
         <Switch>
   
         <Route exact path="/" component={Home} />
+  <Route path="/signin" render={() => <SignInForm />} />
+  <Route path="/signup" render={() => <SignUpForm />} />
   <Route path="/meeting-list" component={MeetingList} />
   <Route path="/meeting-search-page" component={MeetingSearchPage} />
   <Route path="/about-us" component={AboutUs} />
   <Route path="/volunteer" component={Volunteer} />
-  <Route path="/auth/sign-up-form" component={SignupForm} />
+  <Route path="/auth/sign-up-form" component={SignUpForm} />
   <Route path="/meetings/create" component={MeetingCreateForm} />
   <Route path="/meeting-details/:id" component={MeetingDetails} />
   <Route path="/meetings/:id/edit" component={MeetingEditForm} />

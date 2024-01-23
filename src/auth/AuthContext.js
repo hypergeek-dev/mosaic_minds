@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
 import { axiosReq, axiosRes } from "../api/AxiosDefaults";
@@ -27,17 +27,21 @@ export const CurrentUserProvider = ({ children }) => {
     handleMount();
   }, []);
 
-  useEffect(() => {
-    // Setting up request interceptor
-    const requestInterceptor = axiosReq.interceptors.request.use(
+  useMemo(() => {
+    axiosReq.interceptors.request.use(
       async (config) => {
         if (shouldRefreshToken()) {
           try {
             await axios.post("/dj-rest-auth/token/refresh/");
           } catch (err) {
-            setCurrentUser(null);
-            history.push("/signin");
+            setCurrentUser((prevCurrentUser) => {
+              if (prevCurrentUser) {
+                history.push("/SignInForm");
+              }
+              return null;
+            });
             removeTokenTimestamp();
+            return config;
           }
         }
         return config;
@@ -47,16 +51,19 @@ export const CurrentUserProvider = ({ children }) => {
       }
     );
 
-    // Setting up response interceptor
-    const responseInterceptor = axiosRes.interceptors.response.use(
+    axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
         if (err.response?.status === 401) {
           try {
             await axios.post("/dj-rest-auth/token/refresh/");
-          } catch (error) {
-            setCurrentUser(null);
-            history.push("/signin");
+          } catch (err) {
+            setCurrentUser((prevCurrentUser) => {
+              if (prevCurrentUser) {
+                history.push("/signin");
+              }
+              return null;
+            });
             removeTokenTimestamp();
           }
           return axios(err.config);
@@ -64,12 +71,6 @@ export const CurrentUserProvider = ({ children }) => {
         return Promise.reject(err);
       }
     );
-
-    // Cleanup function
-    return () => {
-      axiosReq.interceptors.request.eject(requestInterceptor);
-      axiosRes.interceptors.response.eject(responseInterceptor);
-    };
   }, [history]);
 
   return (

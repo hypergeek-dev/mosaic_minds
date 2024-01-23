@@ -1,48 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import SignInForm from "../auth/SignInForm";
-import jwtDecode from 'jwt-decode';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+import { removeTokenTimestamp } from "../api/utils";
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from "../auth/AuthContext";
 
 const NavBar = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
 
-
-  const checkAuthentication = () => {
-    const token = localStorage.getItem('mosaic.minds');
-    if (!token) {
-      return false;
-    }
+  const handleSignOut = async () => {
     try {
-      const decodedToken = jwtDecode(token);
-      if (decodedToken.exp * 1000 < Date.now()) {
-        localStorage.removeItem('mosaic.minds');
-        return false;
-      }
-      return true;
-    } catch (error) {
-      console.error('Error decoding token:', error);
-      return false;
+      await axios.post("dj-rest-auth/logout/");
+      setCurrentUser(null);
+      removeTokenTimestamp();
+    } catch (err) {
+      // console.log(err);
     }
-  };
-
-
-  useEffect(() => {
-    setIsAuthenticated(checkAuthentication());
-  }, []);
-
-
-  const handleLogout = () => {
-    localStorage.removeItem('mosaic.minds');
-    setIsAuthenticated(false);
   };
 
   return (
-    <Navbar expand="md">
+    <Navbar expand="md" bg="light" variant="light">
       <Container>
-        <Navbar.Brand as={Link} to="/"></Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">Navbar</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
@@ -50,15 +36,15 @@ const NavBar = () => {
             <Nav.Link as={Link} to="/about-us">About Us</Nav.Link>
             <Nav.Link as={Link} to="/meeting-list">Meetings</Nav.Link>
             <Nav.Link as={Link} to="/volunteer">Volunteer</Nav.Link>
-            {isAuthenticated && (
+            {currentUser && (
               <Nav.Link as={Link} to="/meetings/create">Add Meeting</Nav.Link>
             )}
           </Nav>
           <Nav className="ml-auto">
-            {!isAuthenticated ? (
+            {!currentUser ? (
               <SignInForm />
             ) : (
-              <Nav.Link onClick={handleLogout}>
+              <Nav.Link onClick={handleSignOut}>
                 <FontAwesomeIcon icon={faDoorOpen} /> Logout
               </Nav.Link>
             )}

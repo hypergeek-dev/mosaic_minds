@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
-import { Link, useHistory } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import { Link, useHistory } from "react-router-dom";
 import { useSetCurrentUser } from "./AuthContext";
-import { setTokenTimestamp } from "../api/utils";
 import { useRedirect } from "../api/UseRedirect";
+import { setTokenTimestamp } from "../api/utils";
 
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
@@ -21,30 +21,19 @@ function SignInForm() {
   });
   const { username, password } = signInData;
 
-  // Initialize errors for each field
-  const [errors, setErrors] = useState({ username: [], password: [], non_field_errors: [] });
+  const [errors, setErrors] = useState({});
 
   const history = useHistory();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
       setTokenTimestamp(data);
-      history.push('/');
+      history.goBack();
     } catch (err) {
-      if (err.response && err.response.data) {
-        // Update to handle different error structures
-        setErrors({
-          username: err.response.data.username || [],
-          password: err.response.data.password || [],
-          non_field_errors: err.response.data.non_field_errors || []
-        });
-      } else {
-        setErrors({ ...errors, general: ["An error occurred. Please try again."] });
-      }
+      setErrors(err.response?.data);
     }
   };
 
@@ -59,6 +48,7 @@ function SignInForm() {
     <Row>
       <Col className="my-auto p-0 p-md-2" md={6}>
         <Container className="p-4">
+          <h1>sign in</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="username">
               <Form.Label className="d-none">Username</Form.Label>
@@ -70,12 +60,12 @@ function SignInForm() {
                 onChange={handleChange}
               />
             </Form.Group>
-            {errors.username.map((message, idx) => (
+            {errors.username?.map((message, idx) => (
               <Alert key={idx} variant="warning">
                 {message}
               </Alert>
             ))}
-
+  
             <Form.Group controlId="password">
               <Form.Label className="d-none">Password</Form.Label>
               <Form.Control
@@ -86,15 +76,13 @@ function SignInForm() {
                 onChange={handleChange}
               />
             </Form.Group>
-            {errors.password.map((message, idx) => (
+            {errors.password?.map((message, idx) => (
               <Alert key={idx} variant="warning">
                 {message}
               </Alert>
             ))}
-            <Button type="submit">
-              Sign in
-            </Button>
-            {errors.non_field_errors.map((message, idx) => (
+            <Button type="submit">Sign in</Button>
+            {errors.non_field_errors?.map((message, idx) => (
               <Alert key={idx} variant="warning" className="mt-3">
                 {message}
               </Alert>
@@ -108,10 +96,11 @@ function SignInForm() {
         </Container>
       </Col>
       <Col md={6} className="my-auto d-none d-md-block p-2">
-   
+    
+
+     
       </Col>
     </Row>
-  );
-}
+  )}
 
-export default SignInForm;
+  export default SignInForm;
