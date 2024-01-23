@@ -124,7 +124,7 @@ const MeetingList = ({ filters }) => {
   return (
     <Container className="mt-4">
       <Row>
-        {meetings.length > 0 ? (
+        {meetings?.length > 0 ? (
           meetings.map(meeting => (
             <Col key={meeting.id} md={4} className="mb-3">
               <Card className="boxshadow">
