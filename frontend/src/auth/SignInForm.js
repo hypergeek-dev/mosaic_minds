@@ -48,9 +48,9 @@ function SignInForm() {
   };
 
   return (
-    <Row>
+    <Row className={Row}>
       <Col className="my-auto p-0 p-md-2" md={6}>
-        <Container className="p-4">
+        <Container className={` p-4 `}>
           <h1>sign in</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="username">
@@ -68,7 +68,7 @@ function SignInForm() {
                 {message}
               </Alert>
             ))}
-  
+
             <Form.Group controlId="password">
               <Form.Label className="d-none">Password</Form.Label>
               <Form.Control
@@ -84,7 +84,12 @@ function SignInForm() {
                 {message}
               </Alert>
             ))}
-            <Button type="submit">Sign in</Button>
+            <Button
+
+              type="submit"
+            >
+              Sign in
+            </Button>
             {errors.non_field_errors?.map((message, idx) => (
               <Alert key={idx} variant="warning" className="mt-3">
                 {message}
@@ -92,18 +97,20 @@ function SignInForm() {
             ))}
           </Form>
         </Container>
-        <Container className="mt-3">
-          <Link to="/signup">
+        <Container className={`mt-3`}>
+          <Link className={Link} to="/signup">
             Don't have an account? <span>Sign up now!</span>
           </Link>
         </Container>
       </Col>
-      <Col md={6} className="my-auto d-none d-md-block p-2">
-    
+      <Col
+        md={6}
+        className={`my-auto d-none d-md-block p-2`}
+      >
 
-     
       </Col>
     </Row>
-  )}
+  );
+}
 
-  export default SignInForm;
+export default SignInForm;
