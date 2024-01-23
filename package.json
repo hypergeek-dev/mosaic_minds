@@ -75,7 +75,7 @@
   ],
   "author": "Dennis Mariegaard Jensen",
   "license": "Unlicense",
-  "proxy": "http://localhost:8000",
+  "proxy": "http://localhost:8000/",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/react-router-dom": "^5.3.3"
