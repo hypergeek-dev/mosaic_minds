@@ -38,7 +38,7 @@ function App() {
         <Route path="/volunteer" render={() => <Volunteer />} />
         <Route path="/auth/sign-up-form" render={() => <SignUpForm />} />
         <Route path="/meetings/create" render={() => <MeetingCreateForm />} />
-        <Route path="/meeting-details/:id" render={(props) => <MeetingDetails {...props} />} />
+        <Route path="/meetings/:id" render={(props) => <MeetingDetails {...props} />} />
         <Route path="/meetings/:id/edit" render={(props) => <MeetingEditForm {...props} />} />
         <Route path="/profiles/:id" render={(props) => <ProfileDetails {...props} />} />
         <Route path="/profiles/:id/edit/username" render={(props) => <UsernameForm {...props} />} />
