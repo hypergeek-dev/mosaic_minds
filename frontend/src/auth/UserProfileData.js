@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { axiosReq } from "../api/axiosDefaults";
-import { useCurrentUser } from "../contexts/CurrentUserContext";
+import { axiosReq } from "../api/AxiosDefaults";
+import { useCurrentUser } from "./AuthContext";
 
 const ProfileDataContext = createContext();
 const SetProfileDataContext = createContext();
@@ -10,42 +10,29 @@ export const useSetProfileData = () => useContext(SetProfileDataContext);
 
 export const ProfileDataProvider = ({ children }) => {
   const [profileData, setProfileData] = useState({
-    pageProfile: { 
-      results: [], 
-      first_name: '', 
-      last_name: '', 
-      phonenumber: '', 
-      role_at_meeting: '', 
-      email: '' 
-    },
-    popularProfiles: { results: [] },
+    currentUserProfile: null, // State to hold the current user's profile
   });
 
   const currentUser = useCurrentUser();
 
   useEffect(() => {
-    const fetchProfiles = async () => {
-      try {
-        const { data } = await axiosReq.get("/profiles/?ordering=-followers_count");
-        setProfileData(prevState => ({
-          ...prevState,
-          popularProfiles: data,
-        }));
-      } catch (err) {
-        // Handle errors here, for example logging or setting an error state
+    const fetchCurrentUserProfile = async () => {
+      if (currentUser && currentUser.id) {
+        try {
+          const { data } = await axiosReq.get(`profiles/${currentUser.id}/`);
+          setProfileData({ currentUserProfile: data });
+        } catch (err) {
+          // Handle errors here, for example logging or setting an error state
+        }
       }
     };
 
-    if (currentUser) {
-      fetchProfiles();
-    }
+    fetchCurrentUserProfile();
   }, [currentUser]);
 
   return (
     <ProfileDataContext.Provider value={profileData}>
-      <SetProfileDataContext.Provider
-        value={{ setProfileData }}
-      >
+      <SetProfileDataContext.Provider value={{ setProfileData }}>
         {children}
       </SetProfileDataContext.Provider>
     </ProfileDataContext.Provider>
