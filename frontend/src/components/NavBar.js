@@ -43,9 +43,12 @@ const NavBar = () => {
             ) : (
               <>
                 {/* Settings Icon */}
-                <Nav.Link as={Link} to={currentUser.is_superuser ? "/admin/" : "/profile-details/:id/"}>
-  <FontAwesomeIcon icon={faCog} /> Settings
-</Nav.Link>
+                {currentUser && (
+  <Nav.Link as={Link} to={currentUser.is_superuser ? "/admin/" : `/profiles/${currentUser.id}`}>
+    <FontAwesomeIcon icon={faCog} /> Profile Settings
+  </Nav.Link>
+)}
+
 
                 {/* Logout */}
                 <Nav.Link onClick={handleSignOut}>
