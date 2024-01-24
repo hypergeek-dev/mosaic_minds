@@ -10,9 +10,9 @@ urlpatterns = [
     path('api/dj-rest-auth/logout/', logout_route),
     path('api/dj-rest-auth/', include('dj_rest_auth.urls')),
     path('api/dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-    path('api/profiles/', include('profiles.urls')),
-    path('api/meetings/', include('meetings.urls')),
-    path('api/favourites/', include('favourites.urls')),
+    path('api/', include('profiles.urls')),
+    path('api/', include('meetings.urls')),
+    path('api/', include('favourites.urls')),
 ]
 
 handler404 = TemplateView.as_view(template_name='index.html')
