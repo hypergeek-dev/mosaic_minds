@@ -7,6 +7,7 @@ import Home from './components/Home';
 import AboutUs from './components/AboutUs';
 import MeetingList from './components/MeetingList';
 import Volunteer from './components/VolunteerForm';
+import MeetingSearchForm from './components/MeetingSearchForm';
 import MeetingSearchPage from './components/MeetingSearchPage';
 import SignInForm from './auth/SignInForm';
 import SignUpForm from './auth/SignUpForm';
@@ -30,6 +31,7 @@ function App() {
   <Route path="/signin" render={() => <SignInForm />} />
   <Route path="/signup" render={() => <SignUpForm />} />
   <Route path="/meeting-list" component={MeetingList} />
+  <Route path="/meeting-search-form" component={MeetingSearchForm} />
   <Route path="/meeting-search-page" component={MeetingSearchPage} />
   <Route path="/about-us" component={AboutUs} />
   <Route path="/volunteer" component={Volunteer} />
