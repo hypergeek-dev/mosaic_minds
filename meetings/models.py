@@ -24,7 +24,7 @@ class Meeting(models.Model):
         ('FRI', 'Friday'),
         ('SAT', 'Saturday'),
     )
-    weekday = models.CharField(max_length=3, choices=WEEKDAY, blank=True)
+    weekday = models.CharField(max_length=3, choices=WEEKDAY)
 
     def save(self, *args, **kwargs):
 
