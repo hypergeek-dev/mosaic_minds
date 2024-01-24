@@ -29,7 +29,7 @@
   "engines": {
     "node": "16.13"
   },
-  "build": "react-scripts build --output-path=frontend/build",
+  "build": "react-scripts build",
 
   "main": "index.js",
   "scripts": {
@@ -76,6 +76,7 @@
     "interactive-platform",
     "web-app"
   ],
+  "homepage": "./frontend/build",
   "author": "Dennis Mariegaard Jensen",
   "license": "Unlicense",
   "proxy": "http://localhost:8000/",
