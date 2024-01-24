@@ -10,7 +10,7 @@ const MeetingDetails = () => {
     useEffect(() => {
         const fetchMeetingDetails = async () => {
             try {
-                const response = await axios.get(`/meetings/${id}`);
+                const response = await axios.get(`/meeting-details/${id}`);
                 setMeetingDetails(response.data);
                 setLoading(false);
             } catch (err) {
