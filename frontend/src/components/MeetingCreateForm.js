@@ -7,6 +7,7 @@ const MeetingCreateForm = () => {
     const [submitResponse, setSubmitResponse] = useState('');
 
     const onSubmit = async (data) => {
+        console.log(data);
         try {
             const response = await axios.post('/meetings/', data);
             setSubmitResponse('Meeting created successfully!');
