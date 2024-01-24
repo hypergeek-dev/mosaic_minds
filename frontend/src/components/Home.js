@@ -1,5 +1,6 @@
 import React from 'react';
 import heroImage from '../assets/banner.png';
+import { Link } from 'react-router-dom';
 
 
 const Home = () => {
@@ -19,8 +20,8 @@ const Home = () => {
               </p>
             </div>
             <div className="col text-center button-box">
-              <a href="/meeting-search-page" className="btn btn-primary btn-lg">Search Meetings</a>
-            </div>
+  <Link to="/meeting-search-page" className="btn btn-primary btn-lg">Search Meetings</Link>
+</div>
             <div className="col text-center">
               <h2 className="header">Why We Do It</h2>
               <p className="content home_text_box">
