@@ -141,7 +141,7 @@ const MeetingList = ({ filters }) => {
                 {meeting.description}
               </Card.Text>
               {meeting.meeting_id && (
-                <Link to={`/meeting-details/${meeting.meeting_id}`} className="btn btn-primary">
+                <Link to={`/meetings/${meeting.meeting_id}`} className="btn btn-primary">
                   Details
                 </Link>
               )}

@@ -1,9 +1,7 @@
-from django.urls import path
+from django.urls import path, re_path
 from meetings import views
-from django.urls import path
-
 
 urlpatterns = [
     path('meetings/', views.MeetingList.as_view()),
-    path('meetings/<int:pk>/', views.MeetingDetail.as_view())
+    re_path(r'^meetings/(?P<meeting_id>[0-9a-f-]+)/$', views.MeetingDetail.as_view(), name='meeting-details'),
 ]
