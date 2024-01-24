@@ -2,11 +2,14 @@ from django.db import models
 import uuid
 import datetime
 from django.conf import settings
+from django.contrib.auth.models import User
+
 
 
 class Meeting(models.Model):
     meeting_id = models.CharField(
         max_length=100, default=uuid.uuid4, unique=True, editable=False)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, default="Mosaic Minds Meeting")
     meeting_time = models.TimeField(default=datetime.time(12, 0))
     approved = models.BooleanField(default=False)
