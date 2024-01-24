@@ -29,21 +29,22 @@ function App() {
         <Switch>
   
         <Route exact path="/" component={Home} />
-  <Route path="/signin" render={() => <SignInForm />} />
-  <Route path="/signup" render={() => <SignUpForm />} />
-  <Route path="/meeting-list" component={MeetingList} />
-  <Route path="/meeting-search-form" component={MeetingSearchForm} />
-  <Route path="/meeting-search-page" component={MeetingSearchPage} />
-  <Route path="/about-us" component={AboutUs} />
-  <Route path="/volunteer" component={Volunteer} />
-  <Route path="/auth/sign-up-form" component={SignUpForm} />
-  <Route path="/meetings/create" component={MeetingCreateForm} />
-  <Route path="/meeting-details/:id" component={MeetingDetails} />
-  <Route path="/meetings/:id/edit" component={MeetingEditForm} />
-  <Route path="/profile-details/:id/" component={ProfileDetails} />
-  <Route path="/profiles/:id/edit/username" component={UsernameForm} />
-  <Route path="/profiles/:id/edit/password" component={UserPasswordForm} />
-  <Route path="/profiles/:id/edit" component={ProfileEditForm} />
+        <Route path="/signin" render={() => <SignInForm />} />
+        <Route path="/signup" render={() => <SignUpForm />} />
+        <Route path="/meeting-list" render={() => <MeetingList />} />
+        <Route path="/meeting-search-form" render={() => <MeetingSearchForm />} />
+        <Route path="/meeting-search-page" render={() => <MeetingSearchPage />} />
+        <Route path="/about-us" render={() => <AboutUs />} />
+        <Route path="/volunteer" render={() => <Volunteer />} />
+        <Route path="/auth/sign-up-form" render={() => <SignUpForm />} />
+        <Route path="/meetings/create" render={() => <MeetingCreateForm />} />
+        <Route path="/meeting-details/:id" render={(props) => <MeetingDetails {...props} />} />
+        <Route path="/meetings/:id/edit" render={(props) => <MeetingEditForm {...props} />} />
+        <Route path="/profiles/:id" render={(props) => <ProfileDetails {...props} />} />
+        <Route path="/profiles/:id/edit/username" render={(props) => <UsernameForm {...props} />} />
+        <Route path="/profiles/:id/edit/password" render={(props) => <UserPasswordForm {...props} />} />
+        <Route path="/profiles/:id/edit" render={(props) => <ProfileEditForm {...props} />} />
+
   <Route component={NotFound} />
         </Switch>
       </div>
