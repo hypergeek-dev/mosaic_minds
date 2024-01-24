@@ -1,181 +1,130 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import Alert from "react-bootstrap/Alert";
 
-const SignupForm = () => {
-    const [formData, setFormData] = useState({
-        username: '',
-        password: '',
-        first_name: '',
-        last_name: '',
-        phone_number: '',
-        email: '',
-        role_at_meeting: '',
-        comment: ''
+import axios from "axios";
+import { useRedirect } from "../api/UseRedirect";
+
+const SignUpForm = () => {
+  useRedirect("loggedIn");
+  const [signUpData, setSignUpData] = useState({
+    username: "",
+    password1: "",
+    password2: "",
+  });
+  const { username, password1, password2 } = signUpData;
+
+  const [errors, setErrors] = useState({});
+
+  const history = useHistory();
+
+  const handleChange = (event) => {
+    setSignUpData({
+      ...signUpData,
+      [event.target.name]: event.target.value,
     });
-    const [showModal, setShowModal] = useState(false);
+  };
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.post("/dj-rest-auth/registration/", signUpData);
+      history.push("/signin");
+    } catch (err) {
+      setErrors(err.response?.data);
+    }
+  };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const userData = {
-                username: formData.username,
-                password: formData.password,
-                profile: {
-                    first_name: formData.first_name,
-                    last_name: formData.last_name,
-                    phone_number: formData.phone_number,
-                    email: formData.email,
-                    role_at_meeting: formData.role_at_meeting,
-                    comment: formData.comment
-                }
-            };
+  return (
+    <Row className={Row}>
+      <Col className="my-auto py-2 p-md-2" md={6}>
+        <Container className={`p-4 `}>
+          <h1>sign up</h1>
 
-            const response = await axios.post('/profiles/signup/', userData);
-            console.log(response.data);
-            setShowModal(true);
-        } catch (error) {
-            console.error('There was an error!', error);
-        }
-    };
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="username">
+              <Form.Label className="d-none">username</Form.Label>
+              <Form.Control
+              
+                type="text"
+                placeholder="Username"
+                name="username"
+                value={username}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            {errors.username?.map((message, idx) => (
+              <Alert variant="warning" key={idx}>
+                {message}
+              </Alert>
+            ))}
 
-    return (
-        <>
-            <form onSubmit={handleSubmit} className="container mt-4">
-                {/* Username */}
-                <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="username"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                    />
-                </div>
+            <Form.Group controlId="password1">
+              <Form.Label className="d-none">Password</Form.Label>
+              <Form.Control
+           
+                type="password"
+                placeholder="Password"
+                name="password1"
+                value={password1}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            {errors.password1?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                {message}
+              </Alert>
+            ))}
 
-                {/* Password */}
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                </div>
+            <Form.Group controlId="password2">
+              <Form.Label className="d-none">Confirm password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Confirm password"
+                name="password2"
+                value={password2}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            {errors.password2?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                {message}
+              </Alert>
+            ))}
 
-                {/* First Name */}
-                <div className="form-group">
-                    <label htmlFor="first_name">First Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="first_name"
-                        name="first_name"
+            <Button
+    
+              type="submit"
+            >
+              Sign up
+            </Button>
+            {errors.non_field_errors?.map((message, idx) => (
+              <Alert key={idx} variant="warning" className="mt-3">
+                {message}
+              </Alert>
+            ))}
+          </Form>
+        </Container>
 
-                        value={formData.first_name}
-                        onChange={handleChange}
-                    />
-                </div>
+        <Container className={`mt-3`}>
+          <Link className={Link} to="/signin">
+            Already have an account? <span>Sign in</span>
+          </Link>
+        </Container>
+      </Col>
+      <Col
+        md={6}
+        className={`my-auto d-none d-md-block p-2`}
+      >
 
-                {/* Last Name */}
-                <div className="form-group">
-                    <label htmlFor="last_name">Last Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="last_name"
-                        name="last_name"
-                        value={formData.last_name}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                {/* Phone Number */}
-                <div className="form-group">
-                    <label htmlFor="phone_number">Phone Number</label>
-                    <input
-                        type="tel"
-                        className="form-control"
-                        id="phone_number"
-                        name="phone_number"
-                        value={formData.phone_number}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                {/* Email */}
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                {/* Role at Meeting */}
-                <div className="form-group">
-                    <label htmlFor="role_at_meeting">Role at Meeting</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="role_at_meeting"
-                        name="role_at_meeting"
-                        value={formData.role_at_meeting}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                {/* Comment */}
-                <div className="form-group">
-                    <label htmlFor="comment">Comment</label>
-                    <textarea
-                        className="form-control"
-                        id="comment"
-                        name="comment"
-                        value={formData.comment}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                {/* Submit Button */}
-                <button type="submit" className="btn btn-primary">Sign Up</button>
-            </form>
-
-            {/* Modal for Success Message */}
-            <div className={`modal ${showModal ? 'show' : ''}`} tabIndex="-1" role="dialog" style={{ display: showModal ? 'block' : 'none' }}>
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">Registration Successful</h5>
-                        </div>
-                        <div className="modal-body">
-                            <p>Thank you for your registration!<br />
-                                You can now add and edit meetings. Be aware, changes need to be approved before they become public.</p>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-primary" onClick={() => setShowModal(false)}>OK</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </>
-    );
+      </Col>
+    </Row>
+  );
 };
 
-export default SignupForm;
+export default SignUpForm;
