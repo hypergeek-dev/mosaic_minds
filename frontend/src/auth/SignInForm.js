@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useSetCurrentUser } from "../auth/AuthContext";
+import { useSetCurrentUser } from "./AuthContext";
 import { useRedirect } from "../api/UseRedirect";
 import { setTokenTimestamp } from "../api/utils";
 import Form from "react-bootstrap/Form";
