@@ -29,14 +29,13 @@
   "engines": {
     "node": "16.13"
   },
-  "build": "react-scripts build",
-  "main": "index.js",
+
   "scripts": {
+    "heroku-prebuild": "npm install -g serve",
+    "build": "cd frontend && npm install && npm run build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "heroku-prebuild": "npm install -g serve",
     "postbuild": "mv frontend/build/* staticfiles/"
   },
   "eslintConfig": {
@@ -76,7 +75,7 @@
     "interactive-platform",
     "web-app"
   ],
-  "homepage": "./frontend/build",
+  "homepage": "./staticfiles/build/",
   "author": "Dennis Mariegaard Jensen",
   "license": "Unlicense",
   "proxy": "http://localhost:8000/",
