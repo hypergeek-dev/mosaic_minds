@@ -4,12 +4,12 @@ from favourites.models import Favourite
 
 
 class FavouriteSerializer(serializers.ModelSerializer):
-
+ 
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Favourite
-        fields = ['id', 'created_at', 'owner', 'meeting']
+        fields = ['id', 'created_at', 'owner', 'post']
 
     def create(self, validated_data):
         try:
