@@ -4,14 +4,12 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'api.settings')
 django.setup()
 
-
 from django.contrib.auth import get_user_model
 from meetings.models import Meeting
 import datetime
 import random
 
 User = get_user_model()
-
 
 meeting_names = [
     "NeuroConnect Hub", "DiverseMinds Forum", "InclusiveBrain Lounge",
@@ -46,7 +44,6 @@ descriptions = [
     "Our group offers a blend of discussion, support, and education for the neurodiverse community. It's a place to learn, share, and grow together."]
 users = User.objects.all()
 
-
 for user, name in zip(users, meeting_names):
     meeting_description = random.choice(descriptions)
     meeting = Meeting.objects.create(
@@ -58,5 +55,6 @@ for user, name in zip(users, meeting_names):
         description=meeting_description,
         online_meeting_url="http://www.google.com",
         added_by=user,
-        approved=True
+        approved=True,
+        owner=user  
     )
