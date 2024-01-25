@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   return (
     <div>
-      <section className="hero pt-5">
+      <section className="hero">
         <img src={heroImage} alt="Hero" className="hero_image" />
         <div className="col text-center hero_overlay_text text-box">
           <p>"Diversity: the art of thinking independently together." <br></br> - Malcolm Forbes</p>

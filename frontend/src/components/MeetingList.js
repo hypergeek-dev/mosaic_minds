@@ -106,7 +106,7 @@ const MeetingList = ({ filters }) => {
 
   if (isLoading) {
     return (
-      <Container className="mt-4 text-center">
+      <Container className="my-4 text-center">
         <Spinner animation="border" role="status" />
         <p>Loading meetings...</p>
       </Container>
@@ -115,21 +115,21 @@ const MeetingList = ({ filters }) => {
 
   if (error) {
     return (
-      <Container className="mt-4">
+      <Container className="my-4">
         <Alert variant="danger">
           There was an error fetching the meetings: {error.message}
         </Alert>
       </Container>
     );
   }
-  console.log(meetings);
+
   return (
-    <Container className="mt-4">
-    <Row>
-      {meetings?.length > 0 ? (
-        meetings.map(meeting => (
-          <Col key={meeting.id} md={4} className="mb-3">  
-            <Card className="boxshadow">
+    <Container className="my-4">
+      <Row xs={1} md={2} lg={3} className="g-4">
+        {meetings?.length > 0 ? (
+          meetings.map(meeting => (
+            <Col key={meeting.id}>
+              <Card className="h-100 shadow-sm">
                 <Card.Body>
                   <Card.Title>{meeting.name}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
@@ -138,19 +138,27 @@ const MeetingList = ({ filters }) => {
                   <Card.Subtitle className="mb-2 text-muted">
                     {getFullAreaName(meeting.area)}
                   </Card.Subtitle>
-                  <Card.Text>{meeting.description}</Card.Text>
-                  <Link to={`/meetings/${meeting.id}`} className="btn btn-primary">
+                  <Card.Text>
+                    {meeting.description}
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <Link to={`/meetings/${meeting.id}`} className="btn btn-primary me-2">
                     Details
                   </Link>
-                  <Card.Link href={meeting.online_meeting_url}>
-                    Online Meeting Link
-                  </Card.Link>
-                </Card.Body>
+                  {meeting.online_meeting_url && (
+                    <a href={meeting.online_meeting_url} className="btn btn-secondary">
+                      Online Meeting
+                    </a>
+                  )}
+                </Card.Footer>
               </Card>
             </Col>
           ))
         ) : (
-          <p>No meetings available</p>
+          <Col>
+            <p>No meetings available</p>
+          </Col>
         )}
       </Row>
     </Container>

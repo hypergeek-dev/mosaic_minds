@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
+import { Col, Row, Container, Card } from "react-bootstrap";
 import { axiosReq } from "../api/AxiosDefaults";
 import { useCurrentUser } from "../auth/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faScrewdriver } from "@fortawesome/free-solid-svg-icons";
+import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 function ProfileDetails() {
@@ -27,29 +25,37 @@ function ProfileDetails() {
       fetchData();
     }
   }, [currentUser]);
+
   const profileId = profile.id;
   const profileDetails = (
-    <Row nogutters="true" className="px-3 text-center">
-      <Col>
-        <h3 className="m-2">
-        {profile?.owner || 'No Owner'}
-        <Link to={`/profiles/${profileId}/edit/`}>
-  Edit
-  <FontAwesomeIcon icon={faScrewdriver} />
-</Link>
+    <Card className="text-center">
+      <Card.Header>
+        <h3 className="m-0">
+          {profile?.owner || 'No Owner'}
+          <Link to={`/profiles/${profileId}/edit/`} className="ms-2">
+            <FontAwesomeIcon icon={faUserEdit} />
+          </Link>
         </h3>
-      <div><p>First Name: {profile?.first_name || 'No First Name'}</p></div>
-      <div><p>Last Name: {profile?.last_name || 'No Last Name'}</p></div>
-      <div><p>Email: {profile?.email || 'No Email'}</p></div>
-      <div><p>Phone Number: {profile?.phonenumber || 'No Phone Number'}</p></div>
-      <div><p>Role: {profile?.role_at_meeting || 'No Role'}</p></div>
-      <div><p>Joined: {profile?.created_at || 'No Join Date'}</p></div>
-    </Col>
-  </Row>
+      </Card.Header>
+      <Card.Body>
+        <Row className="mb-2">
+          <Col><strong>First Name:</strong> {profile?.first_name || 'No First Name'}</Col>
+          <Col><strong>Last Name:</strong> {profile?.last_name || 'No Last Name'}</Col>
+        </Row>
+        <Row className="mb-2">
+          <Col><strong>Email:</strong> {profile?.email || 'No Email'}</Col>
+          <Col><strong>Phone Number:</strong> {profile?.phonenumber || 'No Phone Number'}</Col>
+        </Row>
+        <Row className="mb-2">
+          <Col><strong>Role:</strong> {profile?.role_at_meeting || 'No Role'}</Col>
+          <Col><strong>Joined:</strong> {profile?.created_at || 'No Join Date'}</Col>
+        </Row>
+      </Card.Body>
+    </Card>
   );
 
   return (
-    <Container>
+    <Container className="my-4">
       {hasLoaded ? profileDetails : <p>Loading...</p>}
     </Container>
   );

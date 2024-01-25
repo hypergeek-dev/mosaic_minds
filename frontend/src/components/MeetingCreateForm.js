@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { Form, Button, Alert, Container } from 'react-bootstrap';
 
 const MeetingCreateForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [submitResponse, setSubmitResponse] = useState('');
 
     const onSubmit = async (data) => {
-        console.log(data);
         try {
             const response = await axios.post('/meetings/', data);
             setSubmitResponse('Meeting created successfully!');
-            console.log(response.data);
         } catch (error) {
-            console.error(error);
             setSubmitResponse('Failed to create meeting.');
         }
     };
@@ -67,54 +65,88 @@ const MeetingCreateForm = () => {
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <input 
-                name="name" 
-                {...register("name", { required: true })} 
-                placeholder="Meeting Name" 
-            />
-            {errors.name && <div>Meeting name is required</div>}
+        <Container className="mt-4">
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form.Group className="mb-3">
+                    <Form.Control 
+                        name="name" 
+                        {...register("name", { required: "Meeting name is required" })} 
+                        placeholder="Meeting Name"
+                        isInvalid={errors.name}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.name?.message}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
-            <select name="weekday" {...register("weekday", { required: true })}>
-                {weekdayOptions.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                ))}
-            </select>
-            {errors.weekday && <div>Weekday is required</div>}
+                <Form.Group className="mb-3">
+                    <Form.Select name="weekday" {...register("weekday", { required: "Weekday is required" })} isInvalid={errors.weekday}>
+                        <option value="">Select Weekday</option>
+                        {weekdayOptions.map(option => (
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                        ))}
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">
+                        {errors.weekday?.message}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
-            <input 
-                name="meeting_time" 
-                type="time" 
-                {...register("meeting_time", { required: true })} 
-            />
-            {errors.meeting_time && <div>Meeting time is required</div>}
+                <Form.Group className="mb-3">
+                    <Form.Control 
+                        name="meeting_time" 
+                        type="time" 
+                        {...register("meeting_time", { required: "Meeting time is required" })} 
+                        isInvalid={errors.meeting_time}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.meeting_time?.message}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
-            <select name="area" {...register("area", { required: true })}>
-                {areaOptions.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                ))}
-            </select>
-            {errors.area && <div>Area is required</div>}
+                <Form.Group className="mb-3">
+                    <Form.Select name="area" {...register("area", { required: "Area is required" })} isInvalid={errors.area}>
+                        <option value="">Select Area</option>
+                        {areaOptions.map(option => (
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                        ))}
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">
+                        {errors.area?.message}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
-            <textarea 
-                name="description" 
-                {...register("description", { required: true })} 
-                placeholder="Description" 
-            />
-            {errors.description && <div>Description is required</div>}
-        <input 
-            name="online_meeting_url" 
-            type="url" 
-            {...register("online_meeting_url", { required: true })} 
-            placeholder="Online Meeting URL" 
-        />
-        {errors.online_meeting_url && <div>Online meeting URL is required</div>}
+                <Form.Group className="mb-3">
+                    <Form.Control 
+                        as="textarea" 
+                        name="description" 
+                        {...register("description", { required: "Description is required" })} 
+                        placeholder="Description"
+                        isInvalid={errors.description}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.description?.message}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
-        <button type="submit">Submit</button>
+                <Form.Group className="mb-3">
+                    <Form.Control 
+                        name="online_meeting_url" 
+                        type="url" 
+                        {...register("online_meeting_url", { required: "Online meeting URL is required" })} 
+                        placeholder="Online Meeting URL" 
+                        isInvalid={errors.online_meeting_url}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.online_meeting_url?.message}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
-        {submitResponse && <div>{submitResponse}</div>}
-    </form>
-);
+                <Button type="submit" className="mb-3">Submit</Button>
+
+                {submitResponse && <Alert variant={submitResponse.includes('successfully') ? 'success' : 'danger'}>{submitResponse}</Alert>}
+            </Form>
+        </Container>
+    );
 };
 
 export default MeetingCreateForm;

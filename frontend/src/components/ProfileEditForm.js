@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
+import { Form, Button, Row, Col, Container, Card, Alert } from "react-bootstrap";
 import { axiosReq } from "../api/AxiosDefaults";
 import { useCurrentUser, useSetCurrentUser } from "../auth/AuthContext";
 
@@ -72,72 +68,85 @@ const ProfileEditForm = () => {
   };
 
   return (
-    <Container>
+    <Container className="mt-5">
       <Row className="justify-content-center">
         <Col xs={12} md={8} lg={6}>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Label>First Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="first_name"
-                value={first_name}
-                onChange={handleChange}
-              />
-            </Form.Group>
+          <Card>
+            <Card.Header as="h3" className="text-center">Edit Profile</Card.Header>
+            <Card.Body>
+              <Form onSubmit={handleSubmit} className="px-4">
+                {/* First Name */}
+                <Form.Group className="mb-3">
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="first_name"
+                    value={first_name}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="last_name"
-                value={last_name}
-                onChange={handleChange}
-              />
-            </Form.Group>
+                {/* Last Name */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="last_name"
+                    value={last_name}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-            </Form.Group>
+                {/* Email */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Phone Number</Form.Label>
-              <Form.Control
-                type="text"
-                name="phonenumber"
-                value={phonenumber}
-                onChange={handleChange}
-              />
-            </Form.Group>
+                {/* Phone Number */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Phone Number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="phonenumber"
+                    value={phonenumber}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Role at Meeting</Form.Label>
-              <Form.Control
-                type="text"
-                name="role_at_meeting"
-                value={role_at_meeting}
-                onChange={handleChange}
-              />
-            </Form.Group>
+                {/* Role at Meeting */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Role at Meeting</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="role_at_meeting"
+                    value={role_at_meeting}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            {/* Display any errors here */}
-            {Object.keys(errors).length > 0 && (
-              <div className="errors">
-                {Object.keys(errors).map((key, index) => (
-                  <p key={index}>{`${key}: ${errors[key]}`}</p>
-                ))}
-              </div>
-            )}
+                {/* Errors */}
+                {Object.keys(errors).length > 0 && (
+                  <Alert variant="danger">
+                    {Object.keys(errors).map((key, index) => (
+                      <p key={index} className="mb-0">{`${key}: ${errors[key]}`}</p>
+                    ))}
+                  </Alert>
+                )}
 
-            <Button variant="primary" type="submit">Save</Button>
-            <Button variant="secondary" onClick={() => history.goBack()}>Cancel</Button>
-          </Form>
+                {/* Buttons */}
+                <div className="text-center mt-4">
+                  <Button variant="primary" type="submit" className="me-2">Save Changes</Button>
+                  <Button variant="secondary" onClick={() => history.goBack()}>Cancel</Button>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>
