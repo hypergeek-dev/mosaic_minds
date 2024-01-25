@@ -18,6 +18,7 @@ import ProfileDetails from './components/ProfileDetails';
 import ProfileEditForm from './components/ProfileEditForm';
 import UsernameForm from "./components/UsernameForm";
 import UserPasswordForm from "./components/UserPasswordForm";
+import FavouriteMeetings from './components/Favourites';
 import NotFound from "./components/NotFound";
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route exact path="/profiles/:id/edit" component={ProfileEditForm} />
           <Route path="/profiles/:id/edit/username" component={UsernameForm} />
           <Route path="/profiles/:id/edit/password" component={UserPasswordForm} />
+          <Route path="/favourite-meetings" component={FavouriteMeetings} />
           <Route component={NotFound} />
         </Switch>
       </div>

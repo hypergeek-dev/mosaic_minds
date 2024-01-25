@@ -38,25 +38,29 @@ const NavBar = () => {
             )}
           </Nav>
           <Nav className="ml-auto">
-            {!currentUser ? (
-              <SignInForm />
-            ) : (
-              <>
-                {/* Settings Icon */}
-                {currentUser && (
-  <Nav.Link as={Link} to={currentUser.is_superuser ? "/admin/" : `/profiles/${currentUser.id}`}>
-    <FontAwesomeIcon icon={faCog} /> Profile Settings
-  </Nav.Link>
-)}
+  {!currentUser ? (
+    <SignInForm />
+  ) : (
+    <>
+      {/* Conditionally render the "Favorite Meetings" link for authenticated users */}
+      {currentUser && (
+        <Nav.Link as={Link} to="/favourite-meetings">Favorites</Nav.Link>
+      )}
+
+      {/* Profile Settings */}
+      <Nav.Link as={Link} to={currentUser.is_superuser ? "/admin/" : `/profiles/${currentUser.id}`}>
+        <FontAwesomeIcon icon={faCog} /> Profile Settings
+      </Nav.Link>
+
+      {/* Logout */}
+      <Nav.Link onClick={handleSignOut}>
+        <FontAwesomeIcon icon={faDoorOpen} /> Logout
+      </Nav.Link>
+    </>
+  )}
+</Nav>
 
 
-                {/* Logout */}
-                <Nav.Link onClick={handleSignOut}>
-                  <FontAwesomeIcon icon={faDoorOpen} /> Logout
-                </Nav.Link>
-              </>
-            )}
-          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

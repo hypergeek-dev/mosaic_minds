@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from meetings.models import Meeting  
+from meetings.models import Meeting
+
 
 class Favourite(models.Model):
 
