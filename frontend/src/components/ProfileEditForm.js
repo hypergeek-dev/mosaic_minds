@@ -1,47 +1,45 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import Alert from "react-bootstrap/Alert";
-
 import { axiosReq } from "../api/AxiosDefaults";
-import {
-  useCurrentUser,
-  useSetCurrentUser,
-} from "../auth/AuthContext";
-
+import { useCurrentUser, useSetCurrentUser } from "../auth/AuthContext";
 
 const ProfileEditForm = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
   const { id } = useParams();
   const history = useHistory();
-  const imageFile = useRef();
 
   const [profileData, setProfileData] = useState({
-    name: "",
-    content: "",
-    image: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phonenumber: "",
+    role_at_meeting: "",
   });
-  const { name, content, image } = profileData;
 
+  const { first_name, last_name, email, phonenumber, role_at_meeting } = profileData;
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const handleMount = async () => {
-      if (currentUser?.profile_id?.toString() === id) {
+      if (currentUser && currentUser.id.toString() === id) {
         try {
           const { data } = await axiosReq.get(`/profiles/${id}/`);
-          const { name, content, image } = data;
-          setProfileData({ name, content, image });
+          setProfileData({
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            phonenumber: data.phonenumber,
+            role_at_meeting: data.role_at_meeting,
+          });
         } catch (err) {
-          // console.log(err);
-          history.push("/");
+          console.log(err);
+          setErrors(err.response?.data);
         }
       } else {
         history.push("/");
@@ -60,103 +58,89 @@ const ProfileEditForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("content", content);
-
-    if (imageFile?.current?.files[0]) {
-      formData.append("image", imageFile?.current?.files[0]);
-    }
-
     try {
-      const { data } = await axiosReq.put(`/profiles/${id}/`, formData);
-      setCurrentUser((currentUser) => ({
-        ...currentUser,
-        profile_image: data.image,
+      const { data } = await axiosReq.put(`/profiles/${id}/`, profileData);
+      setCurrentUser((prevCurrentUser) => ({
+        ...prevCurrentUser,
+        profile: data,
       }));
       history.goBack();
     } catch (err) {
-      // console.log(err);
-      setErrors(err.response?.data);
+      console.log(err);
+      setErrors(err.response?.data || {});
     }
   };
 
-  const textFields = (
-    <>
-      <Form.Group>
-        <Form.Label>Bio</Form.Label>
-        <Form.Control
-          as="textarea"
-          value={content}
-          onChange={handleChange}
-          name="content"
-          rows={7}
-        />
-      </Form.Group>
-
-      {errors?.content?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-      <Button
-       
-        onClick={() => history.goBack()}
-      >
-        cancel
-      </Button>
-      <Button type="submit">
-        save
-      </Button>
-    </>
-  );
-
   return (
-    <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col className="py-2 p-0 p-md-2 text-center" md={7} lg={6}>
-          <Container>
+    <Container>
+      <Row className="justify-content-center">
+        <Col xs={12} md={8} lg={6}>
+          <Form onSubmit={handleSubmit}>
             <Form.Group>
-              {image && (
-                <figure>
-                  <Image src={image} fluid />
-                </figure>
-              )}
-              {errors?.image?.map((message, idx) => (
-                <Alert variant="warning" key={idx}>
-                  {message}
-                </Alert>
-              ))}
-              <div>
-                <Form.Label
-                
-                  htmlFor="image-upload"
-                >
-                  Change the image
-                </Form.Label>
-              </div>
-              <Form.File
-                id="image-upload"
-                ref={imageFile}
-                accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files.length) {
-                    setProfileData({
-                      ...profileData,
-                      image: URL.createObjectURL(e.target.files[0]),
-                    });
-                  }
-                }}
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="first_name"
+                value={first_name}
+                onChange={handleChange}
               />
             </Form.Group>
-            <div className="d-md-none">{textFields}</div>
-          </Container>
-        </Col>
-        <Col md={5} lg={6} className="d-none d-md-block p-0 p-md-2 text-center">
-          <Container>{textFields}</Container>
+
+            <Form.Group>
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="last_name"
+                value={last_name}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control
+                type="text"
+                name="phonenumber"
+                value={phonenumber}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Role at Meeting</Form.Label>
+              <Form.Control
+                type="text"
+                name="role_at_meeting"
+                value={role_at_meeting}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+            {/* Display any errors here */}
+            {Object.keys(errors).length > 0 && (
+              <div className="errors">
+                {Object.keys(errors).map((key, index) => (
+                  <p key={index}>{`${key}: ${errors[key]}`}</p>
+                ))}
+              </div>
+            )}
+
+            <Button variant="primary" type="submit">Save</Button>
+            <Button variant="secondary" onClick={() => history.goBack()}>Cancel</Button>
+          </Form>
         </Col>
       </Row>
-    </Form>
+    </Container>
   );
 };
 

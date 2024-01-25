@@ -4,6 +4,9 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import { axiosReq } from "../api/AxiosDefaults";
 import { useCurrentUser } from "../auth/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faScrewdriver } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function ProfileDetails() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -24,12 +27,17 @@ function ProfileDetails() {
       fetchData();
     }
   }, [currentUser]);
-
-  // Adapted JSX for displaying the profile details
+  const profileId = profile.id;
   const profileDetails = (
     <Row nogutters="true" className="px-3 text-center">
-    <Col>
-      <h3 className="m-2">{profile?.owner || 'No Owner'}</h3>
+      <Col>
+        <h3 className="m-2">
+        {profile?.owner || 'No Owner'}
+        <Link to={`/profiles/${profileId}/edit/`}>
+  Edit
+  <FontAwesomeIcon icon={faScrewdriver} />
+</Link>
+        </h3>
       <div><p>First Name: {profile?.first_name || 'No First Name'}</p></div>
       <div><p>Last Name: {profile?.last_name || 'No Last Name'}</p></div>
       <div><p>Email: {profile?.email || 'No Email'}</p></div>
