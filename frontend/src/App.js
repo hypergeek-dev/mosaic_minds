@@ -14,12 +14,11 @@ import SignUpForm from './auth/SignUpForm';
 import MeetingCreateForm from './components/MeetingCreateForm';
 import MeetingDetails from './components/MeetingDetails';
 import MeetingEditForm from './components/MeetingEditForm';
-import ProfileDetails from './components/ProfileDetails'
+import ProfileDetails from './components/ProfileDetails';
 import ProfileEditForm from './components/ProfileEditForm';
 import UsernameForm from "./components/UsernameForm";
 import UserPasswordForm from "./components/UserPasswordForm";
 import NotFound from "./components/NotFound";
-
 
 function App() {
   return (
@@ -27,25 +26,23 @@ function App() {
       <div className="App">
         <NavBar />
         <Switch>
-  
-        <Route exact path="/" component={Home} />
-        <Route path="/signin" render={() => <SignInForm />} />
-        <Route path="/signup" render={() => <SignUpForm />} />
-        <Route path="/meeting-list" render={() => <MeetingList />} />
-        <Route path="/meeting-search-form" render={() => <MeetingSearchForm />} />
-        <Route path="/meeting-search-page" render={() => <MeetingSearchPage />} />
-        <Route path="/about-us" render={() => <AboutUs />} />
-        <Route path="/volunteer" render={() => <Volunteer />} />
-        <Route path="/auth/sign-up-form" render={() => <SignUpForm />} />
-        <Route path="/meetings/create" render={() => <MeetingCreateForm />} />
-        <Route path="/meetings/:id" render={(props) => <MeetingDetails {...props} />} />
-        <Route path="/meetings/:id/edit" render={(props) => <MeetingEditForm {...props} />} />
-        <Route path="/profiles/:id" render={(props) => <ProfileDetails {...props} />} />
-        <Route path="/profiles/:id/edit/username" render={(props) => <UsernameForm {...props} />} />
-        <Route path="/profiles/:id/edit/password" render={(props) => <UserPasswordForm {...props} />} />
-        <Route path="/profiles/:id/edit" render={(props) => <ProfileEditForm {...props} />} />
-
-  <Route component={NotFound} />
+          <Route exact path="/" component={Home} />
+          <Route path="/signin" component={SignInForm} />
+          <Route path="/signup" component={SignUpForm} />
+          <Route path="/meeting-list" component={MeetingList} />
+          <Route path="/meeting-search-form" component={MeetingSearchForm} />
+          <Route path="/meeting-search-page" component={MeetingSearchPage} />
+          <Route path="/about-us" component={AboutUs} />
+          <Route path="/volunteer" component={Volunteer} />
+          <Route path="/auth/sign-up-form" component={SignUpForm} />
+          <Route path="/meetings/create" component={MeetingCreateForm} />
+          <Route exact path="/meetings/:id" component={MeetingDetails} />
+          <Route exact path="/meetings/:id/edit" component={MeetingEditForm} />
+          <Route exact path="/profiles/:id" component={ProfileDetails} />
+          <Route exact path="/profiles/:id/edit" component={ProfileEditForm} />
+          <Route path="/profiles/:id/edit/username" component={UsernameForm} />
+          <Route path="/profiles/:id/edit/password" component={UserPasswordForm} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     </Router>
