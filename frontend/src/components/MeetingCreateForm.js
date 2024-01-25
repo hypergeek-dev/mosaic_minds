@@ -9,9 +9,10 @@ const MeetingCreateForm = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post('/meetings/', data);
+            await axios.post('/meetings/', data); // Notice the removal of 'const response ='
             setSubmitResponse('Meeting created successfully!');
         } catch (error) {
+            console.error(error);
             setSubmitResponse('Failed to create meeting.');
         }
     };
