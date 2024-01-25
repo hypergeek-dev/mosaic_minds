@@ -9,7 +9,6 @@ const MeetingSearchForm = ({ onSearch }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        // Map numeric time values to strings expected by backend
         let timeOfDay;
         switch (time) {
             case "1":

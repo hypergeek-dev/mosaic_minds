@@ -42,11 +42,12 @@ const areaMapping = {
   'YH': 'Yorkshire & Humberside Area',
 };
 
-const getFullAreaName = (areaInitials) => {
+export const getFullAreaName = (areaInitials) => {
+
   return areaMapping[areaInitials] || "Unknown Area";
 };
 
-const formatMeetingTime = (timeString) => {
+export const formatMeetingTime = (timeString) => {
   if (timeString && timeString.includes(":")) {
     const [hours, minutes] = timeString.split(":");
     const meetingTime = new Date();
@@ -127,7 +128,7 @@ const MeetingList = ({ filters }) => {
     <Row>
       {meetings?.length > 0 ? (
         meetings.map(meeting => (
-          <Col key={meeting.id} md={4} className="mb-3">  {/* Ensure meeting.id is unique and defined */}
+          <Col key={meeting.id} md={4} className="mb-3">  
             <Card className="boxshadow">
                 <Card.Body>
                   <Card.Title>{meeting.name}</Card.Title>
