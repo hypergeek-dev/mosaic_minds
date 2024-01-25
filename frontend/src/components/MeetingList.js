@@ -121,44 +121,38 @@ const MeetingList = ({ filters }) => {
       </Container>
     );
   }
-
+  console.log(meetings);
   return (
-<Container className="mt-4">
-  <Row>
-    {meetings?.length > 0 ? (
-      meetings.map(meeting => (
-        <Col key={meeting.meeting_id} md={4} className="mb-3">
-          <Card className="boxshadow">
-            <Card.Body>
-              <Card.Title>{meeting.name}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
-              </Card.Subtitle>
-              <Card.Subtitle className="mb-2 text-muted">
-                {getFullAreaName(meeting.area)}
-              </Card.Subtitle>
-              <Card.Text>
-                {meeting.description}
-              </Card.Text>
-              {meeting.meeting_id && (
-                <Link to={`/meetings/${meeting.meeting_id}`} className="btn btn-primary">
-                  Details
-                </Link>
-              )}
-
-              <Card.Link href={meeting.onlineMeetingUrl}>
-                Online Meeting Link
-              </Card.Link>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))
-    ) : (
-      <p>No meetings available</p>
-    )}
-  </Row>
-</Container>
-
+    <Container className="mt-4">
+    <Row>
+      {meetings?.length > 0 ? (
+        meetings.map(meeting => (
+          <Col key={meeting.id} md={4} className="mb-3">  {/* Ensure meeting.id is unique and defined */}
+            <Card className="boxshadow">
+                <Card.Body>
+                  <Card.Title>{meeting.name}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
+                  </Card.Subtitle>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {getFullAreaName(meeting.area)}
+                  </Card.Subtitle>
+                  <Card.Text>{meeting.description}</Card.Text>
+                  <Link to={`/meetings/${meeting.id}`} className="btn btn-primary">
+                    Details
+                  </Link>
+                  <Card.Link href={meeting.online_meeting_url}>
+                    Online Meeting Link
+                  </Card.Link>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <p>No meetings available</p>
+        )}
+      </Row>
+    </Container>
   );
 };
 
