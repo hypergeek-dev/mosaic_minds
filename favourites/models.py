@@ -3,8 +3,11 @@ from django.contrib.auth.models import User
 from meetings.models import Meeting  
 
 class Favourite(models.Model):
-    meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    meeting = models.ForeignKey(
+        Meeting, related_name='favourites', on_delete=models.CASCADE
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -12,4 +15,4 @@ class Favourite(models.Model):
         unique_together = ['owner', 'meeting']
 
     def __str__(self):
-        return f'{self.owner} favourites {self.meeting}'
+        return f'{self.owner} {self.meeting}'
