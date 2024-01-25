@@ -53,6 +53,30 @@ This site provides access to online meetings in your local area through our even
 - **Optimization**: Optimized assets for fast loading.
 - **Efficiency**: Compressed CSS and JavaScript.
 
+# User Stories
+
+### Epic
+- **_User Story for Event Management_**
+  - As a registered user, I want to be able to edit or delete the online meetings I have created, so that I can manage my events and keep the information up-to-date.
+
+### Must-Have
+- **User Story for Viewing Events**
+  - As a registered user, I want to view all available meetings, so that I can browse and decide which events to attend.
+- **User Story for Searching Events**
+  - As a registered user, I want to use a search form to find specific meetings, so that I can quickly and efficiently find events that match my interests or availability.
+- **User Story for Event Creation**
+  - As a registered user, I want to add online meeting events, so that other users can view and join these meetings.
+- **User Story for Profile Management**
+  - As a registered user, I want to edit or delete my profile on the profile page, so that I can control my personal information and how I am represented on the platform.
+
+### Good to Have
+- _User Story for Favoriting Events_
+  - As a registered user, I want to mark meetings as favorites on the meeting detail page, so that I can easily find them later and keep track of events I'm interested in.
+- _User Story for Managing Favorites_
+  - As a registered user, I want to have a favorites page where I can view my collection of favorite meetings, so that I can easily revisit and manage the events I am most interested in.
+- _User Story for Volunteering Application_
+  - As a registered user, I want to apply to volunteer, so that I can contribute to the community and participate in organizing or supporting events.
+
 
 # Development
 ### Security Vulnerabilities
