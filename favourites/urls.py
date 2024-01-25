@@ -3,5 +3,5 @@ from favourites import views
 
 urlpatterns = [
     path('favourites/', views.FavouriteList.as_view()),
-    path('favourites/<int:pk>/', views.FavouriteDetail.as_view()),
+    path('favourites/<int:meeting>/', views.FavouriteDetail.as_view(), name='favourite-detail'),
 ]
