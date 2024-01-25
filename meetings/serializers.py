@@ -8,8 +8,7 @@ class MeetingSerializer(serializers.ModelSerializer):
     weekday_display = serializers.SerializerMethodField() 
     class Meta:
         model = Meeting
-        fields = [
-            'id', 'meeting_id', 'name', 'meeting_time', 'approved', 'area','weekday',
+        fields = ['id', 'name', 'meeting_time', 'approved', 'area','weekday',
             'description', 'online_meeting_url', 'added_by', 'added_by_username',
             'is_owner', 'area_display', 'weekday_display'  
         ]

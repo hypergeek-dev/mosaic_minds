@@ -1,19 +1,12 @@
 from django.db import models
 import uuid
-import datetime
 from django.conf import settings
-from django.contrib.auth.models import User
-
-
 
 class Meeting(models.Model):
-    meeting_id = models.CharField(
-        max_length=100, default=uuid.uuid4, unique=True, editable=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, default="Mosaic Minds Meeting")
-    meeting_time = models.TimeField(default=datetime.time(12, 0))
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_meetings')
+    name = models.CharField(max_length=100)
+    meeting_time = models.TimeField()
     approved = models.BooleanField(default=False)
-    
 
     WEEKDAY = (
         ('SUN', 'Sunday'),
@@ -25,10 +18,6 @@ class Meeting(models.Model):
         ('SAT', 'Saturday'),
     )
     weekday = models.CharField(max_length=3, choices=WEEKDAY)
-
-    def save(self, *args, **kwargs):
-
-        super().save(*args, **kwargs)
 
     AREA_CHOICES = (
         ('CI', 'Channel Islands Area'),
@@ -65,10 +54,10 @@ class Meeting(models.Model):
         ('WM', 'West Midlands Area'),
         ('WY', 'West Yorkshire'),
         ('YH', 'Yorkshire & Humberside Area'),
-   )
+    )
     area = models.CharField(max_length=20, choices=AREA_CHOICES, default='CI')
-    description = models.TextField(default="Standard meeting description.")
-    online_meeting_url = models.URLField(default="http://www.google.com")
+    description = models.TextField()
+    online_meeting_url = models.URLField()
     added_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -76,11 +65,7 @@ class Meeting(models.Model):
     )
 
     class Meta:
-        permissions = (
-            ("can_approve_meeting", "Can approve meetings"),
-            ("can_create_meeting", "Can create meetings"),
-        )
         db_table = 'mosaicminds.meetings'
-        
+
     def __str__(self):
-        return self.name
+        return f'{self.id} {self.name}'
