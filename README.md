@@ -1,5 +1,7 @@
 # Mosaic Mind
 # Mosaic Mind: Embracing Neurodiversity Across the UK
+[Agile Projectboard](https://github.com/users/hypergeek-dev/projects/9)
+
 
 Welcome to Mosaic Mind – A sanctuary for diversity, understanding, and support.
 
@@ -79,6 +81,9 @@ This site provides access to online meetings in your local area through our even
 
 
 # Development
+
+
+
 ### Security Vulnerabilities
 
 #### `nth-check` Vulnerability
