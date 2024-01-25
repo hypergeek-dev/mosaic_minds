@@ -1,59 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
-import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
+import { useParams } from 'react-router-dom';
 
 const MeetingDetails = () => {
-    const { id } = useParams(); 
+    const { id } = useParams();
+    console.log(useParams())
     const [meetingDetails, setMeetingDetails] = useState(null);
-    const [isFavorited, setIsFavorited] = useState(false); 
-    const [favoriteId, setFavoriteId] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [isFavourited, setIsFavourited] = useState(null); 
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const fetchMeetingDetails = async () => {
             try {
-                const response = await axios.get(`/meetings/${id}`);
+                const response = await axios.get(`/meetings/${id}`, { withCredentials: true });
                 setMeetingDetails(response.data);
-                setLoading(false);
-
-                try {
-                    const favResponse = await axios.get(`/favourites/${id}`);
-                    setIsFavorited(favResponse.data.isFavorited);
-                    setFavoriteId(favResponse.data.favoriteId);
-                } catch (favError) {
-                    setIsFavorited(false);
-                    setFavoriteId(null); // Reset favoriteId if not found
-                }
             } catch (err) {
                 console.error(err);
-                setLoading(false);
                 setError('Failed to load meeting details.');
+            }
+
+            try {
+                // Check if the meeting is already favorited
+                const favResponse = await axios.get(`/favourites/${id}`, { withCredentials: true });
+                setIsFavourited(favResponse.data.isFavourited);
+            } catch (err) {
+                console.error("Error checking favorite status", err);
+            } finally {
+                setLoading(false); // Set loading to false when data fetching is complete
             }
         };
 
         fetchMeetingDetails();
     }, [id]);
 
-    const toggleFavorite = async () => {
+    const handleFavourite = async () => {
         try {
-            if (isFavorited) {
-                if (favoriteId !== null) {
-                    // Only delete if favoriteId is not null
-                    await axios.delete(`/favourites/${favoriteId}`);
-                    setFavoriteId(null); // Reset favoriteId
-                }
+            if (isFavourited) {
+                // If already favorited, send a request to unfavorite
+                await axios.delete(`/favourites/${id}`, { withCredentials: true });
+                setIsFavourited(false);
             } else {
-                const meetingId = parseInt(id, 10);
-                const response = await axios.post('/favourites/', { meeting: meetingId });
-                setFavoriteId(response.data.id);
+                // If not favorited, send a request to favorite
+                await axios.post(`/favourites/`, { meeting: id }, { withCredentials: true });
+                setIsFavourited(true);
             }
-            setIsFavorited(!isFavorited);
         } catch (err) {
-            console.error(err);
+            console.error("Error updating favorite status", err);
         }
     };
 
@@ -73,11 +66,11 @@ const MeetingDetails = () => {
                     {meetingDetails.online_meeting_url && (
                         <p><strong>Online Meeting URL:</strong> <a href={meetingDetails.online_meeting_url} target="_blank" rel="noopener noreferrer">{meetingDetails.online_meeting_url}</a></p>
                     )}
-                    <FontAwesomeIcon 
-                        icon={isFavorited ? solidStar : regularStar} 
-                        onClick={toggleFavorite} 
-                        style={{ color: isFavorited ? 'yellow' : 'black' }} 
-                    />
+                    {isFavourited !== null && (
+                        <button onClick={handleFavourite}>
+                            {isFavourited ? "Unfavorite" : "Favorite"}
+                        </button>
+                    )}
                 </div>
             )}
         </div>
