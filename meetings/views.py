@@ -49,30 +49,27 @@ class MeetingList(ListAPIView):
 class MeetingDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = MeetingSerializer
-    lookup_field = 'meeting_id'  
 
-    def get_object(self, meeting_id):
+    def get_object(self, id):
         try:
-            meeting = Meeting.objects.get(meeting_id=meeting_id)
-            self.check_object_permissions(self.request, meeting)
-            return meeting
+            return Meeting.objects.get(id=id)
         except Meeting.DoesNotExist:
             raise Http404
 
-    def get(self, request, meeting_id):
-        meeting = self.get_object(meeting_id)
+    def get(self, request, id):
+        meeting = self.get_object(id)
         serializer = MeetingSerializer(meeting, context={'request': request})
         return Response(serializer.data)
 
-    def put(self, request, meeting_id):
-        meeting = self.get_object(meeting_id)
+    def put(self, request, id):
+        meeting = self.get_object(id)
         serializer = MeetingSerializer(meeting, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, meeting_id):
-        meeting = self.get_object(meeting_id)
+    def delete(self, request, id):
+        meeting = self.get_object(id)
         meeting.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
