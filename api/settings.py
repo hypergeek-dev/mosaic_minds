@@ -77,7 +77,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'meetings',
     'profiles',
-    'favourites',
 
 ]
 SITE_ID = 1
