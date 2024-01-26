@@ -1,5 +1,7 @@
 # Mosaic Mind
 # Mosaic Mind: Embracing Neurodiversity Across the UK
+[Agile Projectboard](https://github.com/users/hypergeek-dev/projects/9)
+
 
 Welcome to Mosaic Mind – A sanctuary for diversity, understanding, and support.
 
@@ -79,6 +81,9 @@ This site provides access to online meetings in your local area through our even
 
 
 # Development
+
+
+
 ### Security Vulnerabilities
 
 #### `nth-check` Vulnerability
@@ -109,4 +114,62 @@ The color scheme for the website is inspired by the hero image and consists of t
   <span style="background-color: rgb(189, 134, 92); padding: 10px; display: inline-block; margin-right: 10px;">Pale Taupe<br>RGB(189, 134, 92)</span>
   <span style="background-color: rgb(121, 70, 56); padding: 10px; display: inline-block; margin-right: 10px;">Sienna<br>RGB(121, 70, 56)</span>
 </p>
+### Database relations
 
+## Users
+- **Attributes**:
+  - UserID
+  - Username
+  - Password
+  - Email
+  - Profile Info
+  - Role (e.g., 'admin', 'user')
+- **Relationships**:
+  - One to Many with Events
+  - One to Many with Volunteer Applications
+  - Many to Many with Favorites
+
+## Events
+- **Attributes**:
+  - EventID
+  - Title
+  - Description
+  - Date
+  - Time
+  - MeetingType
+  - CreatedBy (UserID)
+- **Relationships**:
+  - Many to One with Users
+  - Many to Many with Unauthorized Visitors
+
+## Favorites
+- **Attributes**:
+  - UserID
+  - EventID
+- **Relationships**:
+  - Many to Many between Users and Events
+
+## Volunteer Applications
+- **Attributes**:
+  - ApplicationID
+  - UserID
+  - ApplicationDate
+  - Status
+- **Relationships**:
+  - One to One or One to Many with Users
+
+## EventDetails (optional)
+- **Attributes**:
+  - EventID
+  - Location
+  - Additional Info
+- **Relationships**:
+  - One to One with Events
+
+## Unauthorized Visitors
+- **Attributes**:
+  - VisitorID
+  - EventID
+  - UserID (nullable, if the visitor is not a registered user)
+- **Relationships**:
+  - Many to Many with Events
