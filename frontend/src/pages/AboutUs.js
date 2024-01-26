@@ -6,8 +6,11 @@ const AboutUs = () => {
     <Container>
       <Row className="my-4 mt-5">
         <Col>
-          <h2>What We Are</h2>
-          <p>
+          <h2 id="what-we-are" aria-label="What We Are">What We Are</h2>
+          <p
+            id="what-we-are-description"
+            aria-label="Mosaic Minds is a UK-wide network celebrating neurodiversity, connecting unique minds in a supportive online community. We offer a spectrum of events, from educational workshops to creative meet-ups, fostering a space where every neurodiverse individual can thrive. Our platform is a sanctuary for connection, learning, and growth, where each voice is heard and every story is valued. Together, we are redefining neurodiversity, championing understanding, acceptance, and empowerment."
+          >
             Mosaic Minds is a UK-wide network celebrating neurodiversity, 
             connecting unique minds in a supportive online community. We offer 
             a spectrum of events, from educational workshops to creative meet-ups, 

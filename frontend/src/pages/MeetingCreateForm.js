@@ -74,6 +74,7 @@ const MeetingCreateForm = () => {
                         {...register("name", { required: "Meeting name is required" })} 
                         placeholder="Meeting Name"
                         isInvalid={errors.name}
+                        aria-label="Meeting Name"
                     />
                     <Form.Control.Feedback type="invalid">
                         {errors.name?.message}
@@ -81,7 +82,12 @@ const MeetingCreateForm = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Select name="weekday" {...register("weekday", { required: "Weekday is required" })} isInvalid={errors.weekday}>
+                    <Form.Select 
+                        name="weekday" 
+                        {...register("weekday", { required: "Weekday is required" })} 
+                        isInvalid={errors.weekday}
+                        aria-label="Select Weekday"
+                    >
                         <option value="">Select Weekday</option>
                         {weekdayOptions.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
@@ -98,6 +104,7 @@ const MeetingCreateForm = () => {
                         type="time" 
                         {...register("meeting_time", { required: "Meeting time is required" })} 
                         isInvalid={errors.meeting_time}
+                        aria-label="Meeting Time"
                     />
                     <Form.Control.Feedback type="invalid">
                         {errors.meeting_time?.message}
@@ -105,7 +112,12 @@ const MeetingCreateForm = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Select name="area" {...register("area", { required: "Area is required" })} isInvalid={errors.area}>
+                    <Form.Select 
+                        name="area" 
+                        {...register("area", { required: "Area is required" })} 
+                        isInvalid={errors.area}
+                        aria-label="Select Area"
+                    >
                         <option value="">Select Area</option>
                         {areaOptions.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
@@ -123,6 +135,7 @@ const MeetingCreateForm = () => {
                         {...register("description", { required: "Description is required" })} 
                         placeholder="Description"
                         isInvalid={errors.description}
+                        aria-label="Meeting Description"
                     />
                     <Form.Control.Feedback type="invalid">
                         {errors.description?.message}
@@ -136,13 +149,14 @@ const MeetingCreateForm = () => {
                         {...register("online_meeting_url", { required: "Online meeting URL is required" })} 
                         placeholder="Online Meeting URL" 
                         isInvalid={errors.online_meeting_url}
+                        aria-label="Online Meeting URL"
                     />
                     <Form.Control.Feedback type="invalid">
                         {errors.online_meeting_url?.message}
                     </Form.Control.Feedback>
                 </Form.Group>
 
-                <Button type="submit" className="mb-3">Submit</Button>
+                <Button type="submit" className="mb-3" aria-label="Submit Meeting Form">Submit</Button>
 
                 {submitResponse && <Alert variant={submitResponse.includes('successfully') ? 'success' : 'danger'}>{submitResponse}</Alert>}
             </Form>
