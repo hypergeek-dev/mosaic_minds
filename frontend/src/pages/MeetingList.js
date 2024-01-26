@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -40,10 +40,10 @@ const areaMapping = {
   'WM': 'West Midlands Area',
   'WY': 'West Yorkshire',
   'YH': 'Yorkshire & Humberside Area',
+
 };
 
 export const getFullAreaName = (areaInitials) => {
-
   return areaMapping[areaInitials] || "Unknown Area";
 };
 
@@ -65,7 +65,6 @@ export const formatMeetingTime = (timeString) => {
     return "Invalid Time";
   }
 };
-
 
 const fetchMeetings = async (filters) => {
   try {
@@ -104,6 +103,42 @@ const MeetingList = ({ filters }) => {
       });
   }, [filters]);
 
+  const renderMeetingCard = (meeting) => {
+    return (
+      <Col key={meeting.id}>
+        <Card className="h-100 shadow-sm">
+          <Card.Body>
+            <Card.Title>{meeting.name}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">
+              {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
+            </Card.Subtitle>
+            <Card.Subtitle className="mb-2 text-muted">
+              {getFullAreaName(meeting.area)}
+            </Card.Subtitle>
+            <Card.Text>
+              {meeting.description}
+            </Card.Text>
+          </Card.Body>
+          <Card.Footer>
+            <Link to={`/meetings/${meeting.id}`} className="btn btn-primary me-2">
+              Details
+            </Link>
+            {meeting.online_meeting_url && (
+              <a href={meeting.online_meeting_url} className="btn btn-secondary">
+                Online Meeting
+              </a>
+            )}
+            {meeting.isCreatedByUser && (
+              <div className="createdByUserTextbox">
+                Is created by you
+              </div>
+            )}
+          </Card.Footer>
+        </Card>
+      </Col>
+    );
+  };
+
   if (isLoading) {
     return (
       <Container className="my-4 text-center">
@@ -127,34 +162,7 @@ const MeetingList = ({ filters }) => {
     <Container className="my-4">
       <Row xs={1} md={2} lg={3} className="g-4">
         {meetings?.length > 0 ? (
-          meetings.map(meeting => (
-            <Col key={meeting.id}>
-              <Card className="h-100 shadow-sm">
-                <Card.Body>
-                  <Card.Title>{meeting.name}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
-                  </Card.Subtitle>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    {getFullAreaName(meeting.area)}
-                  </Card.Subtitle>
-                  <Card.Text>
-                    {meeting.description}
-                  </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                  <Link to={`/meetings/${meeting.id}`} className="btn btn-primary me-2">
-                    Details
-                  </Link>
-                  {meeting.online_meeting_url && (
-                    <a href={meeting.online_meeting_url} className="btn btn-secondary">
-                      Online Meeting
-                    </a>
-                  )}
-                </Card.Footer>
-              </Card>
-            </Col>
-          ))
+          meetings.map(renderMeetingCard)
         ) : (
           <Col>
             <p>No meetings available</p>

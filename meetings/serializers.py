@@ -6,6 +6,7 @@ class MeetingSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     area_display = serializers.SerializerMethodField()  
     weekday_display = serializers.SerializerMethodField() 
+    
     class Meta:
         model = Meeting
         fields = ['id', 'name', 'meeting_time', 'approved', 'area','weekday',

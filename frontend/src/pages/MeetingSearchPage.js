@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MeetingSearchForm from './MeetingSearchForm';
+import MeetingSearchForm from '../components/MeetingSearchForm';
 import MeetingList from './MeetingList';
 
 const MeetingSearchPage = () => {

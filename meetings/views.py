@@ -22,6 +22,7 @@ class MeetingList(ListAPIView):
         weekday = self.request.query_params.get('weekday')  
         time_of_day = self.request.query_params.get('time_of_day') 
         area = self.request.query_params.get('area')
+        
 
         if name:
             queryset = queryset.filter(name__icontains=name)

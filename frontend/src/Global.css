@@ -40,3 +40,13 @@ html {
     margin-top: 10px;
   }
 }
+
+.createdByUserTextbox {
+  background-color: green;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 0.8rem;
+}

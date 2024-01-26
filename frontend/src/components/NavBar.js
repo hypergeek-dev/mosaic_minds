@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import SignInForm from "../auth/SignInForm";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDoorOpen, faCog } from '@fortawesome/free-solid-svg-icons'; // Import faCog as well
+import { faDoorOpen, faCog } from '@fortawesome/free-solid-svg-icons';
 import { removeTokenTimestamp } from "../api/utils";
 
 const NavBar = () => {
@@ -38,29 +38,19 @@ const NavBar = () => {
             )}
           </Nav>
           <Nav className="ml-auto">
-  {!currentUser ? (
-    <SignInForm />
-  ) : (
-    <>
-      {/* Conditionally render the "Favorite Meetings" link for authenticated users */}
-      {currentUser && (
-        <Nav.Link as={Link} to="/favourite-meetings">Favorites</Nav.Link>
-      )}
-
-      {/* Profile Settings */}
-      <Nav.Link as={Link} to={currentUser.is_superuser ? "/admin/" : `/profiles/${currentUser.id}`}>
-        <FontAwesomeIcon icon={faCog} /> Profile Settings
-      </Nav.Link>
-
-      {/* Logout */}
-      <Nav.Link onClick={handleSignOut}>
-        <FontAwesomeIcon icon={faDoorOpen} /> Logout
-      </Nav.Link>
-    </>
-  )}
-</Nav>
-
-
+            {!currentUser ? (
+              <SignInForm />
+            ) : (
+              <>
+                <Nav.Link as={Link} to={currentUser.is_superuser ? "/admin/" : `/profiles/${currentUser.id}`}>
+                  <FontAwesomeIcon icon={faCog} /> Profile Settings
+                </Nav.Link>
+                <Nav.Link onClick={handleSignOut}>
+                  <FontAwesomeIcon icon={faDoorOpen} /> Logout
+                </Nav.Link>
+              </>
+            )}
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

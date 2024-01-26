@@ -12,7 +12,6 @@ urlpatterns = [
     path('api/dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     path('api/', include('profiles.urls')),
     path('api/', include('meetings.urls')),
-    path('api/', include('favourites.urls')),
 ]
 
 handler404 = TemplateView.as_view(template_name='index.html')
