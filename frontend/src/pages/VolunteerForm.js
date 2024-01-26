@@ -24,43 +24,49 @@ const VolunteerForm = () => {
                     <Card>
                         <Card.Header as="h3" className="text-center">Volunteer Application</Card.Header>
                         <Card.Body>
-                            <Form onSubmit={handleSubmit}>
+                            <Form onSubmit={handleSubmit} aria-label="Volunteer Application Form">
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Name</Form.Label>
+                                    <Form.Label htmlFor="name">Name</Form.Label>
                                     <Form.Control
                                         type="text"
                                         name="name"
+                                        id="name"
                                         value={formData.name}
                                         onChange={handleChange}
                                         placeholder="Enter your name"
+                                        aria-label="Name"
                                     />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Label htmlFor="email">Email address</Form.Label>
                                     <Form.Control
                                         type="email"
                                         name="email"
+                                        id="email"
                                         value={formData.email}
                                         onChange={handleChange}
                                         placeholder="Enter your email"
+                                        aria-label="Email Address"
                                     />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Motivation</Form.Label>
+                                    <Form.Label htmlFor="motivation">Motivation</Form.Label>
                                     <Form.Control
                                         as="textarea"
                                         name="motivation"
+                                        id="motivation"
                                         value={formData.motivation}
                                         onChange={handleChange}
                                         rows={3}
                                         placeholder="Why do you want to volunteer?"
+                                        aria-label="Motivation"
                                     />
                                 </Form.Group>
 
                                 <div className="text-center">
-                                    <Button variant="primary" type="submit">Submit</Button>
+                                    <Button variant="primary" type="submit" aria-label="Submit Button">Submit</Button>
                                 </div>
                             </Form>
                         </Card.Body>

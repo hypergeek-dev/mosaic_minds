@@ -27,9 +27,7 @@ html {
   border-radius: 15px;
 }
 
-/* Other styles remain the same */
 
-/* Responsive layout for smaller screens */
 @media (max-width: 768px) {
   .hero-image {
     height: 250px;
@@ -49,4 +47,8 @@ html {
   border-radius: 5px;
   margin-top: 10px;
   font-size: 0.8rem;
+}
+
+.button-spacing {
+  margin: 5px; 
 }

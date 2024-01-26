@@ -1,35 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import ProfileDetails from '../components/ProfileDetails';
-import ProfileEdit from '../components/ProfileEditForm';
-import UserNameForm from '../components/UserNameForm';
-import UserPasswordForm from '../components/UserPasswordForm';
+import ProfileEditForm from '../components/ProfileEditForm';
 
 const ProfilePage = () => {
-    const [editMode, setEditMode] = useState(false);
+    let { path } = useRouteMatch();
 
     return (
         <Container>
             <Row>
-                {/* First Column */}
                 <Col md={6}>
-                    {editMode ? <ProfileEdit /> : <ProfileDetails />}
-                    <button onClick={() => setEditMode(!editMode)}>
-                        {editMode ? 'View Details' : 'Edit Profile'}
-                    </button>
-                </Col>
-
-                {/* Second Column */}
-                <Col md={6}>
-                    {/* Row for UserName */}
-                    <Row>
-                        <UserNameForm />
-                    </Row>
-
-                    {/* Row for Password */}
-                    <Row>
-                        <UserPasswordForm />
-                    </Row>
+                    <Switch>
+                        <Route exact path={path} component={ProfileDetails} />
+                        <Route path={`${path}/edit`} component={ProfileEditForm} />
+                    </Switch>
                 </Col>
             </Row>
         </Container>

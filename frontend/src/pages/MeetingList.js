@@ -138,16 +138,16 @@ const MeetingList = ({ filters }) => {
             </Card.Text>
           </Card.Body>
           <Card.Footer>
-            <Link to={`/meetings/${meeting.id}`} className="btn btn-primary me-2" aria-label={`Details for ${meeting.name}`}>
+            <Link to={`/meetings/${meeting.id}`} className="btn btn-primary me-2 button-spacing" aria-label={`Details for ${meeting.name}`}>
               Details
             </Link>
             {meeting.online_meeting_url && (
-              <a href={meeting.online_meeting_url} className="btn btn-secondary" aria-label={`Join Online Meeting for ${meeting.name}`}>
+              <a href={meeting.online_meeting_url} className="btn btn-secondary button-spacing" aria-label={`Join Online Meeting for ${meeting.name}`}>
                 Online Meeting
               </a>
             )}
-            {meeting.isCreatedByUser && (
-              <div className="createdByUserTextbox" aria-label="This meeting is created by you">
+            {meeting.is_owner && (
+              <div className="Is_OwnerTextbox" aria-label="This meeting is created by you">
                 Is created by you
               </div>
             )}

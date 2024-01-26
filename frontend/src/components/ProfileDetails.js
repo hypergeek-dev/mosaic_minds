@@ -15,7 +15,7 @@ function ProfileDetails() {
     if (currentUser) {
       const fetchData = async () => {
         try {
-          const { data } = await axiosReq.get(`/profiles/${currentUser.id}/`);
+          const { data } = await axiosReq.get(`/profiles/${currentUser.id}/edit/`);
           setProfile(data);
           setHasLoaded(true);
         } catch (err) {
@@ -32,7 +32,7 @@ function ProfileDetails() {
       <Card.Header>
         <h3 className="m-0">
           {profile?.owner || 'No Owner'}
-          <Link to={`/profiles/${profileId}/edit/`} className="ms-2">
+          <Link to={`/profiles/${profileId}/edit/`} className="ms-2 button-spacing">
             <FontAwesomeIcon icon={faUserEdit} />
           </Link>
         </h3>

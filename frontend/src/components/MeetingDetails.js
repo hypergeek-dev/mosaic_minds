@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 
 const MeetingDetails = () => {
     const { id } = useParams();
-    console.log(useParams())
+    const history = useHistory();
     const [meetingDetails, setMeetingDetails] = useState(null);
-    const [isFavourited, setIsFavourited] = useState(null); 
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchMeetingDetails = async () => {
@@ -18,14 +18,6 @@ const MeetingDetails = () => {
             } catch (err) {
                 console.error(err);
                 setError('Failed to load meeting details.');
-            }
-
-            try {
-                // Check if the meeting is already favorited
-                const favResponse = await axios.get(`/favourites/${id}`, { withCredentials: true });
-                setIsFavourited(favResponse.data.isFavourited);
-            } catch (err) {
-                console.error("Error checking favorite status", err);
             } finally {
                 setLoading(false); // Set loading to false when data fetching is complete
             }
@@ -34,19 +26,12 @@ const MeetingDetails = () => {
         fetchMeetingDetails();
     }, [id]);
 
-    const handleFavourite = async () => {
+    const handleDelete = async () => {
         try {
-            if (isFavourited) {
-                // If already favorited, send a request to unfavorite
-                await axios.delete(`/favourites/${id}`, { withCredentials: true });
-                setIsFavourited(false);
-            } else {
-                // If not favorited, send a request to favorite
-                await axios.post(`/favourites/`, { meeting: id }, { withCredentials: true });
-                setIsFavourited(true);
-            }
+            await axios.delete(`/meetings/${id}`, { withCredentials: true });
+            history.push('/meeting-list'); // Redirect after deletion
         } catch (err) {
-            console.error("Error updating favorite status", err);
+            console.error("Error deleting meeting", err);
         }
     };
 
@@ -66,11 +51,19 @@ const MeetingDetails = () => {
                     {meetingDetails.online_meeting_url && (
                         <p><strong>Online Meeting URL:</strong> <a href={meetingDetails.online_meeting_url} target="_blank" rel="noopener noreferrer">{meetingDetails.online_meeting_url}</a></p>
                     )}
-                    {isFavourited !== null && (
-                        <button onClick={handleFavourite}>
-                            {isFavourited ? "Unfavorite" : "Favorite"}
-                        </button>
+                    {meetingDetails.is_owner && (
+                        <>
+                            <button onClick={() => history.push(`/meetings/${id}/edit`)}>Edit Meeting</button>
+                            <button onClick={() => setShowDeleteModal(true)}>Delete Meeting</button>
+                        </>
                     )}
+                </div>
+            )}
+            {showDeleteModal && (
+                <div>
+                    <p>Are you sure you want to delete this meeting?</p>
+                    <button onClick={handleDelete}>Yes, Delete</button>
+                    <button onClick={() => setShowDeleteModal(false)}>Cancel</button>
                 </div>
             )}
         </div>

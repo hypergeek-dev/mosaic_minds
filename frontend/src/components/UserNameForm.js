@@ -15,7 +15,7 @@ import {
 } from "../auth/AuthContext";
 
 
-const UsernameForm = () => {
+const UserNameForm = () => {
   const [username, setUsername] = useState("");
   const [errors, setErrors] = useState({});
 
@@ -88,4 +88,4 @@ const UsernameForm = () => {
   );
 };
 
-export default UsernameForm;
+export default UserNameForm;

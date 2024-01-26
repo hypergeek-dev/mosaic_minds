@@ -6,11 +6,14 @@ from django.http import Http404
 from .models import Meeting
 from .serializers import MeetingSerializer
 from api.permissions import IsOwnerOrReadOnly
+from rest_framework.pagination import PageNumberPagination
+
 
 class MeetingList(ListAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = MeetingSerializer
     queryset = Meeting.objects.all()
+    pagination_class = PageNumberPagination  
 
     def get_queryset(self):
         """

@@ -25,7 +25,7 @@ const ProfileEditForm = () => {
     const handleMount = async () => {
       if (currentUser && currentUser.id.toString() === id) {
         try {
-          const { data } = await axiosReq.get(`/profiles/${id}/`);
+          const { data } = await axiosReq.get(`/profiles/${id}`);
           setProfileData({
             first_name: data.first_name,
             last_name: data.last_name,
@@ -55,7 +55,7 @@ const ProfileEditForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axiosReq.put(`/profiles/${id}/`, profileData);
+      const { data } = await axiosReq.put(`/profiles/${id}/edit/`, profileData);
       setCurrentUser((prevCurrentUser) => ({
         ...prevCurrentUser,
         profile: data,
@@ -75,7 +75,7 @@ const ProfileEditForm = () => {
             <Card.Header as="h3" className="text-center">Edit Profile</Card.Header>
             <Card.Body>
               <Form onSubmit={handleSubmit} className="px-4">
-                {/* First Name */}
+
                 <Form.Group className="mb-3">
                   <Form.Label>First Name</Form.Label>
                   <Form.Control
@@ -86,7 +86,6 @@ const ProfileEditForm = () => {
                   />
                 </Form.Group>
 
-                {/* Last Name */}
                 <Form.Group className="mb-3">
                   <Form.Label>Last Name</Form.Label>
                   <Form.Control
@@ -97,7 +96,7 @@ const ProfileEditForm = () => {
                   />
                 </Form.Group>
 
-                {/* Email */}
+    
                 <Form.Group className="mb-3">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -108,7 +107,7 @@ const ProfileEditForm = () => {
                   />
                 </Form.Group>
 
-                {/* Phone Number */}
+
                 <Form.Group className="mb-3">
                   <Form.Label>Phone Number</Form.Label>
                   <Form.Control
@@ -119,7 +118,7 @@ const ProfileEditForm = () => {
                   />
                 </Form.Group>
 
-                {/* Role at Meeting */}
+
                 <Form.Group className="mb-3">
                   <Form.Label>Role at Meeting</Form.Label>
                   <Form.Control
@@ -130,7 +129,6 @@ const ProfileEditForm = () => {
                   />
                 </Form.Group>
 
-                {/* Errors */}
                 {Object.keys(errors).length > 0 && (
                   <Alert variant="danger">
                     {Object.keys(errors).map((key, index) => (
@@ -139,10 +137,14 @@ const ProfileEditForm = () => {
                   </Alert>
                 )}
 
-                {/* Buttons */}
+          
                 <div className="text-center mt-4">
-                  <Button variant="primary" type="submit" className="me-2">Save Changes</Button>
+                  <Button variant="primary" type="submit" className="me-2 button-spacing">Save Changes</Button>
                   <Button variant="secondary" onClick={() => history.goBack()}>Cancel</Button>
+
+      
+                  <Button variant="info" onClick={() => history.push('/edit/username')} className="me-2 button-spacing">Edit Username</Button>
+                  <Button variant="warning" onClick={() => history.push('/edit/password')}>Change Password</Button>
                 </div>
               </Form>
             </Card.Body>
