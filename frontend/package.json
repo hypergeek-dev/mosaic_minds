@@ -73,7 +73,6 @@
     "interactive-platform",
     "web-app"
   ],
-  "homepage": "./staticfiles/build/",
   "author": "Dennis Mariegaard Jensen",
   "license": "Unlicense",
   "proxy": "http://localhost:8000/",
