@@ -83,6 +83,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'meetings',
     'profiles',
+    'favorites',
+    'volunteer'
 
 ]
 SITE_ID = 1
