@@ -42,7 +42,7 @@ const NavBar = () => {
               <SignInForm />
             ) : (
               <>
-                <Nav.Link as={Link} to={currentUser.is_superuser ? "/admin/" : `/profiles/${currentUser.id}`}>
+                <Nav.Link as={Link} to={currentUser.is_superuser ? "/admin" : `/profiles/${currentUser.id}`}>
                   <FontAwesomeIcon icon={faCog} /> Profile Settings
                 </Nav.Link>
                 <Nav.Link onClick={handleSignOut}>
