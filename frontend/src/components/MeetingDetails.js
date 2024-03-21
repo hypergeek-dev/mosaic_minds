@@ -16,29 +16,30 @@ const MeetingDetails = () => {
         const fetchMeetingDetails = async () => {
             setLoading(true);
             try {
-                // Fetch meeting details
-                const meetingResponse = await axios.get(`/meetings/${id}`, { withCredentials: true });
+                console.log(`Fetching details for meeting ID: ${id}`); 
+                const meetingResponse = await axios.get(`/api/meetings/${id}`, { withCredentials: true });
                 setMeetingDetails(meetingResponse.data);
               
-                // Check if the meeting is marked as a favorite
-                const favoriteResponse = await axios.get(`/favorites/check/${id}`, { withCredentials: true });
+                console.log(`Checking if meeting ID: ${id} is a favorite`); 
+                const favoriteResponse = await axios.get(`/api/favorites/check/${id}`, { withCredentials: true });
                 setIsFavorite(favoriteResponse.data.isFavorite); 
             } catch (err) {
                 console.error(err);
-                setError('Failed to load meeting details. Please try again later.');
+                setError('Failed to load. Please try again later.');
             } finally {
                 setLoading(false); 
             }
         };
-
+    
         fetchMeetingDetails();
     }, [id]);
+    
 
     const toggleFavorite = async () => {
         try {
-            const method = isFavorite ? 'DELETE' : 'POST'; // Adjust method based on current favorite status
-            const response = await axios[method](`/favorites/toggle/${id}`, {}, { withCredentials: true });
-            setIsFavorite(response.data.isFavorite); // Directly use the response to set favorite status
+            const method = isFavorite ? 'DELETE' : 'POST'; 
+            const response = await axios[method](`/api/favorites/toggle/${id}`, {}, { withCredentials: true });
+            setIsFavorite(response.data.isFavorite); 
         } catch (err) {
             console.error("Error toggling favorite status", err);
             setFavoriteError('Failed to toggle favorite status. Please try again.');
@@ -47,7 +48,7 @@ const MeetingDetails = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`/meetings/${id}`, { withCredentials: true });
+            await axios.delete(`/api/meetings/${id}`, { withCredentials: true });
             history.push('/meeting-list');
         } catch (err) {
             console.error("Error deleting meeting", err);

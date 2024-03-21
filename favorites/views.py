@@ -5,7 +5,7 @@ from .models import Favorite
 from .serializers import FavoriteSerializer
 from meetings.models import Meeting
 
-# List and create favorites
+
 class FavoriteList(generics.ListCreateAPIView):
     serializer_class = FavoriteSerializer
     permission_classes = [permissions.IsAuthenticated]

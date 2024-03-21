@@ -19,7 +19,7 @@ function ProfileDetails() {
           setProfile(data);
           setHasLoaded(true);
         } catch (err) {
-          // Error handling
+
         }
       };
       fetchData();
