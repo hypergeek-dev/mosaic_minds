@@ -1,19 +1,15 @@
-from rest_framework.generics import ListAPIView
-from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework import permissions, status
 from rest_framework.response import Response
-from rest_framework import status, permissions
-from django.http import Http404
 from .models import Meeting
 from .serializers import MeetingSerializer
 from api.permissions import IsOwnerOrReadOnly
 from rest_framework.pagination import PageNumberPagination
 
-
 class MeetingList(ListAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = MeetingSerializer
-    queryset = Meeting.objects.all()
-    pagination_class = PageNumberPagination  
+    pagination_class = PageNumberPagination
 
     def get_queryset(self):
         """
@@ -22,15 +18,14 @@ class MeetingList(ListAPIView):
         """
         queryset = Meeting.objects.all()
         name = self.request.query_params.get('name')
-        weekday = self.request.query_params.get('weekday')  
-        time_of_day = self.request.query_params.get('time_of_day') 
+        weekday = self.request.query_params.get('weekday')
+        time_of_day = self.request.query_params.get('time_of_day')
         area = self.request.query_params.get('area')
-        
 
         if name:
             queryset = queryset.filter(name__icontains=name)
         if weekday:
-            queryset = queryset.filter(weekday=weekday)  
+            queryset = queryset.filter(weekday=weekday)
         if time_of_day:
             if time_of_day == 'morning':
                 queryset = queryset.filter(meeting_time__hour__lt=12)
@@ -43,37 +38,28 @@ class MeetingList(ListAPIView):
 
         return queryset
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         serializer = MeetingSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            serializer.save(owner=request.user)  
+            serializer.save(added_by=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class MeetingDetail(APIView):
+class MeetingDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
+    lookup_field = 'id' 
 
-    def get_object(self, id):
-        try:
-            return Meeting.objects.get(id=id)
-        except Meeting.DoesNotExist:
-            raise Http404
+    def get_queryset(self):
+        """
+        This view returns a meeting object based on its ID.
+        The IsOwnerOrReadOnly permission ensures only the owner can edit or delete it.
+        """
+        return super().get_queryset()
 
-    def get(self, request, id):
-        meeting = self.get_object(id)
-        serializer = MeetingSerializer(meeting, context={'request': request})
-        return Response(serializer.data)
+    def perform_create(self, serializer):
+        serializer.save(added_by=self.request.user)
 
-    def put(self, request, id):
-        meeting = self.get_object(id)
-        serializer = MeetingSerializer(meeting, data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, id):
-        meeting = self.get_object(id)
-        meeting.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    def perform_update(self, serializer):
+        serializer.save(added_by=self.request.user)

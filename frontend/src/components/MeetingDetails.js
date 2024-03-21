@@ -6,7 +6,6 @@ const MeetingDetails = () => {
     const { id } = useParams();
     const history = useHistory();
     const [meetingDetails, setMeetingDetails] = useState(null);
-    const [isFavorite, setIsFavorite] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [error, setError] = useState('');
     const [favoriteError, setFavoriteError] = useState(''); 
@@ -17,12 +16,8 @@ const MeetingDetails = () => {
             setLoading(true);
             try {
                 console.log(`Fetching details for meeting ID: ${id}`); 
-                const meetingResponse = await axios.get(`/api/meetings/${id}`, { withCredentials: true });
-                setMeetingDetails(meetingResponse.data);
-              
-                console.log(`Checking if meeting ID: ${id} is a favorite`); 
-                const favoriteResponse = await axios.get(`/api/favorites/check/${id}`, { withCredentials: true });
-                setIsFavorite(favoriteResponse.data.isFavorite); 
+                const { data } = await axios.get(`/api/meetings/${id}`, { withCredentials: true });
+                setMeetingDetails(data);
             } catch (err) {
                 console.error(err);
                 setError('Failed to load. Please try again later.');
@@ -37,9 +32,9 @@ const MeetingDetails = () => {
 
     const toggleFavorite = async () => {
         try {
-            const method = isFavorite ? 'DELETE' : 'POST'; 
-            const response = await axios[method](`/api/favorites/toggle/${id}`, {}, { withCredentials: true });
-            setIsFavorite(response.data.isFavorite); 
+            const method = meetingDetails.is_favorite ? 'DELETE' : 'POST'; 
+            await axios[method](`/api/favorites/toggle/${id}`, {}, { withCredentials: true });
+            setMeetingDetails({ ...meetingDetails, is_favorite: !meetingDetails.is_favorite });
         } catch (err) {
             console.error("Error toggling favorite status", err);
             setFavoriteError('Failed to toggle favorite status. Please try again.');
@@ -66,13 +61,13 @@ const MeetingDetails = () => {
                 <>
                     <div>
                         <h2>{meetingDetails.name}</h2>
-                        <p><strong>Weekday:</strong> {meetingDetails.weekday}</p>
+                        <p><strong>Weekday:</strong> {meetingDetails.weekday_display}</p>
                         <p><strong>Time:</strong> {meetingDetails.meeting_time}</p>
-                        <p><strong>Area:</strong> {meetingDetails.area}</p>
+                        <p><strong>Area:</strong> {meetingDetails.area_display}</p>
                         <p><strong>Description:</strong> {meetingDetails.description}</p>
                         {favoriteError && <div className="error">{favoriteError}</div>}
                         <button onClick={toggleFavorite}>
-                            {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+                            {meetingDetails.is_favorite ? 'Remove from Favorites' : 'Add to Favorites'}
                         </button>
                         {meetingDetails.online_meeting_url && (
                             <p><strong>Online Meeting URL:</strong> <a href={meetingDetails.online_meeting_url} target="_blank" rel="noopener noreferrer">{meetingDetails.online_meeting_url}</a></p>
