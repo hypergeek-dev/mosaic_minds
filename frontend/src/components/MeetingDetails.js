@@ -36,9 +36,9 @@ const MeetingDetails = () => {
 
     const toggleFavorite = async () => {
         try {
-            const method = isFavorite ? 'DELETE' : 'POST'; 
+            const method = isFavorite ? 'DELETE' : 'POST'; // Adjust method based on current favorite status
             const response = await axios[method](`/favorites/toggle/${id}`, {}, { withCredentials: true });
-            setIsFavorite(response.data.isFavorite); 
+            setIsFavorite(response.data.isFavorite); // Directly use the response to set favorite status
         } catch (err) {
             console.error("Error toggling favorite status", err);
             setFavoriteError('Failed to toggle favorite status. Please try again.');
