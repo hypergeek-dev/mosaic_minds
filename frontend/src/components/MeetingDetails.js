@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { addFavorite, removeFavorite } from '../api/FavoritesHandler'
 
 const MeetingDetails = () => {
     const { id } = useParams();
@@ -28,16 +29,12 @@ const MeetingDetails = () => {
     
         fetchMeetingDetails();
     }, [id]);
-    
 
-    const toggleFavorite = async () => {
-        try {
-            const method = meetingDetails.is_favorite ? 'DELETE' : 'POST'; 
-            await axios[method](`/favorites/toggle/${id}`, {}, { withCredentials: true });
-            setMeetingDetails({ ...meetingDetails, is_favorite: !meetingDetails.is_favorite });
-        } catch (err) {
-            console.error("Error toggling favorite status", err);
-            setFavoriteError('Failed to toggle favorite status. Please try again.');
+    const handleToggleFavorite = () => {
+        if (meetingDetails.is_favorite) {
+            removeFavorite(meetingDetails.favorite_id, setMeetingDetails, setFavoriteError);
+        } else {
+            addFavorite(id, setMeetingDetails, setFavoriteError);
         }
     };
 
@@ -66,7 +63,7 @@ const MeetingDetails = () => {
                         <p><strong>Area:</strong> {meetingDetails.area_display}</p>
                         <p><strong>Description:</strong> {meetingDetails.description}</p>
                         {favoriteError && <div className="error">{favoriteError}</div>}
-                        <button onClick={toggleFavorite}>
+                        <button onClick={handleToggleFavorite}>
                             {meetingDetails.is_favorite ? 'Remove from Favorites' : 'Add to Favorites'}
                         </button>
                         {meetingDetails.online_meeting_url && (
