@@ -13,6 +13,8 @@ urlpatterns = [
     path('api/', include('profiles.urls')),
     path('api/', include('meetings.urls')),
     path('api/', include('favorites.urls')),
+    path('api/', include('volunteer.urls')),
 ]
+
 
 handler404 = TemplateView.as_view(template_name='index.html')

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Card, Row, Col } from 'react-bootstrap';
+import axios from 'axios'; 
 
 const VolunteerForm = () => {
     const [formData, setFormData] = useState({
@@ -12,9 +13,22 @@ const VolunteerForm = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        try {
+ 
+            const response = await axios.post('/volunteer/', formData);
+            console.log(response.data);
+            alert('Application submitted successfully!');
+            setFormData({
+                name: '',
+                email: '',
+                motivation: ''
+            });
+        } catch (error) {
+            console.error('There was an error submitting the form:', error);
+            alert('Failed to submit application.');
+        }
     };
 
     return (

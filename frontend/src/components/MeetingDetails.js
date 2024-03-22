@@ -16,7 +16,7 @@ const MeetingDetails = () => {
             setLoading(true);
             try {
                 console.log(`Fetching details for meeting ID: ${id}`); 
-                const { data } = await axios.get(`/api/meetings/${id}`, { withCredentials: true });
+                const { data } = await axios.get(`/meetings/${id}`, { withCredentials: true });
                 setMeetingDetails(data);
             } catch (err) {
                 console.error(err);
@@ -33,7 +33,7 @@ const MeetingDetails = () => {
     const toggleFavorite = async () => {
         try {
             const method = meetingDetails.is_favorite ? 'DELETE' : 'POST'; 
-            await axios[method](`/api/favorites/toggle/${id}`, {}, { withCredentials: true });
+            await axios[method](`/favorites/toggle/${id}`, {}, { withCredentials: true });
             setMeetingDetails({ ...meetingDetails, is_favorite: !meetingDetails.is_favorite });
         } catch (err) {
             console.error("Error toggling favorite status", err);
@@ -43,7 +43,7 @@ const MeetingDetails = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`/api/meetings/${id}`, { withCredentials: true });
+            await axios.delete(`/meetings/${id}`, { withCredentials: true });
             history.push('/meeting-list');
         } catch (err) {
             console.error("Error deleting meeting", err);
