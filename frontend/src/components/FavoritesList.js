@@ -5,7 +5,7 @@ import axios from 'axios';
 import { getFullAreaName, formatMeetingTime } from '../api/MeetingUtils'; 
 const fetchFavorites = async (page) => {
   try {
-    const response = await axios.get(`/favorites/?page=${page}`);
+    const response = await axios.get(`/favorites/`);
     return {
       results: response.data.results,
       totalPages: Math.ceil(response.data.count / 10),
@@ -49,13 +49,14 @@ const FavoritesList = () => {
       setCurrentPage(currentPage + 1);
     }
   };
-  
+
   const renderMeetingCard = (meeting) => {
+    console.log(meeting);
     return (
       <Col key={meeting.id}>
         <Card className="h-100 shadow-sm">
           <Card.Body>
-            <Card.Title aria-label={`Meeting Name: ${meeting.name}`}>{meeting.name}</Card.Title>
+            <Card.Title aria-label={`Meeting Name: ${meeting.name}`}>{meeting.meeting_name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted" aria-label={`Weekday: ${meeting.weekday_display}`}>
               {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
             </Card.Subtitle>
