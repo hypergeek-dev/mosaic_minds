@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-export const addFavorite = async (id, setMeetingDetails, setFavoriteError) => {
+export const addFavorite = async (meetingId, setMeetingDetails, setFavoriteError) => {
     try {
-        const { data } = await axios.post(`/favorites/${id}`, {}, { withCredentials: true });
+
+        const payload = { meeting: meetingId };
+        const { data } = await axios.post(`/favorites/`, payload, { withCredentials: true });
         setMeetingDetails(currentDetails => ({ ...currentDetails, is_favorite: true, favorite_id: data.id }));
     } catch (err) {
         console.error("Error adding to favorites", err);
@@ -10,9 +12,10 @@ export const addFavorite = async (id, setMeetingDetails, setFavoriteError) => {
     }
 };
 
-export const removeFavorite = async (favoriteId, setMeetingDetails, setFavoriteError) => {
+
+export const removeFavorite = async (meetingId, setMeetingDetails, setFavoriteError) => {
     try {
-        await axios.delete(`/favorites/${favoriteId}`, { withCredentials: true });
+        await axios.delete(`/favorites/${meetingId}/`, { withCredentials: true });
         setMeetingDetails(currentDetails => ({ ...currentDetails, is_favorite: false, favorite_id: null }));
     } catch (err) {
         console.error("Error removing from favorites", err);

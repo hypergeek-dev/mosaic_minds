@@ -13,11 +13,12 @@ const MeetingDetails = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+ 
         const fetchMeetingDetails = async () => {
             setLoading(true);
             try {
                 console.log(`Fetching details for meeting ID: ${id}`); 
-                const { data } = await axios.get(`/meetings/${id}`, { withCredentials: true });
+                const { data } = await axios.get(`/meetings/${id}/`, { withCredentials: true });
                 setMeetingDetails(data);
             } catch (err) {
                 console.error(err);
@@ -28,19 +29,24 @@ const MeetingDetails = () => {
         };
     
         fetchMeetingDetails();
+        console.log(id)
+        
     }, [id]);
+
+    console.log(meetingDetails)
 
     const handleToggleFavorite = () => {
         if (meetingDetails.is_favorite) {
+            console.log("Favorite id: ", meetingDetails.favorite_id)
             removeFavorite(meetingDetails.favorite_id, setMeetingDetails, setFavoriteError);
         } else {
-            addFavorite(id, setMeetingDetails, setFavoriteError);
+            addFavorite(id, setMeetingDetails.id, setFavoriteError);
         }
     };
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`/meetings/${id}`, { withCredentials: true });
+            await axios.delete(`/meetings/${id}/`, { withCredentials: true });
             history.push('/meeting-list');
         } catch (err) {
             console.error("Error deleting meeting", err);
