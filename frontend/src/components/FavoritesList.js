@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { getFullAreaName, formatMeetingTime } from '../pages/MeetingList'; // Ensure this path is correct based on your project structure
-
+import { getFullAreaName, formatMeetingTime } from '../api/MeetingUtils'; 
 const fetchFavorites = async (page) => {
   try {
-    const response = await axios.get(`/api/favorites/?page=${page}`);
+    const response = await axios.get(`/favorites/?page=${page}`);
     return {
       results: response.data.results,
       totalPages: Math.ceil(response.data.count / 10),

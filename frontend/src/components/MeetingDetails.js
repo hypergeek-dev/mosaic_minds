@@ -33,14 +33,14 @@ const MeetingDetails = () => {
         
     }, [id]);
 
-    console.log(meetingDetails)
+    console.log(meetingDetails?.id)
 
     const handleToggleFavorite = () => {
         if (meetingDetails.is_favorite) {
             console.log("Favorite id: ", meetingDetails.favorite_id)
-            removeFavorite(meetingDetails.favorite_id, setMeetingDetails, setFavoriteError);
+            removeFavorite(meetingDetails.id, setMeetingDetails, setFavoriteError);
         } else {
-            addFavorite(id, setMeetingDetails.id, setFavoriteError);
+            addFavorite(id, setMeetingDetails, setFavoriteError);
         }
     };
 
