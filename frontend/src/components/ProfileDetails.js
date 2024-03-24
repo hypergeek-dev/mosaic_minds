@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
+
 function ProfileDetails() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profile, setProfile] = useState({});
@@ -24,7 +25,7 @@ function ProfileDetails() {
       };
       fetchData();
     }
-  }, [currentUser]);
+  }, []);
 
   const profileId = profile.id;
   const profileDetails = (

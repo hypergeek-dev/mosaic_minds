@@ -6,7 +6,8 @@ class MeetingSerializer(serializers.ModelSerializer):
     added_by_username = serializers.SerializerMethodField()
     is_owner = serializers.SerializerMethodField()
     area_display = serializers.SerializerMethodField()  
-    weekday_display = serializers.SerializerMethodField() 
+    weekday_display = serializers.SerializerMethodField()
+    area = serializers.ReadOnlyField(source='meeting.area')
     is_favorite = serializers.SerializerMethodField()  
 
     class Meta:

@@ -5,6 +5,7 @@ import ProfileDetails from '../components/ProfileDetails';
 import ProfileEditForm from '../components/ProfileEditForm';
 import FavoritesList from '../components/FavoritesList'; 
 
+
 const ProfilePage = () => {
     let { path } = useRouteMatch();
 
