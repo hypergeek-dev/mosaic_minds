@@ -19,20 +19,12 @@ class MeetingList(ListAPIView):
         queryset = Meeting.objects.all()
         name = self.request.query_params.get('name')
         weekday = self.request.query_params.get('weekday')
-        time_of_day = self.request.query_params.get('time_of_day')
         area = self.request.query_params.get('area')
 
         if name:
             queryset = queryset.filter(name__icontains=name)
         if weekday:
             queryset = queryset.filter(weekday=weekday)
-        if time_of_day:
-            if time_of_day == 'morning':
-                queryset = queryset.filter(meeting_time__hour__lt=12)
-            elif time_of_day == 'afternoon':
-                queryset = queryset.filter(meeting_time__hour__gte=12, meeting_time__hour__lt=18)
-            elif time_of_day == 'evening':
-                queryset = queryset.filter(meeting_time__hour__gte=18)
         if area:
             queryset = queryset.filter(area=area)
 
@@ -41,7 +33,7 @@ class MeetingList(ListAPIView):
     def post(self, request, *args, **kwargs):
         serializer = MeetingSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            serializer.save(added_by=request.user)
+            serializer.save(owner=self.request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

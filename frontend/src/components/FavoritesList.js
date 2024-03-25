@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { getFullAreaName, formatMeetingTime } from '../api/MeetingUtils'; 
+import { getFullAreaName, formatMeetingTimeRange } from '../api/MeetingUtils'; 
+
 const fetchFavorites = async (page) => {
   try {
     const response = await axios.get(`/favorites/`);
@@ -57,8 +58,9 @@ const FavoritesList = () => {
         <Card className="h-100 shadow-sm">
           <Card.Body>
             <Card.Title aria-label={`Meeting Name: ${meeting.name}`}>{meeting.meeting_name}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted" aria-label={`Weekday: ${meeting.weekday_display}`}>
-              {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
+          
+            <Card.Subtitle className="mb-2 text-muted" aria-label={`Meeting Time: ${formatMeetingTimeRange(meeting.start_time, meeting.end_time)}`}>
+              {meeting.weekday_display} - {formatMeetingTimeRange(meeting.start_time, meeting.end_time)}
             </Card.Subtitle>
             <Card.Subtitle className="mb-2 text-muted" aria-label={`Area: ${getFullAreaName(meeting.area)}`}>
               {getFullAreaName(meeting.area)}
@@ -111,7 +113,8 @@ const FavoritesList = () => {
               </Col>
             )}
           </Row>
-          <div className="pagination-controls">
+
+     <div className="pagination-controls">
             <button onClick={handlePreviousPage} disabled={currentPage === 1}>
               Previous
             </button>

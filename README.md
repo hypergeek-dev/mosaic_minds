@@ -127,4 +127,45 @@ To ensure the quality and reliability of the JavaScript code in my project, I ha
 
 Overall, by conducting thorough manual testing of user stories and validating my JavaScript code, I aimed to ensure that the project meets the desired standards and functions correctly.
 
+# Event Management System Database Schema
 
+As the full-stack developer behind this Django-React event management system, I've designed the database schema to efficiently handle the complex relationships between superusers, registered users, non-registered users, and the various entities such as profiles, meetings, and favorites. This schema ensures that the system can scale while maintaining the integrity and privacy of user data.
+
+## Overview of Relationships
+
+The system's database design encompasses three main Django apps: `profiles`, `meetings`, and `favorites`. Each app is responsible for managing different aspects of the system, from user profiles to event creation and user preferences. Here's how these relationships are structured:
+
+### Profiles App
+
+- **User-Profile Relationship**: Implements a one-to-one relationship between Django's built-in User model and the custom Profile model. This design choice allows us to extend user information with additional fields like contact details and biographies without modifying the original User model.
+  
+  **Schema Definition**:
+  ```python
+  class Profile(models.Model):
+      user = models.OneToOneField(User, on_delete=models.CASCADE)
+      # Additional fields...
+
+Meetings App
+User-Meeting Relationship: Facilitates a one-to-many relationship from users to meetings. Each meeting is created by a single user (creator), but a user can create multiple meetings. This relationship is crucial for enabling users to manage their own events.
+
+Schema Definition:
+
+class Meeting(models.Model):
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    # Meeting details...
+
+
+Favorites App
+User-Favorite Meeting Relationship: Represents a many-to-many relationship between users and meetings through favorites. Users can mark multiple meetings as favorites, and meetings can be favorited by multiple users. This relationship is explicitly managed through the Favorite model to allow for future enhancements such as tracking when a meeting was favorited.
+
+Schema Definition:
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
+    # Potential additional fields...
+
+Implementation Considerations
+Privacy and Security: The schema design considers privacy and security, especially in relationships that involve user data. For instance, editing and deletion permissions are restricted to the creator of a meeting.
+Scalability: By segregating functionalities into distinct apps (profiles, meetings, favorites), the system is modular, making it easier to scale and maintain.
+Extensibility: The explicit definition of relationships, especially the many-to-many through models, provides flexibility to add more features in the future without significant schema changes.

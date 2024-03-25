@@ -3,8 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import ProfileDetails from '../components/ProfileDetails';
 import ProfileEditForm from '../components/ProfileEditForm';
-import FavoritesList from '../components/FavoritesList'; 
-
+import FavoritesList from '../components/FavoritesList';
 
 const ProfilePage = () => {
     let { path } = useRouteMatch();
@@ -12,13 +11,20 @@ const ProfilePage = () => {
     return (
         <Container>
             <Row>
-                <Col md={6}>
+                <Col md={12}>
                     <Switch>
                         <Route exact path={path} component={ProfileDetails} />
                         <Route path={`${path}/edit`} component={ProfileEditForm} />
                     </Switch>
                 </Col>
-                <Col md={6}>
+            </Row>
+            <Row className="mt-4">
+                <Col md={12} className="text-center">
+                    <h2>Favorites</h2> 
+                </Col>
+            </Row>
+            <Row>
+                <Col md={12}>
                     <FavoritesList />
                 </Col>
             </Row>

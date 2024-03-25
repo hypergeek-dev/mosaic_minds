@@ -5,17 +5,21 @@ class FavoriteSerializer(serializers.ModelSerializer):
     
     meeting_name = serializers.ReadOnlyField(source='meeting.name')
     area = serializers.ReadOnlyField(source='meeting.area')
+    weekday_display = serializers.ReadOnlyField(source='meeting.get_weekday_display')  # Adjusted to call the method
+    start_time = serializers.ReadOnlyField(source='meeting.start_time')  # Replacing meeting_time
+    end_time = serializers.ReadOnlyField(source='meeting.end_time')  # New field
     
     class Meta:
         model = Favorite
-        fields = ['id', 'user', 'meeting', 'created_at', 'meeting_name', 'area']
-        read_only_fields = ['id', 'user', 'created_at', 'meeting_name', 'weekday_display', 'area']
+        fields = ['id', 'user', 'meeting', 'created_at', 'meeting_name', 'area', 'weekday_display', 'start_time', 'end_time']
+        read_only_fields = ['id', 'user', 'created_at', 'meeting_name', 'area', 'weekday_display', 'start_time', 'end_time']
 
     def create(self, validated_data):
         validated_data['user'] = self.context['request'].user
         return super().create(validated_data)
 
     def validate(self, data):
+        # Check if this favorite already exists for the current user
         if Favorite.objects.filter(user=self.context['request'].user, meeting=data.get('meeting')).exists():
             raise serializers.ValidationError("This favorite already exists for the current user.")
         return data

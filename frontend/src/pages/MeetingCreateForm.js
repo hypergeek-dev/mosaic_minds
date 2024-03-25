@@ -99,15 +99,26 @@ const MeetingCreateForm = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Control 
-                        name="meeting_time" 
-                        type="time" 
-                        {...register("meeting_time", { required: "Meeting time is required" })} 
-                        isInvalid={errors.meeting_time}
-                        aria-label="Meeting Time"
+                    <Form.Label>Start Time</Form.Label>
+                    <Form.Control
+                        type="time"
+                        {...register("start_time", { required: "Start time is required" })}
+                        isInvalid={errors.start_time}
                     />
                     <Form.Control.Feedback type="invalid">
-                        {errors.meeting_time?.message}
+                        {errors.start_time?.message}
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>End Time</Form.Label>
+                    <Form.Control
+                        type="time"
+                        {...register("end_time", { required: "End time is required" })}
+                        isInvalid={errors.end_time}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.end_time?.message}
                     </Form.Control.Feedback>
                 </Form.Group>
 

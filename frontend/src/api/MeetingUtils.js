@@ -42,21 +42,24 @@ const areaMapping = {
     return areaMapping[areaInitials] || "Unknown Area";
   };
   
-  export const formatMeetingTime = (timeString) => {
-    if (timeString && timeString.includes(":")) {
-      const [hours, minutes] = timeString.split(":");
-      const meetingTime = new Date();
-      meetingTime.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0);
+  export const formatMeetingTimeRange = (startTimeString, endTimeString) => {
+    const formatTime = (timeString) => {
+      if (timeString && timeString.includes(":")) {
+        const [hours, minutes] = timeString.split(":");
+        const time = new Date();
+        time.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0);
   
-      
-      let formattedHours = meetingTime.getHours();
-      const ampm = formattedHours >= 12 ? 'PM' : 'AM';
-      formattedHours = formattedHours % 12;
-      formattedHours = formattedHours ? formattedHours : 12; 
-      const formattedMinutes = meetingTime.getMinutes().toString().padStart(2, '0');
+        let formattedHours = time.getHours();
+        const ampm = formattedHours >= 12 ? 'PM' : 'AM';
+        formattedHours = formattedHours % 12;
+        formattedHours = formattedHours ? formattedHours : 12; 
+        const formattedMinutes = time.getMinutes().toString().padStart(2, '0');
   
-      return `${formattedHours}:${formattedMinutes} ${ampm}`;
-    } else {
-      return "Invalid Time";
-    }
+        return `${formattedHours}:${formattedMinutes} ${ampm}`;
+      } else {
+        return "Invalid Time";
+      }
+    };
+  
+    return `${formatTime(startTimeString)} - ${formatTime(endTimeString)}`;
   };

@@ -6,12 +6,13 @@ const HeroBanner = () => {
   return (
     <div className="hero" aria-label="Hero Banner">
       <img src={imageUrl} alt="Hero" className="hero_image" />
-      <div className="col text-center hero_overlay_text text-box">
+      <div className="col text-center hero_overlay_text text-box text-center"> 
         <p>"Diversity: the art of thinking independently together." <br/> - Malcolm Forbes</p>
       </div>
     </div>
   );
 };
+
 
 const Home = () => {
   return (

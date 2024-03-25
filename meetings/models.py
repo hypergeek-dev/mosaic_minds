@@ -5,7 +5,8 @@ from django.conf import settings
 class Meeting(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_meetings')
     name = models.CharField(max_length=100)
-    meeting_time = models.TimeField()
+    start_time = models.TimeField()  
+    end_time = models.TimeField()  
     approved = models.BooleanField(default=False)
 
     WEEKDAY = (

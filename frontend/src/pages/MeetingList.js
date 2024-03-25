@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { getFullAreaName, formatMeetingTime } from '../api/MeetingUtils';
+import { getFullAreaName, formatMeetingTimeRange } from '../api/MeetingUtils'; 
 import axios from 'axios';
-
-
 
 const fetchMeetings = async (filters, page) => {
   try {
     const queryParams = new URLSearchParams({
       name: filters?.meetingName || '',
       weekday: filters?.day || '',
-      time_of_day: filters?.time || '',
-      area: filters?.area || '',
+      area: filters?.area || '', 
       page: page || 1,
     }).toString();
 
@@ -67,11 +64,12 @@ const MeetingList = ({ filters }) => {
         <Card className="h-100 shadow-sm">
           <Card.Body>
             <Card.Title aria-label={`Meeting Name: ${meeting.name}`}>{meeting.name}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted" aria-label={`Weekday: ${meeting.weekday_display}`}>
-              {meeting.weekday_display} - {formatMeetingTime(meeting.meeting_time)}
+      
+            <Card.Subtitle className="mb-2 text-muted" aria-label={`Meeting Time: ${formatMeetingTimeRange(meeting.start_time, meeting.end_time)}`}>
+              {meeting.weekday_display} - {formatMeetingTimeRange(meeting.start_time, meeting.end_time)}
             </Card.Subtitle>
-            <Card.Subtitle className="mb-2 text-muted" aria-label={`Area: ${getFullAreaName(meeting.area)}`}>
-              {getFullAreaName(meeting.area)}
+            <Card.Subtitle className="mb-2 text-muted" aria-label={`Area: ${getFullAreaName(meeting.area_display)}`}>
+              {meeting.area_display}
             </Card.Subtitle>
             <Card.Text aria-label={`Description: ${meeting.description}`}>
               {meeting.description}

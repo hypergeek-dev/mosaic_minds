@@ -52,3 +52,38 @@ html {
 .button-spacing {
   margin: 5px; 
 }
+
+/* Base styles */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero, .text-box, .button-box {
+  width: 100%;
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .hero, .text-box, .button-box {
+
+    width: 30%;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .container {
+    flex-direction: column;
+  }
+
+
+  .button-box {
+    order: -1;
+  }
+}
