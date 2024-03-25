@@ -27,18 +27,6 @@ html {
   border-radius: 15px;
 }
 
-
-@media (max-width: 768px) {
-  .hero-image {
-    height: 250px;
-  }
-
-  .btn-lg {
-    width: 100%;
-    margin-top: 10px;
-  }
-}
-
 .createdByUserTextbox {
   background-color: green;
   color: white;
@@ -62,28 +50,25 @@ html {
 .hero, .text-box, .button-box {
   width: 100%;
 }
-
-/* Desktop styles */
+/* Media Query for Tablets and above */
 @media (min-width: 768px) {
   .container {
     flex-direction: row;
     justify-content: space-around;
   }
-
+  
   .hero, .text-box, .button-box {
-
     width: 30%;
+  }
+  
+  .form-container-custom {
+    max-width: 75%;
   }
 }
 
-/* Mobile styles */
-@media (max-width: 767px) {
-  .container {
-    flex-direction: column;
-  }
-
-
-  .button-box {
-    order: -1;
+/* Media Query for Large Desktops */
+@media (min-width: 992px) {
+  .form-container-custom {
+    max-width: 60%;
   }
 }

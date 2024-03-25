@@ -16,7 +16,6 @@ const VolunteerForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
- 
             const response = await axios.post('/volunteer/', formData);
             console.log(response.data);
             alert('Application submitted successfully!');
@@ -32,13 +31,15 @@ const VolunteerForm = () => {
     };
 
     return (
-        <Container className="my-4">
-            <Row className="justify-content-center">
-                <Col md={8} lg={6}>
+<Container className="my-4 form-container-custom">
+    <Row className="justify-content-center">
+    <Col md={8} lg={12}> 
+
                     <Card>
                         <Card.Header as="h3" className="text-center">Volunteer Application</Card.Header>
                         <Card.Body>
                             <Form onSubmit={handleSubmit} aria-label="Volunteer Application Form">
+                        
                                 <Form.Group className="mb-3">
                                     <Form.Label htmlFor="name">Name</Form.Label>
                                     <Form.Control

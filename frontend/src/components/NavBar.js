@@ -18,14 +18,13 @@ const NavBar = () => {
       setCurrentUser(null);
       removeTokenTimestamp();
     } catch (err) {
-      // console.log(err);
     }
   };
 
   return (
     <Navbar expand="md" bg="light" variant="light">
       <Container>
-        <Navbar.Brand as={Link} to="/">Navbar</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">Mosaic Minds</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

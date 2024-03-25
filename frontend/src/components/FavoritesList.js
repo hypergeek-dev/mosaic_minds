@@ -52,13 +52,11 @@ const FavoritesList = () => {
   };
 
   const renderMeetingCard = (meeting) => {
-    console.log(meeting);
     return (
       <Col key={meeting.id}>
         <Card className="h-100 shadow-sm">
           <Card.Body>
             <Card.Title aria-label={`Meeting Name: ${meeting.name}`}>{meeting.meeting_name}</Card.Title>
-          
             <Card.Subtitle className="mb-2 text-muted" aria-label={`Meeting Time: ${formatMeetingTimeRange(meeting.start_time, meeting.end_time)}`}>
               {meeting.weekday_display} - {formatMeetingTimeRange(meeting.start_time, meeting.end_time)}
             </Card.Subtitle>
@@ -78,11 +76,6 @@ const FavoritesList = () => {
                 Online Meeting
               </a>
             )}
-            {meeting.is_owner && (
-              <div className="Is_OwnerTextbox" aria-label="This meeting is created by you">
-                Is created by you
-              </div>
-            )}
           </Card.Footer>
         </Card>
       </Col>
@@ -92,39 +85,31 @@ const FavoritesList = () => {
   return (
     <Container className="my-4">
       {isLoading ? (
-        <Container className="my-4 text-center">
-          <Spinner animation="border" role="status" />
-          <p>Loading favorites...</p>
-        </Container>
+        <Spinner animation="border" role="status" className="d-block mx-auto my-4">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
       ) : error ? (
-        <Container className="my-4">
-          <Alert variant="danger">
-            There was an error fetching the favorites: {error.message}
-          </Alert>
-        </Container>
+        <Alert variant="danger" className="text-center">
+          There was an error fetching the favorites: {error.message}
+        </Alert>
       ) : (
-        <>
-          <Row xs={1} md={2} lg={3} className="g-4">
-            {favorites?.length > 0 ? (
-              favorites.map(renderMeetingCard)
-            ) : (
-              <Col>
-                <p>No favorites available</p>
-              </Col>
-            )}
-          </Row>
-
-     <div className="pagination-controls">
-            <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+        <Row xs={1} md={2} lg={3} className="g-4">
+          {favorites.length > 0 ? favorites.map(renderMeetingCard) : <Col>No favorites available</Col>}
+        </Row>
+      )}
+      <div className="pagination-container">
+        <Row>
+          <Col className="d-flex justify-content-between">
+            <button onClick={handlePreviousPage} disabled={currentPage === 1} className="btn btn-outline-primary">
               Previous
             </button>
             <span>Page {currentPage} of {totalPages}</span>
-            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+            <button onClick={handleNextPage} disabled={currentPage === totalPages} className="btn btn-outline-primary">
               Next
             </button>
-          </div>
-        </>
-      )}
+          </Col>
+        </Row>
+      </div>
     </Container>
   );
 };
