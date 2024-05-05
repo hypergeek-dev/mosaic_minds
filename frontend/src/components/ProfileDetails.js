@@ -20,12 +20,13 @@ function ProfileDetails() {
           setProfile(data);
           setHasLoaded(true);
         } catch (err) {
-
+         
         }
       };
       fetchData();
     }
-  }, []);
+  }, [currentUser]); 
+  
 
   const profileId = profile.id;
   const profileDetails = (
