@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getFullAreaName, formatMeetingTimeRange } from '../api/MeetingUtils'; 
 import axios from 'axios';
 
+
 const fetchMeetings = async (filters, page) => {
   try {
     const queryParams = new URLSearchParams({
@@ -119,14 +120,16 @@ const MeetingList = ({ filters }) => {
               </Col>
             )}
           </Row>
-          <div className="pagination-controls">
-            <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-              Previous
-            </button>
-            <span>Page {currentPage} of {totalPages}</span>
-            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-              Next
-            </button>
+          <div className="pagination-controls-wrapper">
+            <div className="pagination-controls">
+              <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                Previous
+              </button>
+              <span>Page {currentPage} of {totalPages}</span>
+              <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                Next
+              </button>
+            </div>
           </div>
         </>
       )}
