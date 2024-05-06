@@ -41,11 +41,6 @@ html {
   margin: 5px; 
 }
 
-/* Base styles */
-.container {
-  display: flex;
-  flex-direction: column;
-}
 
 .hero, .text-box, .button-box {
   width: 100%;
