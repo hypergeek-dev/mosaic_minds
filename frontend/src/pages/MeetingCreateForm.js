@@ -2,20 +2,27 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 const MeetingCreateForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [submitResponse, setSubmitResponse] = useState('');
+    const history = useHistory();
 
     const onSubmit = async (data) => {
         try {
             await axios.post('/meetings/', data); 
             setSubmitResponse('Meeting created successfully!');
+            setTimeout(() => {
+                setSubmitResponse('');
+                history.push('/meeting-list');
+            }, 500); 
         } catch (error) {
             console.error(error);
-            setSubmitResponse('Failed to create meeting.');
+            setSubmitResponse('Failed to create meeting. Please try again.');
         }
     };
+    
 
     const areaOptions = [
         { value: 'CI', label: 'Channel Islands Area' },
