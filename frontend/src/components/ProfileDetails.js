@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Container, Card } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { axiosReq } from "../api/AxiosDefaults";
 import { useCurrentUser } from "../auth/AuthContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-
+import ProfileEditForm from "./ProfileEditForm";
 
 function ProfileDetails() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profile, setProfile] = useState({});
+  const [editMode, setEditMode] = useState(false);
   const currentUser = useCurrentUser();
 
   useEffect(() => {
@@ -20,45 +18,41 @@ function ProfileDetails() {
           setProfile(data);
           setHasLoaded(true);
         } catch (err) {
-         
+          console.log(err);
         }
       };
       fetchData();
     }
-  }, [currentUser]); 
-  
+  }, [currentUser]);
 
-  const profileId = profile.id;
-  const profileDetails = (
-    <Card className="text-center">
-      <Card.Header>
-        <h3 className="m-0">
-          {profile?.owner || 'No Owner'}
-          <Link to={`/profiles/${profileId}/edit/`} className="ms-2 button-spacing">
-            <FontAwesomeIcon icon={faUserEdit} />
-          </Link>
-        </h3>
-      </Card.Header>
-      <Card.Body>
-        <Row className="mb-2">
-          <Col><strong>First Name:</strong> {profile?.first_name || 'No First Name'}</Col>
-          <Col><strong>Last Name:</strong> {profile?.last_name || 'No Last Name'}</Col>
-        </Row>
-        <Row className="mb-2">
-          <Col><strong>Email:</strong> {profile?.email || 'No Email'}</Col>
-          <Col><strong>Phone Number:</strong> {profile?.phonenumber || 'No Phone Number'}</Col>
-        </Row>
-        <Row className="mb-2">
-          <Col><strong>Role:</strong> {profile?.role_at_meeting || 'No Role'}</Col>
-          <Col><strong>Joined:</strong> {profile?.created_at || 'No Join Date'}</Col>
-        </Row>
-      </Card.Body>
-    </Card>
-  );
+  const handleCancelEdit = () => {
+    setEditMode(false);
+  };
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
 
   return (
     <Container className="my-4">
-      {hasLoaded ? profileDetails : <p>Loading...</p>}
+      {hasLoaded ? (
+        editMode ? (
+          <ProfileEditForm profile={profile} onCancel={handleCancelEdit} />
+        ) : (
+
+          <>
+            <h3>{profile?.owner || 'No Owner'}</h3>
+            <p><strong>First Name:</strong> {profile?.first_name || 'No First Name'}</p>
+            <p><strong>Last Name:</strong> {profile?.last_name || 'No Last Name'}</p>
+            <p><strong>Email:</strong> {profile?.email || 'No Email'}</p>
+            <p><strong>Phone Number:</strong> {profile?.phonenumber || 'No Phone Number'}</p>
+            <p><strong>Role:</strong> {profile?.role_at_meeting || 'No Role'}</p>
+            <button onClick={toggleEditMode}>Edit Profile</button>
+          </>
+        )
+      ) : (
+        <p>Loading...</p>
+      )}
     </Container>
   );
 }
