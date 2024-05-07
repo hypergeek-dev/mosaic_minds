@@ -1,5 +1,3 @@
-// App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './api/AxiosDefaults';
@@ -17,10 +15,10 @@ import MeetingCreateForm from './pages/MeetingCreateForm';
 import MeetingDetails from './components/MeetingDetails';
 import MeetingEditForm from './components/MeetingEditForm';
 import ProfilePage from './pages/ProfilePage';
-import ProfileEditForm from './components/ProfileEditForm'; // Import the ProfileEditForm component
+import ProfileEditForm from './components/ProfileEditForm';
 import NotFound from './pages/NotFound';
-import UserNameForm from './components/UserNameForm'; 
-import UserPasswordForm from './components/UserPasswordForm'; 
+import UserNameForm from './components/UserNameForm';
+import UserPasswordForm from './components/UserPasswordForm';
 
 function App() {
   return (
