@@ -8,88 +8,196 @@ The site is live here: [Mosaic Minds](https://mosaicminds-d8fd1fea2187.herokuapp
 
 1. [About Mosaic Mind](#about-mosaic-mind)
 2. [Features](#features)
-    - [Responsive Web Design](#responsive-web-design)
-    - [Navigation and Header](#navigation-and-header)
-    - [Styling and Layout](#styling-and-layout)
-    - [Lazy Loading of Images](#lazy-loading-of-images)
-    - [Interactive Search Functionality](#interactive-search-functionality)
-    - [Content Sections](#content-sections)
-    - [Footer](#footer)
-    - [JavaScript Enhancements](#javascript-enhancements)
-    - [Accessibility](#accessibility)
-    - [Performance Optimization](#performance-optimization)
+   - [Responsive Web Design](#responsive-web-design)
+   - [Navigation and Header](#navigation-and-header)
+   - [Styling and Layout](#styling-and-layout)
+   - [Lazy Loading of Images](#lazy-loading-of-images)
+   - [Interactive Search Functionality](#interactive-search-functionality)
+   - [Content Sections](#content-sections)
+   - [Footer](#footer)
+   - [JavaScript Enhancements](#javascript-enhancements)
+   - [Accessibility](#accessibility)
+   - [Performance Optimization](#performance-optimization)
 3. [Testing](#testing)
-    - [Manual Testing of User Stories](#manual-testing-of-user-stories)
-    - [Validation of JavaScript Code](#validation-of-javascript-code)
+   - [Manual Testing of User Stories](#manual-testing-of-user-stories)
+   - [Validation of JavaScript Code](#validation-of-javascript-code)
 4. [Event Management System Database Schema](#event-management-system-database-schema)
-    - [Overview of Relationships](#overview-of-relationships)
-        - [Profiles App](#profiles-app)
-        - [Meetings App](#meetings-app)
-    - [Implementation Considerations](#implementation-considerations)
+   - [Overview of Relationships](#overview-of-relationships)
+     - [Profiles App](#profiles-app)
+     - [Meetings App](#meetings-app)
+   - [Implementation Considerations](#implementation-considerations)
 5. [Attributions](#attributions)
 6. [Licensing](#licensing)
 
-
 ## About Mosaic Mind
 
-Mosaic Mind is a compassionate association dedicated to nurturing an inclusive community for individuals with neurodiverse conditions. 
-Our mission is to provide a platform where neurodiversity is not just accepted but celebrated. 
+Mosaic Mind is a compassionate association dedicated to nurturing an inclusive community for individuals with neurodiverse conditions.
+Our mission is to provide a platform where neurodiversity is not just accepted but celebrated.
 
 We run a network of support groups all over the UK, offering a safe space for sharing experiences, learning, and growing together.
 This site provides access to online meetings in your local area through our event management system.
 
-## Features
+## Features:
 
-### Responsive Web Design
-- **Mobile-friendly layout**: Adaptive design for different screen sizes.
-- **Viewport and Media Queries**: Uses viewport meta tags and CSS media queries for responsiveness.
+1. **Meetings App:**
 
-### Navigation and Header
-- **Navigation Bars**: Top and secondary navigation bars for easy access to different sections.
-- **Branding**: Site branding and logo included in the header.
+   - List of scheduled meetings visible without authentication.
+   - Authentication required for adding, editing, and favoriting meetings.
+   - Ability to add meetings.
+   - Ability to edit/delete own meetings.
+   - Option to favorite/unfavorite meetings.
+   - Profile page with listed favorite meetings.
+   - Editable user information (username, email, phone number, role at meetings) on the profile page.
 
-### Styling and Layout
-- **External CSS**: For consistent and modern styling.
-- **Layout**: Uses grid or flexbox layout for structured content.
+2. **Authentication:**
 
-### Lazy Loading of Images
-- **Performance**: Images are loaded lazily for improved performance.
-- **CSS Classes**: Control image visibility and loading behavior.
+   - Required for certain actions like adding/editing meetings and accessing user-specific features.
 
-### Interactive Search Functionality
-- **Advanced Search Form**: With filters like day, time, and meeting type.
-- **Interactive Elements**: Dropdowns, checkboxes, and radio buttons for user-friendly filter options.
+3. **Search Functionality:**
 
-### Content Sections
-- **Structure**: Well-structured content sections with clear headings.
-- **Meeting Details**: Presented in a list or grid format.
+   - Available to all users.
+   - Allows searching for meetings.
 
-### Footer
-- **Additional Information**: Contains links, a copyright notice, and other essential information.
-- **Links**: To related subdomains and important sections of the site.
+4. **Navigation:**
 
-### JavaScript Enhancements
-- **Dynamic Content**: Elements like form submissions and interactive content.
+   - Links to all apps (Meetings, Volunteer, etc.) on a page for easy access.
 
-### Accessibility
-- **Navigation**: Keyboard navigation and screen reader compatibility.
-- **Semantic HTML**: And ARIA roles for accessibility.
+5. **Volunteer App:**
+   - Accessible to everyone, regardless of authentication.
+   - Form to fill out for volunteering.
 
-### Performance Optimization
-- **Optimization**: Optimized assets for fast loading.
-- **Efficiency**: Compressed CSS and JavaScript.
+## Tech Stack
 
-## Testing
+### Backend
+
+- **Django** - Python-based web framework for building robust backend applications.
+- **dj-rest-auth** - Django package for RESTful authentication.
+- **Django Allauth** - Django package for authentication, registration, account management, and social authentication.
+- **Django CORS Headers** - Django package for handling Cross-Origin Resource Sharing (CORS).
+- **Django Filter** - Django package for filtering querysets dynamically.
+- **Django Phonenumber Field** - Django package for storing phone numbers in models.
+- **Django Rest Framework** - Django package for building RESTful APIs.
+- **Django Rest Framework Simple JWT** - Django package for JWT authentication.
+- **Gunicorn** - Python WSGI HTTP Server for UNIX.
+
+### Frontend
+
+- **React** - JavaScript library for building user interfaces.
+- **React Bootstrap** - React components for faster and easier web development using Bootstrap.
+- **Axios** - Promise-based HTTP client for the browser and Node.js.
+- **Date-fns** - JavaScript date utility library.
+- **JWT Decode** - JavaScript library for decoding JWTs.
+- **React Icons** - SVG icons as React components.
+- **React Infinite Scroll Component** - React component for infinite scrolling.
+- **React Router DOM** - DOM bindings for React Router.
+- **React Hook Form** - React library for flexible and easy-to-use form validation.
+- **Web Vitals** - Library for measuring web performance metrics.
+
+## Deployment
+
+To deploy the backend locally, follow these steps:
+
+1. Clone the repository from GitHub:
+
+```
+git clone https://github.com/users/hypergeek-dev/projects/mosaicminds
+```
+
+2. Install the required dependencies using pip:
+
+```
+pip install -r requirements.txt
+```
+
+3. Create environmental file:
+
+- Create a new file named `.env` in the root directory of your project.
+- Open the `.env` file in a text editor and add the following lines:
+
+```
+import os
+
+os.environ['ALLOWED_HOSTS'] = '(Add the list of allowed hosts for your application)'
+os.environ['API_KEY'] = '(Add your API key for accessing external services)'
+os.environ['CLIENT_ORIGIN'] = '(Add the URL of your client application)'
+os.environ['CLOUDINARY_URL'] = '(Add your Cloudinary URL for storing and managing media)'
+os.environ['DATABASE_URL'] = '(Add the URL for connecting to your database)'
+os.environ['HEROKU_POSTGRESQL_AQUA_URL'] = '(Add the URL for connecting to your Heroku PostgreSQL database)'
+os.environ['NEWS_API_KEY'] = '(Add your API key for accessing news data)'
+os.environ['SECRET_KEY'] = '(Add a secret key for securing your application)'
+```
+
+4. Make migrations
+
+```
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+```
+
+5. Go to the frontend folder
+
+```
+cd frontend
+```
+
+6. Install Frontend dependencies
+
+```
+npm install
+```
+
+7. Start the backend server:
+
+```
+python manage.py runserver
+```
+
+# If you desire to use the demo-users and the demo-meetings.
+
+```
+python create_demo_users.py
+```
+
+Make sure to make the users before the meetings, unless you already have more than 20 members in your database.
+
+```
+python create_demo_meetings.py
+```
+
+## Reusable Components
+
+## Reusable Components
+
+1. **FavoritesList.js**: This component displays a list of favorite meetings for a user. It can be reused across different parts of the application where a user's favorite meetings need to be displayed.
+
+2. **MeetingEditForm.js**: This component provides a form for editing meeting details. It can be reused whenever users need to edit the details of a meeting.
+
+3. **NavBar.js**: This component represents the navigation bar of the application. It can be reused across all pages to provide consistent navigation functionality.
+
+4. **ProfileEditForm.js**: This component offers a form for editing user profile details such as username, email, phone number, and role at meetings. It can be reused wherever user profile editing functionality is required.
+
+5. **UserPasswordForm.js**: This component presents a form for users to update their passwords. It can be reused across different parts of the application where password updating functionality is needed.
+
+6. **MeetingDetails.js**: This component displays detailed information about a meeting. It can be reused wherever meeting details need to be shown, such as in a list of meetings or on a meeting details page.
+
+7. **MeetingSearchForm.js**: This component provides a search form for users to search for meetings based on specific criteria. It can be reused wherever meeting search functionality is required.
+
+8. **ProfileDetails.js**: This component displays detailed information about a user's profile, such as their username, email, phone number, and role at meetings. It can be reused wherever user profile details need to be shown.
+
+9. **UserNameForm.js**: This component offers a form for users to update their usernames. It can be reused across different parts of the application where username updating functionality is needed.
 
 ### Manual Testing of User Stories
 
 For each user story in my project, I have conducted thorough manual testing to ensure that the functionality meets the specified requirements. Here are the user stories and the results of my testing:
 
 #### Epic
+
 - **_User Story for Event Management_**
   - As a registered user, I want to be able to edit or delete the online meetings I have created, so that I can manage my events and keep the information up-to-date.
 
 ### Must-Have
+
 - **User Story for Viewing Events**
   - As a registered user, I want to view all available meetings, so that I can browse and decide which events to attend.
 - **User Story for Searching Events**
@@ -100,6 +208,7 @@ For each user story in my project, I have conducted thorough manual testing to e
   - As a registered user, I want to edit or delete my profile on the profile page, so that I can control my personal information and how I am represented on the platform.
 
 ### Good to Have
+
 - _User Story for Favoriting Events_
   - As a registered user, I want to mark meetings as favorites on the meeting detail page, so that I can easily find them later and keep track of events I'm interested in.
 - _User Story for Managing Favorites_
@@ -115,32 +224,39 @@ To ensure the quality and reliability of the JavaScript code in my project, I ha
    - I utilized a linting tool to analyze my JavaScript code for potential errors, code style violations, and best practice adherence.
    - Final result: No errors.
 
-## Event Management System Database Schema
+### Event Management System Database Overview:
 
-As the full-stack developer behind this Django-React event management system, I've designed the database schema to efficiently handle the complex relationships between superusers, registered users, non-registered users, and the various entities such as profiles, meetings, and favorites. This schema ensures that the system can scale while maintaining the integrity and privacy of user data.
+This database diagram represents the underlying structure of our event management system built using Django and React. It facilitates the organization and participation in meetings and volunteer activities. Let's break down the key components:
 
-### Overview of Relationships
+1. **User_Profile:**
 
-The system's database design encompasses three main Django apps: `profiles`, `meetings`, and `favorites`. Each app is responsible for managing different aspects of the system, from user profiles to event creation and user preferences. Here's how these relationships are structured:
+   - Stores user authentication and profile information.
+   - Includes fields for username, email, password, and more.
 
-#### Profiles App
+2. **Meeting:**
 
-- **User-Profile Relationship**: Implements a one-to-one relationship between Django's built-in User model and the custom Profile model. This design choice allows us to extend user information with additional fields like contact details and biographies without modifying the original User model.
+   - Tracks details of scheduled meetings.
+   - Attributes include name, start/end times, location, description, and more.
+   - Linked to user profiles for ownership and management.
 
-## Event Management System Database Schema
+3. **Favorite:**
 
-As the full-stack developer behind this Django-React event management system, I've designed the database schema to efficiently handle the complex relationships between superusers, registered users, non-registered users, and the various entities such as profiles, meetings, and favorites. This schema ensures that the system can scale while maintaining the integrity and privacy of user data.
+   - Manages user-selected favorite meetings.
+   - Records the relationship between users and their favorite meetings.
 
-### Overview of Relationships
+4. **VolunteerApplication:**
+   - Captures volunteer interest through a simple form.
+   - Contains fields for name, email, motivation, etc.
 
-The system's database design encompasses three main Django apps: `profiles`, `meetings`, and `favorites`. Each app is responsible for managing different aspects of the system, from user profiles to event creation and user preferences. Here's how these relationships are structured:
+**Relationships:**
 
-#### Profiles App
+- Meetings are owned and managed by users, facilitating authentication-based features like adding, editing, and favoriting meetings.
+- Favorite meetings are associated with users, enabling personalized meeting preferences.
+- Volunteer applications are not directly tied to meetings but serve as a separate entity for expressing interest in volunteering.
 
-- **User-Profile Relationship**: Implements a one-to-one relationship between Django's built-in User model and the custom Profile model. This design choice allows us to extend user information with additional fields like contact details and biographies without modifying the original User model.
-  
-#### Meetings App
-User-Meeting Relationship: Facilitates a one-to-many relationship from users to meetings. A single user (creator) can create multiple meetings, crucial for enabling users to manage their events.
+This database structure forms the backbone of our event management system, offering seamless user experiences and efficient organization of meetings and volunteer activities.
+
+![Image Description](https://res.cloudinary.com/dgvipn16a/image/upload/v1715101195/databasediagram_vyhhhj.png)
 
 ### Implementation Considerations
 
@@ -152,32 +268,29 @@ User-Meeting Relationship: Facilitates a one-to-many relationship from users to 
 
 ## Wireframes
 
-### Landing Page
-This is the first page you see when you arrive on the site.
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088486/Wireframes/Landing_Page_nrmmj8.png" width="60%"><br>
+First in labtop size.<br><br>
 
-<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088486/Wireframes/Landing_Page_nrmmj8.png" width="60%">
-First in labtop size.
-
-<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088483/Wireframes/Phone_-_Landing_page._m0ufyt.png" width="20%">
-And here, how it looks on phone
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088483/Wireframes/Phone_-_Landing_page._m0ufyt.png" width="20%"><br>
+And here, how it looks on phone<br><br>
 
 ### About Us
 
-<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088484/Wireframes/About_Us_jrv57k.png" width="60%">
-Labtop size.
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088484/Wireframes/About_Us_jrv57k.png" width="60%"><br>
+Labtop size.<br><br>
 
 ### Meetings
 
-<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088484/Wireframes/Meetings_whzuus.png" width="60%">
-Labtop size.
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088484/Wireframes/Meetings_whzuus.png" width="60%"><br>
+Labtop size.<br><br>
 
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088483/Wireframes/Phone_-_Meetings_igjcmp.png" width="20%"><br>
+Phone size.<br><br>
 
-<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088483/Wireframes/Phone_-_Meetings_igjcmp.png" width="20%">
-Phone size.
 ### Volunteer
 
-<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088485/Wireframes/Volunteer_qjpgu8.png" width="60%">
-And lastly, the volunteer page on labtop size. 
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088485/Wireframes/Volunteer_qjpgu8.png" width="60%"><br>
+And lastly, the volunteer page on labtop size.<br>
 
 ## Attributions
 
