@@ -150,6 +150,35 @@ User-Meeting Relationship: Facilitates a one-to-many relationship from users to 
 
 - **Extensibility**: The explicit definition of relationships, especially the many-to-many through models, adds flexibility for future feature enhancements without significant schema changes.
 
+## Wireframes
+
+### Landing Page
+This is the first page you see when you arrive on the site.
+
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088486/Wireframes/Landing_Page_nrmmj8.png" width="60%">
+First in labtop size.
+
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088483/Wireframes/Phone_-_Landing_page._m0ufyt.png" width="20%">
+And here, how it looks on phone
+
+### About Us
+
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088484/Wireframes/About_Us_jrv57k.png" width="60%">
+Labtop size.
+
+### Meetings
+
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088484/Wireframes/Meetings_whzuus.png" width="60%">
+Labtop size.
+
+
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088483/Wireframes/Phone_-_Meetings_igjcmp.png" width="20%">
+Phone size.
+### Volunteer
+
+<img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088485/Wireframes/Volunteer_qjpgu8.png" width="60%">
+And lastly, the volunteer page on labtop size. 
+
 ## Attributions
 
 The hero image used on this site was created with the assistance of OpenAI. We extend our gratitude to OpenAI for their support in enhancing the visual appeal of our platform.
