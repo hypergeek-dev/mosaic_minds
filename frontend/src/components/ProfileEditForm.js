@@ -67,6 +67,17 @@ const ProfileEditForm = () => {
     }
   };
 
+  const handleDeleteProfile = async () => {
+    try {
+      await axiosReq.delete(`/profiles/${id}`);
+      setCurrentUser(null);
+      history.push("/"); 
+    } catch (err) {
+      console.log(err);
+      setErrors(err.response?.data || {});
+    }
+  };
+
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
@@ -142,9 +153,11 @@ const ProfileEditForm = () => {
                   <Button variant="primary" type="submit" className="me-2 button-spacing">Save Changes</Button>
                   <Button variant="secondary" onClick={() => history.goBack()}>Cancel</Button>
 
-      
                   <Button variant="info" onClick={() => history.push('/edit/username')} className="me-2 button-spacing">Edit Username</Button>
                   <Button variant="warning" onClick={() => history.push('/edit/password')}>Change Password</Button>
+
+                  {/* Delete button */}
+                  <Button variant="danger" onClick={handleDeleteProfile} className="mt-3">Delete Profile</Button>
                 </div>
               </Form>
             </Card.Body>

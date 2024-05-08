@@ -10,9 +10,10 @@ class ProfileList(generics.ListCreateAPIView):
     """
     queryset = Profile.objects.all().order_by('-created_at')
     serializer_class = ProfileSerializer
-class ProfileDetail(generics.RetrieveUpdateAPIView):
+
+class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     """
-    Retrieve or update a profile if you're the owner.
+    Retrieve, update, or delete a profile if you're the owner.
     """
     queryset = Profile.objects.all() 
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
