@@ -26,6 +26,19 @@ const Home = () => {
           </div>
         </div>
       </section>
+      {/* Added Mosaic Mind content */}
+      <section className="mosaic-mind">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-md-8">
+              <h2 className="text-center">Mosaic Mind</h2>
+              <p className="text-center">Mosaic Mind is a compassionate association dedicated to nurturing an inclusive community for individuals with neurodiverse conditions.
+              Our mission is to provide a platform where neurodiversity is not just accepted but celebrated.</p>
+              <p className="text-center">This site provides access to online meetings in your local area.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
