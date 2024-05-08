@@ -275,6 +275,8 @@ This database structure forms the backbone of our event management system, offer
 
 - **Extensibility**: The explicit definition of relationships, especially the many-to-many through models, adds flexibility for future feature enhancements without significant schema changes.
 
+## Design choices
+I went with default font from the libraries used and default color throughout with the exception of adding #98BAB2 called Pale Aqua because it fits with the chosen hero image. The choices were based on simplicity of code which in turn reduces the carbon footprint.
 ## Wireframes
 
 <img src="https://res.cloudinary.com/dgvipn16a/image/upload/v1715088486/Wireframes/Landing_Page_nrmmj8.png" width="60%"><br>
