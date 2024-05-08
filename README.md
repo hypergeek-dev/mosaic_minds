@@ -198,27 +198,37 @@ For each user story in my project, I have conducted thorough manual testing to e
 #### Epic
 
 - **_User Story for Event Management_**
-  - As a registered user, I want to be able to edit or delete the online meetings I have created, so that I can manage my events and keep the information up-to-date.
-
+  - As a registered user, I want to be able to edit or delete the online meetings I have created, so that I can manage my events and keep the information up-to-date.  
+  Result: Through the meetinglist I have notification of which meetings I created, and I was able to click on edit and delete and achieve the desired result.  
 ### Must-Have
 
 - **User Story for Viewing Events**
-  - As a registered user, I want to view all available meetings, so that I can browse and decide which events to attend.
+  - As a registered user, I want to view all available meetings, so that I can browse and decide which events to attend.  
+ Result: From the navbar, I was able to click on the meetings link and view all available meetings. It has a details and link to the online meeting available on that page.  
 - **User Story for Searching Events**
-  - As a registered user, I want to use a search form to find specific meetings, so that I can quickly and efficiently find events that match my interests or availability.
-- **User Story for Event Creation**
-  - As a registered user, I want to add online meeting events, so that other users can view and join these meetings.
-- **User Story for Profile Management**
-  - As a registered user, I want to edit or delete my profile on the profile page, so that I can control my personal information and how I am represented on the platform.
+  - As a registered user, I want to use a search form to find specific meetings, so that I can quickly and efficiently find events that match my interests or availability.  
+  Result: I was able to access the search function from the landing page and through adjustable filters and input I found the meeting I wanted, or list of meetings within a certain time frame.  
 
+- **User Story for Event Creation**
+  - As a registered user, I want to add online meeting events, so that other users can view and join these meetings.  
+  Result: As a registered user, I had access to the ability to add meetings from the navbar which non-registered users can't and from there I added meeting with its name, time of day and weekday, description and online link.  
+
+- **User Story for Profile Management**
+  - As a registered user, I want to edit or delete my profile on the profile page, so that I can control my personal information and how I am represented on the platform.  
+  Result: As a registered user, I was able to access my profilepage and through there I press the edit button to either edit or delete my profile. 
 ### Good to Have
 
 - _User Story for Favoriting Events_
-  - As a registered user, I want to mark meetings as favorites on the meeting detail page, so that I can easily find them later and keep track of events I'm interested in.
+  - As a registered user, I want to mark meetings as favorites on the meeting detail page, so that I can easily find them later and keep track of events I'm interested in.  
+  Result: When I click on the meetings link in the navbar, I can press the link called Meeting details and through there I press the "Add to favorites" button which adds the meeting to my favorites.  
+
 - _User Story for Managing Favorites_
-  - As a registered user, I want to have a favorites page where I can view my collection of favorite meetings, so that I can easily revisit and manage the events I am most interested in.
+  - As a registered user, I want to have a favorites page where I can view my collection of favorite meetings, so that I can easily revisit and manage the events I am most interested in.  
+  Result: When I access my profilepage from the navbar. I have a section called favorites, where I have an overview of the meetings I have added to that section.  
+
 - _User Story for Volunteering Application_
-  - As a registered user, I want to apply to volunteer, so that I can contribute to the community and participate in organizing or supporting events.
+  - I want to apply to volunteer, so that I can contribute to the community and participate in organizing or supporting events.  
+  Result: I was able to click the link for the volunteerform in the navbar and through there, I was able to input my details and motivations for why I want to become a volunteer.
 
 ### Validation of JavaScript Code
 
