@@ -19,7 +19,7 @@ const VolunteerForm = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();s
+        e.preventDefault();
         if (!formData.name || !formData.email || !formData.motivation) {
             setSubmitResponse({
                 message: 'Please fill out all fields.',
