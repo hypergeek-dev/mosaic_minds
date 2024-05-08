@@ -71,57 +71,66 @@ useEffect(() => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ padding: '20px' }}>
       <h2>Edit Meeting</h2>
-      <label>
+      <label style={{ marginBottom: '10px' }}>
         Title:
         <input
           type="text"
           name="title"
           value={meeting.title}
           onChange={handleChange}
+          style={{ marginLeft: '10px' }}
         />
       </label>
       <br />
-      <label>
+      <label style={{ marginBottom: '10px' }}>
         Date:
         <input
           type="date"
           name="date"
           value={meeting.date}
           onChange={handleChange}
+          style={{ marginLeft: '10px' }}
         />
       </label>
       <br />
-      <label>
+      <label style={{ marginBottom: '10px' }}>
         Time:
         <input
           type="time"
           name="time"
           value={meeting.time}
           onChange={handleChange}
+          style={{ marginLeft: '10px' }}
         />
       </label>
       <br />
-      <label>
+      <label style={{ marginBottom: '10px' }}>
         Description:
         <textarea
           name="description"
           value={meeting.description}
           onChange={handleChange}
+          style={{ marginLeft: '10px', width: '100%' }}
         />
       </label>
       <br />
-      <label>
+      <label style={{ marginBottom: '10px' }}>
         Area:
-        <select name="area" value={meeting.area} onChange={handleChange}>
+        <select
+          name="area"
+          value={meeting.area}
+          onChange={handleChange}
+          style={{ marginLeft: '10px' }}
+        >
           {areas.map(area => (
             <option key={area.value} value={area.value}>{area.label}</option>
           ))}
         </select>
       </label>
       <br />
-      <button type="submit">Save Changes</button>
+      <button type="submit" style={{ marginTop: '10px' }}>Save Changes</button>
     </form>
   );
 };
