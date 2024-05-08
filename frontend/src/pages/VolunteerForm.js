@@ -9,7 +9,10 @@ const VolunteerForm = () => {
         motivation: ''
     });
 
-    const [submitResponse, setSubmitResponse] = useState(''); 
+    const [submitResponse, setSubmitResponse] = useState({
+        message: '',
+        variant: 'success' // Default to success for initial state
+    });
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,10 +20,21 @@ const VolunteerForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Check if any of the fields are empty
+        if (!formData.name || !formData.email || !formData.motivation) {
+            setSubmitResponse({
+                message: 'Please fill out all fields.',
+                variant: 'danger'
+            });
+            return;
+        }
         try {
             const response = await axios.post('/volunteer/', formData);
             console.log(response.data);
-            setSubmitResponse('Application submitted successfully!');
+            setSubmitResponse({
+                message: 'Application submitted successfully!',
+                variant: 'success'
+            });
             setFormData({
                 name: '',
                 email: '',
@@ -28,7 +42,10 @@ const VolunteerForm = () => {
             });
         } catch (error) {
             console.error('There was an error submitting the form:', error);
-            setSubmitResponse('Failed to submit application. Please try again.');
+            setSubmitResponse({
+                message: 'Failed to submit application. Please try again.',
+                variant: 'danger'
+            });
         }
     };    
 
@@ -86,7 +103,9 @@ const VolunteerForm = () => {
                                 </div>
                             </Form>
                             {/* Display toast notification */}
-                            {submitResponse && <Alert variant={submitResponse.includes('successfully') ? 'success' : 'danger'}>{submitResponse}</Alert>}
+                            {submitResponse.message && (
+                                <Alert variant={submitResponse.variant}>{submitResponse.message}</Alert>
+                            )}
                         </Card.Body>
                     </Card>
                 </Col>
