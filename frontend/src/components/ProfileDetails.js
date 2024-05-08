@@ -39,8 +39,7 @@ function ProfileDetails() {
         editMode ? (
           <ProfileEditForm profile={profile} onCancel={handleCancelEdit} />
         ) : (
-          // Render profile details if not in edit mode
-          // Render an edit button to toggle edit mode
+
           <>
             <h3>{profile?.owner || 'No Owner'}</h3>
             <p><strong>First Name:</strong> {profile?.first_name || 'No First Name'}</p>

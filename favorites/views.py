@@ -13,7 +13,6 @@ class FavoriteList(generics.ListCreateAPIView):
     def get_queryset(self):
         return Favorite.objects.filter(user=self.request.user)
 
-# Retrieve and destroy favorites
 class FavoriteDetail(generics.RetrieveDestroyAPIView):
     serializer_class = FavoriteSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -22,14 +21,12 @@ class FavoriteDetail(generics.RetrieveDestroyAPIView):
     def get_queryset(self):
         return Favorite.objects.filter(user=self.request.user)
 
-# Check if a meeting is a favorite
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
 def check_favorite(request, meeting_id):
     is_favorite = Favorite.objects.filter(user=request.user, meeting_id=meeting_id).exists()
     return Response({'isFavorite': is_favorite})
 
-# Toggle favorite status
 @api_view(['POST', 'DELETE'])
 @permission_classes([permissions.IsAuthenticated])
 def toggle_favorite(request, meeting_id):

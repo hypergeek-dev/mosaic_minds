@@ -26,7 +26,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {/* Added Mosaic Mind content */}
       <section className="mosaic-mind">
         <div className="container">
           <div className="row justify-content-center">

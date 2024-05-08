@@ -11,7 +11,7 @@ const VolunteerForm = () => {
 
     const [submitResponse, setSubmitResponse] = useState({
         message: '',
-        variant: 'success' // Default to success for initial state
+        variant: 'success' 
     });
 
     const handleChange = (e) => {
@@ -19,8 +19,7 @@ const VolunteerForm = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        // Check if any of the fields are empty
+        e.preventDefault();s
         if (!formData.name || !formData.email || !formData.motivation) {
             setSubmitResponse({
                 message: 'Please fill out all fields.',
@@ -102,7 +101,6 @@ const VolunteerForm = () => {
                                     <Button variant="primary" type="submit" aria-label="Submit Button">Submit</Button>
                                 </div>
                             </Form>
-                            {/* Display toast notification */}
                             {submitResponse.message && (
                                 <Alert variant={submitResponse.variant}>{submitResponse.message}</Alert>
                             )}

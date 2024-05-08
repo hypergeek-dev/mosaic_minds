@@ -61,7 +61,7 @@ const MeetingList = ({ filters }) => {
 
   const renderMeetingCard = (meeting) => {
     return (
-      <Col key={meeting.id} className="mb-4"> {/* Added mb-4 class for margin-bottom */}
+      <Col key={meeting.id} className="mb-4"> 
         <Card className="h-100 shadow-sm">
           <Card.Body>
             <Card.Title aria-label={`Meeting Name: ${meeting.name}`}>{meeting.name}</Card.Title>

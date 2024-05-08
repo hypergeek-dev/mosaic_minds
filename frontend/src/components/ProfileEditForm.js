@@ -156,7 +156,6 @@ const ProfileEditForm = () => {
                   <Button variant="info" onClick={() => history.push('/edit/username')} className="me-2 button-spacing">Edit Username</Button>
                   <Button variant="warning" onClick={() => history.push('/edit/password')}>Change Password</Button>
 
-                  {/* Delete button */}
                   <Button variant="danger" onClick={handleDeleteProfile} className="mt-3">Delete Profile</Button>
                 </div>
               </Form>

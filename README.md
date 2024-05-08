@@ -1,5 +1,7 @@
 # Mosaic Mind: Embracing Neurodiversity Across the UK
 
+![Mosaic Mind](https://res.cloudinary.com/dgvipn16a/image/upload/v1715163155/file_ilngjq.png)
+
 [Agile Projectboard](https://github.com/users/hypergeek-dev/projects/9)
 
 The site is live here: [Mosaic Minds](https://mosaicminds-d8fd1fea2187.herokuapp.com/)
@@ -35,16 +37,13 @@ The site is live here: [Mosaic Minds](https://mosaicminds-d8fd1fea2187.herokuapp
 
 ## About Mosaic Mind
 
-Mosaic Mind is a compassionate association dedicated to nurturing an inclusive community for individuals with neurodiverse conditions.
-Our mission is to provide a platform where neurodiversity is not just accepted but celebrated.
+Mosaic Mind is a compassionate association dedicated to nurturing an inclusive community for individuals with neurodiverse conditions. Our mission is to provide a platform where neurodiversity is not just accepted but celebrated.
 
-We run a network of support groups all over the UK, offering a safe space for sharing experiences, learning, and growing together.
-This site provides access to online meetings in your local area through our event management system.
+We run a network of support groups all over the UK, offering a safe space for sharing experiences, learning, and growing together. This site provides access to online meetings in your local area through our event management system.
 
-## Features:
+## Features
 
 1. **Meetings App:**
-
    - List of scheduled meetings visible without authentication.
    - Authentication required for adding, editing, and favoriting meetings.
    - Ability to add meetings.
@@ -54,16 +53,13 @@ This site provides access to online meetings in your local area through our even
    - Editable user information (username, email, phone number, role at meetings) on the profile page.
 
 2. **Authentication:**
-
    - Required for certain actions like adding/editing meetings and accessing user-specific features.
 
 3. **Search Functionality:**
-
    - Available to all users.
    - Allows searching for meetings.
 
 4. **Navigation:**
-
    - Links to all apps (Meetings, Volunteer, etc.) on a page for easy access.
 
 5. **Volunteer App:**
@@ -74,29 +70,28 @@ This site provides access to online meetings in your local area through our even
 
 ### Backend
 
-- **Django** - Python-based web framework for building robust backend applications.
-- **dj-rest-auth** - Django package for RESTful authentication.
-- **Django Allauth** - Django package for authentication, registration, account management, and social authentication.
-- **Django CORS Headers** - Django package for handling Cross-Origin Resource Sharing (CORS).
-- **Django Filter** - Django package for filtering querysets dynamically.
-- **Django Phonenumber Field** - Django package for storing phone numbers in models.
-- **Django Rest Framework** - Django package for building RESTful APIs.
-- **Django Rest Framework Simple JWT** - Django package for JWT authentication.
-- **Gunicorn** - Python WSGI HTTP Server for UNIX.
+- **Django**: Python-based web framework for building robust backend applications.
+- **dj-rest-auth**: Django package for RESTful authentication.
+- **Django Allauth**: Django package for authentication, registration, account management, and social authentication.
+- **Django CORS Headers**: Django package for handling Cross-Origin Resource Sharing (CORS).
+- **Django Filter**: Django package for filtering querysets dynamically.
+- **Django Phonenumber Field**: Django package for storing phone numbers in models.
+- **Django Rest Framework**: Django package for building RESTful APIs.
+- **Django Rest Framework Simple JWT**: Django package for JWT authentication.
+- **Gunicorn**: Python WSGI HTTP Server for UNIX.
 
 ### Frontend
 
-- **React** - JavaScript library for building user interfaces.
-- **React Bootstrap** - React components for faster and easier web development using Bootstrap.
-- **Axios** - Promise-based HTTP client for the browser and Node.js.
-- **Date-fns** - JavaScript date utility library.
-- **JWT Decode** - JavaScript library for decoding JWTs.
-- **React Icons** - SVG icons as React components.
-- **React Infinite Scroll Component** - React component for infinite scrolling.
-- **React Router DOM** - DOM bindings for React Router.
-- **React Hook Form** - React library for flexible and easy-to-use form validation.
-- **Web Vitals** - Library for measuring web performance metrics.
-
+- **React**: JavaScript library for building user interfaces.
+- **React Bootstrap**: React components for faster and easier web development using Bootstrap.
+- **Axios**: Promise-based HTTP client for the browser and Node.js.
+- **Date-fns**: JavaScript date utility library.
+- **JWT Decode**: JavaScript library for decoding JWTs.
+- **React Icons**: SVG icons as React components.
+- **React Infinite Scroll Component**: React component for infinite scrolling.
+- **React Router DOM**: DOM bindings for React Router.
+- **React Hook Form**: React library for flexible and easy-to-use form validation.
+- **Web Vitals**: Library for measuring web performance metrics.
 ## Deployment
 
 To deploy the backend locally, follow these steps:
@@ -235,7 +230,7 @@ For each user story in my project, I have conducted thorough manual testing to e
 To ensure the quality and reliability of the JavaScript code in my project, I have used appropriate validation tools, such as linting tools. Here's an overview of the validation process:
 
 1. **Linting**:
-   - I utilized a linting tool to analyze my JavaScript code for potential errors, code style violations, and best practice adherence.
+   - I utilized code institutes linting tool to analyze my JavaScript code for potential errors, code style violations, and best practice adherence.
    - Final result: No errors.
 
 ### Event Management System Database Overview:
@@ -308,7 +303,7 @@ And lastly, the volunteer page on labtop size.<br>
 
 ## Attributions
 
-The hero image used on this site was created with the assistance of OpenAI. We extend our gratitude to OpenAI for their support in enhancing the visual appeal of our platform.
+The hero image used on this site was created with the assistance of OpenAI. 
 
 ## Licensing
 

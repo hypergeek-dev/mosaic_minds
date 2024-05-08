@@ -30,7 +30,7 @@ const MeetingSearchForm = ({ onSearch }) => {
 
     return (
         <form className="views-exposed-form bef-exposed-form" onSubmit={handleSubmit}>
-            {/* Day Filter */}
+
             <div>
                 <label htmlFor="day">Day</label>
                 <select id="day" value={day} onChange={(e) => setDay(e.target.value)}>
@@ -45,7 +45,6 @@ const MeetingSearchForm = ({ onSearch }) => {
                 </select>
             </div>
 
-            {/* Time Filter */}
             <div>
                 <label htmlFor="time">Time</label>
                 <select id="time" value={time} onChange={(e) => setTime(e.target.value)}>
@@ -56,7 +55,6 @@ const MeetingSearchForm = ({ onSearch }) => {
                 </select>
             </div>
 
-            {/* Area Filter */}
             <div>
                 <label htmlFor="area">Area</label>
                 <select id="area" value={area} onChange={(e) => setArea(e.target.value)}>
@@ -98,7 +96,6 @@ const MeetingSearchForm = ({ onSearch }) => {
 </select>
             </div>
 
-            {/* Meeting Name Filter */}
             <div>
                 <label htmlFor="meetingName">Meeting Name</label>
                 <input
@@ -110,7 +107,7 @@ const MeetingSearchForm = ({ onSearch }) => {
                 />
             </div>
 
-            {/* Submit Button */}
+    
             <button type="submit">Search</button>
         </form>
     );

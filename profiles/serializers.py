@@ -15,17 +15,14 @@ class ProfileSerializer(serializers.ModelSerializer):
         return request.user == obj.owner
 
     def update(self, instance, validated_data):
-        # Extract 'email' from 'owner' data
         owner_data = validated_data.pop('owner', {})
         email = owner_data.get('email')
         
-        # Update email if it is provided
         if email:
             user = User.objects.get(id=instance.owner.id)
             user.email = email
             user.save()
 
-        # Update other Profile fields
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
