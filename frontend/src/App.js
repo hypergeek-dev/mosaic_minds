@@ -19,6 +19,7 @@ import ProfileEditForm from './components/ProfileEditForm';
 import NotFound from './pages/NotFound';
 import UserNameForm from './components/UserNameForm';
 import UserPasswordForm from './components/UserPasswordForm';
+import FavoritesList from './components/FavoritesList';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/signup" component={SignUpForm} />
           <Route path="/meetings/create" component={MeetingCreateForm} />
           <Route exact path="/meetings/:id" component={MeetingDetails} />
+          <Route exact path="/favorites/:meeting_id" component={FavoritesList} />
           <Route exact path="/meetings/:id/edit" component={MeetingEditForm} />
           <Route path="/profiles/:id" component={ProfilePage} />
           <Route path="/profiles/:id/edit" component={ProfileEditForm} />

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { getFullAreaName, formatMeetingTimeRange } from '../api/MeetingUtils'; 
+import { getFullAreaName, formatMeetingTimeRange } from '../api/MeetingUtils';
 
 const fetchFavorites = async (page) => {
   try {
-    const response = await axios.get(`/favorites/`);
+    const response = await axios.get(`/favorites/?page=${page}`);
     return {
       results: response.data.results,
-      totalPages: Math.ceil(response.data.count / 10),
+      totalPages: response.data.totalPages, 
     };
   } catch (error) {
     console.error('Error in fetchFavorites:', error);
@@ -27,12 +27,12 @@ const FavoritesList = () => {
   useEffect(() => {
     setIsLoading(true);
     fetchFavorites(currentPage)
-      .then(data => {
+      .then((data) => {
         setFavorites(data.results);
         setTotalPages(data.totalPages);
         setIsLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching favorites:', error);
         setError(error);
         setIsLoading(false);
@@ -51,28 +51,28 @@ const FavoritesList = () => {
     }
   };
 
-  const renderMeetingCard = (meeting) => {
+  const renderMeetingCard = (favorite) => {
     return (
-      <Col key={meeting.id}>
+      <Col key={favorite.id}>
         <Card className="h-100 shadow-sm">
           <Card.Body>
-            <Card.Title aria-label={`Meeting Name: ${meeting.name}`}>{meeting.meeting_name}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted" aria-label={`Meeting Time: ${formatMeetingTimeRange(meeting.start_time, meeting.end_time)}`}>
-              {meeting.weekday_display} - {formatMeetingTimeRange(meeting.start_time, meeting.end_time)}
+            <Card.Title aria-label={`Meeting Name: ${favorite.name}`}>{favorite.meeting_name}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted" aria-label={`Meeting Time: ${formatMeetingTimeRange(favorite.start_time, favorite.end_time)}`}>
+              {favorite.weekday_display} - {formatMeetingTimeRange(favorite.start_time, favorite.end_time)}
             </Card.Subtitle>
-            <Card.Subtitle className="mb-2 text-muted" aria-label={`Area: ${getFullAreaName(meeting.area)}`}>
-              {getFullAreaName(meeting.area)}
+            <Card.Subtitle className="mb-2 text-muted" aria-label={`Area: ${getFullAreaName(favorite.area)}`}>
+              {getFullAreaName(favorite.area)}
             </Card.Subtitle>
-            <Card.Text aria-label={`Description: ${meeting.description}`}>
-              {meeting.description}
+            <Card.Text aria-label={`Description: ${favorite.description}`}>
+              {favorite.description}
             </Card.Text>
           </Card.Body>
           <Card.Footer>
-            <Link to={`/meetings/${meeting.id}`} className="btn btn-primary me-2 button-spacing" aria-label={`Details for ${meeting.name}`}>
-              Details
-            </Link>
-            {meeting.online_meeting_url && (
-              <a href={meeting.online_meeting_url} className="btn btn-secondary button-spacing" aria-label={`Join Online Meeting for ${meeting.name}`}>
+          <Link to={`/meetings/${favorite.meeting}`} className="btn btn-primary me-2 button-spacing" aria-label={`Details for ${favorite.name}`}>
+  Details
+</Link>
+            {favorite.online_meeting_url && (
+              <a href={favorite.online_meeting_url} className="btn btn-secondary button-spacing" aria-label={`Join Online Meeting for ${favorite.name}`}>
                 Online Meeting
               </a>
             )}
