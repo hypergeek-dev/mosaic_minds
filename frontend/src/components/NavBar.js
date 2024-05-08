@@ -4,7 +4,7 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDoorOpen, faCog, faSignInAlt } from '@fortawesome/free-solid-svg-icons'; 
+import { faDoorOpen, faCog, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons'; 
 import { removeTokenTimestamp } from "../api/utils";
 
 const NavBar = () => {
@@ -37,18 +37,26 @@ const NavBar = () => {
           <Nav className="ml-auto">
             {currentUser ? (
               <Nav.Link as={Link} to={currentUser.is_superuser ? '/admin' : `/profiles/${currentUser.id}`}>
-                <FontAwesomeIcon icon={faCog} /> Profile Settings
+                <span className="d-inline d-md-none">Profile Settings</span>
+                <FontAwesomeIcon icon={faCog} className="d-none d-md-inline" /> 
               </Nav.Link>
             ) : null}
-            {currentUser && (
+            {currentUser ? (
               <Nav.Link onClick={handleSignOut}>
-                <FontAwesomeIcon icon={faDoorOpen} /> Logout
+                <FontAwesomeIcon icon={faDoorOpen} className="d-none d-md-inline" />
+                <span className="d-inline d-md-none">Logout</span>
               </Nav.Link>
-            )}
-            {!currentUser && (
-              <Nav.Link as={Link} to="/signin">
-                <FontAwesomeIcon icon={faSignInAlt} /> 
-              </Nav.Link>
+            ) : (
+              <>
+                <Nav.Link as={Link} to="/signin">
+                  <span className="d-inline d-md-none">Sign in</span>
+                  <FontAwesomeIcon icon={faSignInAlt} className="d-none d-md-inline" /> 
+                </Nav.Link>
+                <Nav.Link as={Link} to="/signup">
+                  <span className="d-inline d-md-none">New user</span>
+                  <FontAwesomeIcon icon={faUserPlus} className="d-none d-md-inline" /> 
+                </Nav.Link>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>

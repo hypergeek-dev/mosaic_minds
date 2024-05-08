@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { useHistory, Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom"; 
 
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
@@ -23,7 +23,6 @@ function SignInForm() {
 
   const [errors, setErrors] = useState({});
 
-  const history = useHistory();
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -31,7 +30,8 @@ function SignInForm() {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
       setTokenTimestamp(data);
-      history.goBack();
+     
+      window.location.reload();
     } catch (err) {
       console.log("Error Object:", err); 
       console.log("Error Response Data:", err.response?.data); 
