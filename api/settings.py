@@ -44,17 +44,13 @@ DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
-    'localhost',
-    'mosaic-minds-4753e67f05bc.herokuapp.com',  
+    'localhost','8000-hypergeekde-mosaicminds-2vaj8x5cyx1.ws-eu111.gitpod.io/','3000-hypergeekde-mosaicminds-2vaj8x5cyx1.ws-eu111.gitpod.io',
+    '*'
 ]
 
 CORS_ALLOWED_ORIGINS = [
-CORS_ALLOWED_ORIGINS = [
-    os.environ.get('CLIENT_ORIGIN'), 
-    'https://mosaic-minds-4753e67f05bc.herokuapp.com', 
-
+    os.environ.get('CLIENT_ORIGIN'),'https:/3000-hypergeekde-mosaicminds-2vaj8x5cyx1.ws-eu111.gitpod.io'
 ]
-
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -139,8 +135,11 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 CORS_ALLOWED_ORIGINS = [
-    os.environ.get('CLIENT_ORIGIN')
+    os.environ.get('CLIENT_ORIGIN'), 
+    'http://127.0.0.1:8000',
+    'https://mosaic-minds-4753e67f05bc.herokuapp.com'
 ]
+
 
 
 AUTH_PASSWORD_VALIDATORS = [

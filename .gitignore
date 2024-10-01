@@ -16,3 +16,4 @@ db.sqlite3
 .env.development.local
 myenv
 meetings/migrations/0001_initial.py
+.venv/
