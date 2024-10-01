@@ -44,13 +44,17 @@ DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
-    'localhost','8000-hypergeekde-mosaicminds-2vaj8x5cyx1.ws-eu111.gitpod.io/','3000-hypergeekde-mosaicminds-2vaj8x5cyx1.ws-eu111.gitpod.io',
-    '*'
+    'localhost',
+    'mosaic-minds-4753e67f05bc.herokuapp.com',  
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    os.environ.get('CLIENT_ORIGIN'),'https:/3000-hypergeekde-mosaicminds-2vaj8x5cyx1.ws-eu111.gitpod.io'
+CORS_ALLOWED_ORIGINS = [
+    os.environ.get('CLIENT_ORIGIN'), 
+    'https://mosaic-minds-4753e67f05bc.herokuapp.com', 
+
 ]
+
 
 CORS_ALLOW_CREDENTIALS = True
 
